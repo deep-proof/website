@@ -3,51 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Deep Proof turns complex dossiers into structured, evidence-based reviews with validated AI Skills."
-    />
+    <title>Deep Proof — evidence-based reviews for complex dossiers</title>
+    <meta name="description" content="Deep Proof turns data rooms, credit files and complex proposals into structured, evidence-based reviews with validated AI Skills. Open source, from Switzerland." />
     <meta name="theme-color" content="#07151d" />
-    <title>Deep Proof — from dossier to decision</title>
+    <link rel="canonical" href="https://deepproof.ch/" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Deep Proof" />
+    <meta property="og:title" content="Deep Proof — evidence-based reviews for complex dossiers" />
+    <meta property="og:description" content="Deep Proof turns data rooms, credit files and complex proposals into structured, evidence-based reviews with validated AI Skills. Open source, from Switzerland." />
+    <meta property="og:url" content="https://deepproof.ch/" />
+    <meta property="og:image" content="https://deepproof.ch/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Deep Proof: from dossier to decision." />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://deepproof.ch/#organization", "name": "Outfinity SARL", "alternateName": "Outfinity Venture Studio", "url": "https://outfinity.ch", "address": {"@type": "PostalAddress", "addressCountry": "CH"}}, {"@type": "SoftwareApplication", "name": "Deep Proof", "url": "https://deepproof.ch/", "applicationCategory": "BusinessApplication", "description": "Deep Proof turns complex dossiers into structured, evidence-based reviews with validated AI Skills.", "license": "https://www.gnu.org/licenses/gpl-3.0.html", "codeRepository": "https://github.com/deep-proof/deep-proof-community-edition", "publisher": {"@id": "https://deepproof.ch/#organization"}, "contributor": {"@type": "Organization", "name": "Axiologic Research", "url": "https://www.axiologic.net/"}, "email": "contact@deepproof.ch"}]}</script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <div class="grain" aria-hidden="true"></div>
-
     <header class="site-header">
       <a class="brand" href="#top" aria-label="Deep Proof home">
-        <span class="brand-mark">D</span>
+        <span class="brand-mark" aria-hidden="true">D</span>
         <span>Deep Proof</span>
       </a>
-      <nav aria-label="Primary navigation">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>
+        <span class="menu-toggle-bars" aria-hidden="true"></span><span>Menu</span>
+      </button>
+      <nav id="primary-nav" aria-label="Primary navigation" data-menu>
         <a href="#how-it-works">How it works</a>
         <a href="#skills">Skills</a>
+        <a href="security.html">Security</a>
         <a href="#open-source">Open source</a>
+        <a href="about.html">About</a>
+        <a href="#contact">Contact</a>
       </nav>
-      <button class="header-contact" type="button" data-contact-open>Discuss your use case <span>↗</span></button>
+      <button class="header-contact" type="button" data-contact-open>Discuss your use case <span aria-hidden="true">↗</span></button>
     </header>
 
     <main id="main-content">
       <section class="hero" id="top">
         <div class="hero-copy reveal">
-          <p class="eyebrow"><span></span> A decision workspace for serious reviews</p>
+          <p class="eyebrow"><span></span> Document review for high-stakes decisions</p>
           <h1>From dossier to <em>decision.</em></h1>
           <p class="hero-lead">
-            An analyst’s perspective. Evidence you can inspect. Deep Proof turns dense files into a review your team can trust and challenge.
+            Deep Proof reviews data rooms, credit files and complex proposals against your own criteria. Every finding comes with the evidence behind it, so your team can inspect it, challenge it and make the call.
           </p>
           <div class="hero-actions">
-            <button class="button button-primary" type="button" data-story-start>
-              Watch the story <span>↓</span>
+            <button class="button button-primary" type="button" data-contact-open>
+              Discuss your use case <span aria-hidden="true">↗</span>
             </button>
-            <button class="button button-quiet" type="button" data-contact-open>
-              Discuss your use case <span>↗</span>
+            <button class="button button-quiet" type="button" data-story-start>
+              See how it works <span aria-hidden="true">↓</span>
             </button>
           </div>
-          <div class="hero-note">
-            <span class="pulse"></span>
-            <span>Open-source platform. Commercially supported implementation.</span>
-          </div>
+          <ul class="trust-list" aria-label="Key facts">
+            <li><span class="trust-check" aria-hidden="true"></span>Open source under GPL-3.0</li>
+            <li><span class="trust-check" aria-hidden="true"></span>Swiss company: Outfinity SARL</li>
+            <li><span class="trust-check" aria-hidden="true"></span>Runs in the environment you choose</li>
+          </ul>
         </div>
 
         <div class="story-shell reveal" aria-label="Animated Deep Proof introduction">
@@ -167,7 +185,7 @@
           <p class="eyebrow"><span></span> Deep Proof, in practice</p>
           <h2>Complex documents need more than a <em>prompt.</em></h2>
           <p class="statement-lead">
-            Create a project, add its documents, and review them against the criteria that matter. Deep Proof produces clear findings, a decision memo and the questions worth asking — with the evidence beside every claim.
+            Create a project, add its documents, and review them against the criteria that matter. Deep Proof produces clear findings, a decision memo and the questions worth asking, with the evidence beside every claim.
           </p>
         </div>
       </section>
@@ -186,7 +204,7 @@
               <li>One-off answers vary with each prompt</li>
               <li>Method and assumptions stay implicit</li>
               <li>Hard to test, compare or govern</li>
-              <li>Sources may be cited, gaps may not be systematic</li>
+              <li>Sources may be cited, but gaps are not checked systematically</li>
             </ul>
             <p>ChatGPT and Claude are powerful starting points. On their own, they do not create a review process tailored to your standards.</p>
           </article>
@@ -215,19 +233,19 @@
           </p>
         </div>
         <div class="skill-building">
-          <div class="skill-steps">
-            <article class="skill-step is-selected" data-skill="0">
-              <span>01</span><div><h3>Review instructions</h3><p>What to examine, how to reason and what a good finding looks like.</p></div>
-            </article>
-            <article class="skill-step" data-skill="1">
-              <span>02</span><div><h3>Analysis code &amp; tools</h3><p>Repeatable checks, calculations and source-handling logic where needed.</p></div>
-            </article>
-            <article class="skill-step" data-skill="2">
-              <span>03</span><div><h3>Verification suite</h3><p>Test cases that challenge the Skill before it becomes part of a real decision workflow.</p></div>
-            </article>
-            <article class="skill-step" data-skill="3">
-              <span>04</span><div><h3>Calibration &amp; approval</h3><p>Refinement with your experts, thresholds and terminology, then ongoing stewardship.</p></div>
-            </article>
+          <div class="skill-steps" role="group" aria-label="Parts of a Skill">
+            <button class="skill-step is-selected" type="button" data-skill="0" aria-pressed="true">
+              <span class="skill-step-num">01</span><span class="skill-step-body"><span class="skill-step-title">Review instructions</span><span class="skill-step-text">What to examine, how to reason and what a good finding looks like.</span></span>
+            </button>
+            <button class="skill-step" type="button" data-skill="1" aria-pressed="false">
+              <span class="skill-step-num">02</span><span class="skill-step-body"><span class="skill-step-title">Analysis code &amp; tools</span><span class="skill-step-text">Repeatable checks, calculations and source-handling logic where needed.</span></span>
+            </button>
+            <button class="skill-step" type="button" data-skill="2" aria-pressed="false">
+              <span class="skill-step-num">03</span><span class="skill-step-body"><span class="skill-step-title">Verification suite</span><span class="skill-step-text">Test cases that challenge the Skill before it becomes part of a real decision workflow.</span></span>
+            </button>
+            <button class="skill-step" type="button" data-skill="3" aria-pressed="false">
+              <span class="skill-step-num">04</span><span class="skill-step-body"><span class="skill-step-title">Calibration &amp; approval</span><span class="skill-step-text">Refinement with your experts, thresholds and terminology, then ongoing stewardship.</span></span>
+            </button>
           </div>
           <div class="skill-preview" aria-live="polite">
             <div class="preview-topline"><span data-preview-kind>Skill file / instructions</span><span class="live-dot"></span></div>
@@ -243,9 +261,9 @@
           </div>
         </div>
         <div class="skills-callout">
-          <span class="callout-symbol">↗</span>
+          <span class="callout-symbol" aria-hidden="true">↗</span>
           <p><strong>We help firms prepare, validate and calibrate their Skills.</strong> Your team brings the judgement and domain knowledge. We shape a dependable analysis system around it.</p>
-          <a href="mailto:contact@deepseek.ch?subject=Deep%20Proof%20Skills%20workshop">Plan a Skills workshop <span>→</span></a>
+          <a href="mailto:contact@deepproof.ch?subject=Deep%20Proof%20Skills%20workshop">Plan a Skills workshop <span aria-hidden="true">→</span></a>
         </div>
       </section>
 
@@ -255,14 +273,14 @@
           <p class="eyebrow"><span></span> Every review, structured</p>
           <h2>See the full picture. Interrogate every part.</h2>
         </div>
-        <div class="review-list" role="list">
-          <div class="review-list-item" role="listitem"><span>01</span><h3>Criterion-by-criterion review</h3><p>Follow the decision standards your team has set.</p></div>
-          <div class="review-list-item" role="listitem"><span>02</span><h3>Findings &amp; recommendations</h3><p>Distil the meaningful points without flattening the reasoning.</p></div>
-          <div class="review-list-item" role="listitem"><span>03</span><h3>Risks &amp; contradictions</h3><p>Make tensions across the dossier visible early.</p></div>
-          <div class="review-list-item" role="listitem"><span>04</span><h3>Missing evidence</h3><p>Flag what the documents do not actually support.</p></div>
-          <div class="review-list-item" role="listitem"><span>05</span><h3>Questions to ask</h3><p>Turn uncertainty into a sharper next conversation.</p></div>
-          <div class="review-list-item" role="listitem"><span>06</span><h3>Confidence &amp; citations</h3><p>Trace claims back to their source evidence.</p></div>
-        </div>
+        <ul class="review-list">
+          <li class="review-list-item"><span>01</span><h3>Criterion-by-criterion review</h3><p>Follow the decision standards your team has set.</p></li>
+          <li class="review-list-item"><span>02</span><h3>Findings &amp; recommendations</h3><p>Distil the meaningful points without flattening the reasoning.</p></li>
+          <li class="review-list-item"><span>03</span><h3>Risks &amp; contradictions</h3><p>Make tensions across the dossier visible early.</p></li>
+          <li class="review-list-item"><span>04</span><h3>Missing evidence</h3><p>Flag what the documents do not actually support.</p></li>
+          <li class="review-list-item"><span>05</span><h3>Questions to ask</h3><p>Turn uncertainty into a sharper next conversation.</p></li>
+          <li class="review-list-item"><span>06</span><h3>Confidence &amp; citations</h3><p>Trace claims back to their source evidence.</p></li>
+        </ul>
       </section>
 
       <section class="governance-section">
@@ -273,7 +291,7 @@
             Administrators manage users, project types and access by project type. Each review type can have its own editable criteria and playbook. Start with plain language, let Deep Proof draft a first structure, then refine it before use.
           </p>
         </div>
-        <div class="governance-board">
+        <div class="governance-board" aria-hidden="true">
           <div class="board-top"><span>Review governance</span><span class="board-live">● configured</span></div>
           <div class="board-item"><span class="board-icon">↳</span><div><strong>Private equity</strong><small>Investment committee review</small></div><i>Manage</i></div>
           <div class="board-item"><span class="board-icon">◎</span><div><strong>Commercial lending</strong><small>Credit underwriting</small></div><i>Manage</i></div>
@@ -284,15 +302,78 @@
         </div>
       </section>
 
+      <section class="security-section section-dark" id="security" aria-labelledby="security-title">
+        <div class="security-heading">
+          <div class="section-count">03 /</div>
+          <div>
+            <p class="eyebrow"><span></span> Security &amp; data handling</p>
+            <h2 id="security-title">Confidential files stay where you <em>decide.</em></h2>
+            <p>Data rooms and credit files are sensitive by nature. These are the answers your security team will ask for first.</p>
+          </div>
+        </div>
+        <div class="security-grid">
+          <article class="security-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18M8 4v5"/></svg>
+            <h3>You choose where it runs</h3>
+            <p>The platform is open source. You can run it in your own infrastructure, or we agree a deployment with you around your privacy requirements.</p>
+          </article>
+          <article class="security-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3.5v5.5c0 4.6-3.3 7.9-8 9-4.7-1.1-8-4.4-8-9V6.5L12 3z"/></svg>
+            <h3>You choose the AI provider</h3>
+            <p>Use your own AI subscription, under the terms you already have with that provider, or a custom model deployment.</p>
+          </article>
+          <article class="security-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.6 3.4-6 7-6s6.4 2.4 7 6"/></svg>
+            <h3>You control who sees what</h3>
+            <p>Administrators manage users and grant access by project type, including restricted viewers for sensitive reviews.</p>
+          </article>
+          <article class="security-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
+            <h3>You can inspect the code</h3>
+            <p>The Community Edition is published under GPL-3.0. Your engineers can review exactly how documents are processed.</p>
+          </article>
+        </div>
+        <a class="text-link text-link-light" href="security.html">Read the security overview <span aria-hidden="true">→</span></a>
+      </section>
+
       <section class="uses-section">
         <p class="eyebrow"><span></span> Built for document-intensive decisions</p>
-        <div class="uses-cloud" aria-label="Example use cases">
-          <span>Private equity</span><span>Private credit</span><span>M&amp;A</span><span>Family offices</span><span>Commercial lending</span><span>Consulting</span><span>Audit &amp; advisory</span><span>CAPEX portfolios</span><span>Insurance</span><span>Public procurement</span><span>Grants &amp; innovation funds</span><span>Development banks</span><span>Pharma &amp; MedTech</span><span>KYC, AML &amp; investigations</span>
+        <ul class="uses-cloud" aria-label="Example use cases">
+          <li>Private equity</li><li>Private credit</li><li>M&amp;A</li><li>Family offices</li><li>Commercial lending</li><li>Consulting</li><li>Audit &amp; advisory</li><li>CAPEX portfolios</li><li>Insurance</li><li>Public procurement</li><li>Grants &amp; innovation funds</li><li>Development banks</li><li>Pharma &amp; MedTech</li><li>KYC, AML &amp; investigations</li>
+        </ul>
+      </section>
+
+      <section class="engagement-section" id="engagement" aria-labelledby="engagement-title">
+        <div class="engagement-heading">
+          <p class="eyebrow"><span></span> How we work with you</p>
+          <h2 id="engagement-title">From first conversation to a review your team relies on.</h2>
         </div>
+        <ol class="engagement-steps">
+          <li>
+            <span class="engagement-num">01</span>
+            <h3>Scoping conversation</h3>
+            <p>We map the decision, the documents and the criteria that matter, and estimate the work needed to prepare its Skills.</p>
+          </li>
+          <li>
+            <span class="engagement-num">02</span>
+            <h3>Skills workshop</h3>
+            <p>Your experts bring the judgement. We turn it into review instructions, analysis code and test cases.</p>
+          </li>
+          <li>
+            <span class="engagement-num">03</span>
+            <h3>Validation &amp; calibration</h3>
+            <p>The Skill is challenged by its verification suite, then refined with your thresholds and terminology before it touches a real decision.</p>
+          </li>
+          <li>
+            <span class="engagement-num">04</span>
+            <h3>Deployment &amp; stewardship</h3>
+            <p>Deep Proof runs in the environment you choose. Skills are maintained as your standards and policies change.</p>
+          </li>
+        </ol>
       </section>
 
       <section class="open-source-section" id="open-source">
-        <div class="open-source-mark"><span>&lt;/&gt;</span><small>GPL-3.0</small></div>
+        <div class="open-source-mark" aria-hidden="true"><span>&lt;/&gt;</span><small>GPL-3.0</small></div>
         <div class="open-source-copy">
           <p class="eyebrow"><span></span> Open source, deliberately practical</p>
           <h2>The platform is open. The method is <em>yours.</em></h2>
@@ -300,23 +381,63 @@
             Deep Proof Community Edition is open source. You can inspect, extend and run the platform in the environment that suits your organisation. The commercial work is making its analytical Skills dependable in your real setting.
           </p>
           <div class="open-source-links">
-            <a href="https://github.com/deep-proof/deep-proof-community-edition.git" target="_blank" rel="noreferrer">Explore Community Edition <span>↗</span></a>
-            <a href="https://outfinity.ch" target="_blank" rel="noreferrer">About Outfinity <span>↗</span></a>
+            <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener">Explore Community Edition <span aria-hidden="true">↗</span></a>
+            <a href="licensing.html">How licensing works <span aria-hidden="true">→</span></a>
           </div>
         </div>
-        <aside class="venture-note">
-          <span>Backed by</span>
-          <strong>Outfinity<br />Venture Studio</strong>
-          <p>Deep Proof is a venture supported by <a href="https://outfinity.ch" target="_blank" rel="noreferrer">Outfinity Venture Studio</a>, Switzerland.</p>
+        <aside class="venture-note" aria-label="Who is behind Deep Proof">
+          <span>Who is behind Deep Proof</span>
+          <dl>
+            <div><dt>Company</dt><dd>Outfinity SARL, Switzerland</dd></div>
+            <div><dt>Venture studio</dt><dd><a href="https://outfinity.ch" target="_blank" rel="noopener">Outfinity Venture Studio</a></dd></div>
+            <div><dt>Implementation</dt><dd><a href="https://www.axiologic.net/" target="_blank" rel="noopener">Axiologic Research</a></dd></div>
+          </dl>
+          <a class="venture-more" href="about.html">About us <span aria-hidden="true">→</span></a>
         </aside>
       </section>
 
-      <section class="contact-section">
+      <section class="faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="faq-heading">
+          <p class="eyebrow"><span></span> Questions we hear first</p>
+          <h2 id="faq-title">Before you book a call.</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>How is this different from uploading files to ChatGPT or Claude?</summary>
+            <p>A chat answers the question you typed. Deep Proof applies a defined review method: the same criteria, instructions and checks every time, with evidence, gaps and uncertainty recorded for each criterion. The method can be tested, versioned and governed like any other part of your process.</p>
+          </details>
+          <details>
+            <summary>Which AI models does Deep Proof use?</summary>
+            <p>You can connect your own AI subscription, under the terms you already have with that provider, or use a custom deployment designed around your privacy requirements. The choice is made per organisation during scoping.</p>
+          </details>
+          <details>
+            <summary>Where do our documents go?</summary>
+            <p>That depends on the deployment you choose. When you run the platform in your own infrastructure, documents are stored there and text is only sent to the AI provider you configure. The <a href="security.html">security overview</a> explains the options.</p>
+          </details>
+          <details>
+            <summary>Does Deep Proof make the decision?</summary>
+            <p>No. Deep Proof makes its reasoning inspectable: findings, citations, contradictions and open questions. Your team reads the reasoning and makes the call.</p>
+          </details>
+          <details>
+            <summary>What is free and what is paid?</summary>
+            <p>The Community Edition platform is open source under GPL-3.0. The commercial work is preparing, validating and calibrating Skills for your use case, and supporting the implementation. See <a href="licensing.html">licensing</a> for details.</p>
+          </details>
+          <details>
+            <summary>Who is behind Deep Proof?</summary>
+            <p>Deep Proof is developed by Outfinity SARL, a Swiss company that trades as Outfinity Venture Studio. The platform was implemented together with our associated company, Axiologic Research. <a href="about.html">More about us</a>.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact">
         <div class="contact-orbit" aria-hidden="true"><span>✦</span><i></i><b></b></div>
         <p class="eyebrow"><span></span> Begin with the actual use case</p>
         <h2>Bring us the decision you need to <em>make.</em></h2>
-        <p>We will map the project, estimate the work needed to prepare its Skills and show you how Deep Proof fits your team.</p>
-        <a class="contact-email" href="mailto:contact@deepseek.ch?subject=Deep%20Proof%20project%20conversation">contact@deepseek.ch <span>↗</span></a>
+        <p>In a first conversation we map the project, estimate the work needed to prepare its Skills and show you how Deep Proof fits your team.</p>
+        <div class="contact-actions">
+          <button class="button button-primary" type="button" data-contact-open>Describe your use case <span aria-hidden="true">↗</span></button>
+          <a class="contact-email" href="mailto:contact@deepproof.ch?subject=Deep%20Proof%20project%20conversation">contact@deepproof.ch <span aria-hidden="true">↗</span></a>
+        </div>
       </section>
     </main>
 
@@ -325,7 +446,7 @@
         <button class="dialog-close" type="button" data-contact-close aria-label="Close contact form">×</button>
         <p class="eyebrow"><span></span> Deep Proof / project conversation</p>
         <h2 id="contact-dialog-title">Discuss your use case.</h2>
-        <p class="dialog-lead">Tell us what decision you need to prepare. When you send the form, your email application opens with the details already drafted.</p>
+        <p class="dialog-lead">Tell us what decision you need to prepare. When you send the form, your email application opens with the message drafted to contact@deepproof.ch. Nothing is stored on this website.</p>
         <form class="contact-form" data-contact-form>
           <label>
             Your name
@@ -352,21 +473,47 @@
             What would you like to review?
             <textarea name="message" rows="4" required placeholder="A short description of the project, documents and criteria that matter."></textarea>
           </label>
-          <button class="button button-primary" type="submit">Draft email to Deep Proof <span>↗</span></button>
+          <button class="button button-primary" type="submit">Draft email to Deep Proof <span aria-hidden="true">↗</span></button>
         </form>
-        <p class="direct-email">Or write to us directly: <a href="mailto:contact@deepseek.ch">contact@deepseek.ch</a></p>
+        <div class="form-fallback" data-form-fallback hidden>
+          <p role="status">Your email application should now be open with the message drafted. If nothing happened, copy the message and send it to <a href="mailto:contact@deepproof.ch">contact@deepproof.ch</a>.</p>
+          <button class="button button-quiet" type="button" data-copy-message>Copy message</button>
+        </div>
+        <p class="direct-email">Or write to us directly: <a href="mailto:contact@deepproof.ch">contact@deepproof.ch</a>. See our <a href="privacy.html">privacy notice</a>.</p>
       </div>
     </dialog>
 
     <footer class="site-footer">
-      <a class="brand" href="#top"><span class="brand-mark">D</span><span>Deep Proof</span></a>
-      <p>Deep Proof will be hosted at <strong>deepproof.ch</strong></p>
-      <div>
-        <a href="https://www.axiologic.net/" target="_blank" rel="noreferrer">Axiologic</a>
-        <a href="https://github.com/deep-proof/deep-proof-community-edition.git" target="_blank" rel="noreferrer">GitHub</a>
-        <a href="https://outfinity.ch" target="_blank" rel="noreferrer">Outfinity</a>
-        <a href="about.html">About</a>
-        <a href="privacy.html">Privacy</a>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="brand" href="index.html" aria-label="Deep Proof home"><span class="brand-mark" aria-hidden="true">D</span><span>Deep Proof</span></a>
+          <p>Evidence-based document review for teams making high-stakes decisions.</p>
+          <a class="footer-email" href="mailto:contact@deepproof.ch">contact@deepproof.ch</a>
+        </div>
+        <nav class="footer-col" aria-label="Product">
+          <h2>Product</h2>
+          <a href="index.html#how-it-works">How it works</a>
+          <a href="index.html#skills">Skills</a>
+          <a href="index.html#engagement">How we work</a>
+          <a href="security.html">Security &amp; data</a>
+          <a href="index.html#faq">FAQ</a>
+        </nav>
+        <nav class="footer-col" aria-label="Open source">
+          <h2>Open source</h2>
+          <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener">Community Edition on GitHub</a>
+          <a href="licensing.html">Licensing</a>
+        </nav>
+        <nav class="footer-col" aria-label="Company">
+          <h2>Company</h2>
+          <a href="about.html">About</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="impressum.html">Impressum</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <p>© 2026 Outfinity SARL, Switzerland. Deep Proof is a venture of Outfinity Venture Studio.</p>
+        <p>Platform implementation by <a href="https://www.axiologic.net/" target="_blank" rel="noopener">Axiologic Research</a>.</p>
       </div>
     </footer>
 
