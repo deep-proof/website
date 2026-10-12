@@ -1,5 +1,12 @@
-const CONTACT_EMAIL = "contact@deepproof.ch";
+// Assembled at runtime so the address never appears in the page source.
+const CONTACT_EMAIL = ["contact", ["deepproof", "ch"].join(".")].join(String.fromCharCode(64));
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Email links ---------- */
+document.querySelectorAll("[data-mail]").forEach((link) => {
+  const subject = link.dataset.mail;
+  link.href = "mailto:" + CONTACT_EMAIL + (subject ? "?subject=" + subject : "");
+});
 
 /* ---------- Mobile navigation ---------- */
 const menuToggle = document.querySelector("[data-menu-toggle]");
@@ -28,7 +35,7 @@ const storyLabel = document.querySelector("[data-story-label]");
 const toggleButton = document.querySelector("[data-story-toggle]");
 const startButton = document.querySelector("[data-story-start]");
 const nextButton = document.querySelector("[data-story-next]");
-const storyNames = ["Project setup", "Validated Skill", "Dossier added", "Structured review", "Decision memo"];
+const storyNames = ["Project setup", "Validated AI Review Skill", "Dossier added", "Structured review", "Decision memo"];
 
 let activeScene = 0;
 let isPlaying = !reduceMotion;
@@ -106,7 +113,7 @@ if (scenes.length) {
 /* ---------- Skill preview ---------- */
 const skillPreviews = [
   {
-    kind: "Skill file / instructions",
+    kind: "AI Review Skill file / instructions",
     footer: "Instruction set checked by the review owner",
     code: [
       '<span class="code-muted"># Revenue quality review</span>',
@@ -118,7 +125,7 @@ const skillPreviews = [
     ]
   },
   {
-    kind: "Skill file / analysis logic",
+    kind: "AI Review Skill file / analysis logic",
     footer: "Repeatable checks linked to the review criteria",
     code: [
       '<span class="code-muted">// debt-service coverage</span>',
@@ -129,7 +136,7 @@ const skillPreviews = [
     ]
   },
   {
-    kind: "Skill file / verification suite",
+    kind: "AI Review Skill file / verification suite",
     footer: "Held-out cases must pass before a production review",
     code: [
       '<span class="code-muted">Scenario: conflicting evidence</span>',
@@ -140,7 +147,7 @@ const skillPreviews = [
     ]
   },
   {
-    kind: "Skill file / calibration record",
+    kind: "AI Review Skill file / calibration record",
     footer: "Approved by your review owner · v1.4",
     code: [
       '<span class="code-muted">Calibration / commercial lending</span>',
