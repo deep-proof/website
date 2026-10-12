@@ -2,6 +2,23 @@
 const CONTACT_EMAIL = ["contact", ["deepproof", "ch"].join(".")].join(String.fromCharCode(64));
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/* ---------- Light / dark theme ---------- */
+const themeToggle = document.querySelector("[data-theme-toggle]");
+const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  if (themeColorMeta) themeColorMeta.content = theme === "light" ? "#f7f8f3" : "#07151d";
+  themeToggle?.setAttribute("aria-label", theme === "light" ? "Switch to dark theme" : "Switch to light theme");
+}
+
+applyTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+themeToggle?.addEventListener("click", () => {
+  const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  applyTheme(next);
+  try { localStorage.setItem("theme", next); } catch {}
+});
+
 /* ---------- Email links ---------- */
 document.querySelectorAll("[data-mail]").forEach((link) => {
   const subject = link.dataset.mail;
