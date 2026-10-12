@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About — Deep Proof</title>
-    <meta name="description" content="Deep Proof is developed by Outfinity SARL (Outfinity Venture Studio), Switzerland, with implementation by Axiologic Research." />
+    <title data-i18n="about_deep_proof">About — Deep Proof</title>
+    <meta name="description" content="Deep Proof is developed by Outfinity SARL (Outfinity Venture Studio), Switzerland, with implementation by Axiologic Research."  data-i18n-attr="content:deep_proof_is_developed_by_outfinity_2"/>
     <meta name="theme-color" content="#f7f8f3" />
     <link rel="canonical" href="https://deepproof.ch/about.html" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -22,101 +22,109 @@
     <meta property="og:locale" content="en_GB" />
     <meta name="twitter:card" content="summary_large_image" />
     <script>try{var t=localStorage.getItem("theme");if(t!=="dark")t="light";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}</script>
+    <script src="i18n/en.js"></script>
+    <script>(function(){var l="en",q=/[?&]lang=(de|en|fr|it)\b/.exec(location.search);try{l=q?q[1]:localStorage.getItem("lang")||"en";if(q)localStorage.setItem("lang",l)}catch(e){if(q)l=q[1]}if(!/^(de|fr|it)$/.test(l))l="en";document.documentElement.lang=l;if(l!=="en")document.write('<script src="i18n/'+l+'.js"><\/script>')})();</script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="legal-page">
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content" data-i18n="skip_to_content">Skip to content</a>
     <header class="site-header">
-      <a class="brand" href="index.html" aria-label="Deep Proof home">
+      <a class="brand" href="index.html" aria-label="Deep Proof home" data-i18n-attr="aria-label:deep_proof_home">
         <span class="brand-mark" aria-hidden="true">D</span>
-        <span>Deep Proof</span>
+        <span data-i18n="deep_proof">Deep Proof</span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>
-        <span class="menu-toggle-bars" aria-hidden="true"></span><span>Menu</span>
+        <span class="menu-toggle-bars" aria-hidden="true"></span><span data-i18n="menu">Menu</span>
       </button>
-      <nav id="primary-nav" aria-label="Primary navigation" data-menu>
-        <a href="index.html#how-it-works">How it works</a>
-        <a href="index.html#skills">AI Review Skills</a>
-        <a href="security.html">Security</a>
-        <a href="index.html#open-source">Open source</a>
-        <a href="about.html">About</a>
-        <a href="index.html#contact">Contact</a>
+      <nav id="primary-nav" aria-label="Primary navigation" data-menu data-i18n-attr="aria-label:primary_navigation">
+        <a href="index.html#how-it-works" data-i18n="how_it_works">How it works</a>
+        <a href="index.html#skills" data-i18n="ai_review_skills">AI Review Skills</a>
+        <a href="security.html" data-i18n="security">Security</a>
+        <a href="index.html#open-source" data-i18n="open_source">Open-Source</a>
+        <a href="about.html" data-i18n="about">About</a>
+        <a href="index.html#contact" data-i18n="contact">Contact</a>
       </nav>
+      <select class="lang-select" data-lang-select aria-label="Language" data-i18n-attr="aria-label:language">
+        <option value="de" lang="de">DE</option>
+        <option value="en" lang="en">EN</option>
+        <option value="fr" lang="fr">FR</option>
+        <option value="it" lang="it">IT</option>
+      </select>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6z"/></svg>
       </button>
-      <a class="header-contact" href="index.html#contact">Discuss your use case <span aria-hidden="true">↗</span></a>
+      <a class="header-contact" href="index.html#contact" data-i18n="discuss_your_use_case">Discuss your use case <span aria-hidden="true">↗</span></a>
     </header>
 
     <main id="main-content" class="legal-content">
-      <p class="eyebrow"><span></span> About Deep Proof</p>
-      <h1>Make the reasoning part of the decision.</h1>
+      <p class="eyebrow" data-i18n="about_deep_proof_2"><span></span> About Deep Proof</p>
+      <h1 data-i18n="make_the_reasoning_part_of_the">Make the reasoning part of the decision.</h1>
       <div class="legal-copy">
-        <p class="legal-lead">Deep Proof is a document-review platform for teams making high-stakes, evidence-led decisions: investment committees, credit teams, auditors, procurement boards and investigators.</p>
-        <p>It combines an open-source foundation with tailored, validated AI Review Skills for specific review workflows. An AI Review Skill brings together review instructions, analysis tools, verification cases and the calibration needed for a particular organisation and project type.</p>
+        <p class="legal-lead" data-i18n="deep_proof_is_a_document_review">Deep Proof is a document-review platform for teams making high-stakes, evidence-led decisions: investment committees, credit teams, auditors, procurement boards and investigators.</p>
+        <p data-i18n="it_combines_an_open_source_foundation">It combines an open-source foundation with tailored, validated AI Review Skills for specific review workflows. An AI Review Skill brings together review instructions, analysis tools, verification cases and the calibration needed for a particular organisation and project type.</p>
 
-        <h2>What we believe</h2>
+        <h2 data-i18n="what_we_believe">What we believe</h2>
         <ul>
-          <li><strong>Reasoning should be inspectable.</strong> A finding without its evidence is an opinion. Every claim Deep Proof makes points back to its source.</li>
-          <li><strong>Gaps matter as much as findings.</strong> What a dossier does not support is often the most important result of a review.</li>
-          <li><strong>People make the decision.</strong> Deep Proof prepares the review. Your team reads the reasoning and makes the call.</li>
-          <li><strong>The platform should be open.</strong> Organisations handling confidential files should be able to inspect and run the software themselves.</li>
+          <li data-i18n="reasoning_should_be_inspectable_a_finding"><strong>Reasoning should be inspectable.</strong> A finding without its evidence is an opinion. Every claim Deep Proof makes points back to its source.</li>
+          <li data-i18n="gaps_matter_as_much_as_findings"><strong>Gaps matter as much as findings.</strong> What a dossier does not support is often the most important result of a review.</li>
+          <li data-i18n="people_make_the_decision_deep_proof"><strong>People make the decision.</strong> Deep Proof prepares the review. Your team reads the reasoning and makes the call.</li>
+          <li data-i18n="the_platform_should_be_open_organisations"><strong>The platform should be open.</strong> Organisations handling confidential files should be able to inspect and run the software themselves.</li>
         </ul>
 
-        <h2>Who is behind Deep Proof</h2>
+        <h2 data-i18n="who_is_behind_deep_proof">Who is behind Deep Proof</h2>
         <dl class="entity-list">
           <div>
-            <dt>Outfinity SARL</dt>
-            <dd>The Swiss company that develops Deep Proof and contracts with clients. Outfinity SARL trades as <a href="https://outfinity.ch" target="_blank" rel="noopener">Outfinity Venture Studio</a>.</dd>
+            <dt data-i18n="outfinity_sarl">Outfinity SARL</dt>
+            <dd data-i18n="the_swiss_company_that_develops_deep">The Swiss company that develops Deep Proof and contracts with clients. Outfinity SARL trades as <a href="https://outfinity.ch" target="_blank" rel="noopener">Outfinity Venture Studio</a>.</dd>
           </div>
           <div>
-            <dt>Outfinity Venture Studio</dt>
-            <dd>The trading name of Outfinity SARL, under which it builds and supports ventures such as Deep Proof.</dd>
+            <dt data-i18n="outfinity_venture_studio">Outfinity Venture Studio</dt>
+            <dd data-i18n="the_trading_name_of_outfinity_sarl">The trading name of Outfinity SARL, under which it builds and supports ventures such as Deep Proof.</dd>
           </div>
           <div>
-            <dt>Axiologic Research</dt>
-            <dd>Our associated company, which implemented the Deep Proof platform. <a href="https://www.axiologic.net/" target="_blank" rel="noopener">axiologic.net</a></dd>
+            <dt data-i18n="axiologic_research">Axiologic Research</dt>
+            <dd data-i18n="our_associated_company_which_implemented_the">Our associated company, which implemented the Deep Proof platform. <a href="https://www.axiologic.net/" target="_blank" rel="noopener">axiologic.net</a></dd>
           </div>
         </dl>
 
-        <h2>Working with us</h2>
-        <p>We work with teams to prepare and validate the analysis capabilities that make a real review process dependable. A first conversation maps the decision, the documents and the criteria, and estimates the work needed. <a href="index.html#engagement">See how we work</a>.</p>
-        <p>For a conversation about your use case, write to <a href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>.</p>
+        <h2 data-i18n="working_with_us">Working with us</h2>
+        <p data-i18n="we_work_with_teams_to_prepare">We work with teams to prepare and validate the analysis capabilities that make a real review process dependable. A first conversation maps the decision, the documents and the criteria, and estimates the work needed. <a href="index.html#engagement">See how we work</a>.</p>
+        <p data-i18n="for_a_conversation_about_your_use">For a conversation about your use case, write to <a href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>.</p>
       </div>
     </main>
 
     <footer class="site-footer">
       <div class="footer-top">
         <div class="footer-brand">
-          <a class="brand" href="index.html" aria-label="Deep Proof home"><span class="brand-mark" aria-hidden="true">D</span><span>Deep Proof</span></a>
-          <p>Evidence-based document review for teams making high-stakes decisions.</p>
+          <a class="brand" href="index.html" aria-label="Deep Proof home" data-i18n-attr="aria-label:deep_proof_home"><span class="brand-mark" aria-hidden="true">D</span><span data-i18n="deep_proof">Deep Proof</span></a>
+          <p data-i18n="evidence_based_document_review_for_teams">Evidence-based document review for teams making high-stakes decisions.</p>
           <a class="footer-email" href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>
         </div>
-        <nav class="footer-col" aria-label="Product">
-          <h2>Product</h2>
-          <a href="index.html#how-it-works">How it works</a>
-          <a href="index.html#skills">AI Review Skills</a>
-          <a href="index.html#engagement">How we work</a>
-          <a href="security.html">Security &amp; data</a>
-          <a href="index.html#faq">FAQ</a>
+        <nav class="footer-col" aria-label="Product" data-i18n-attr="aria-label:product">
+          <h2 data-i18n="product">Product</h2>
+          <a href="index.html#how-it-works" data-i18n="how_it_works">How it works</a>
+          <a href="index.html#skills" data-i18n="ai_review_skills">AI Review Skills</a>
+          <a href="index.html#engagement" data-i18n="how_we_work">How we work</a>
+          <a href="security.html" data-i18n="security_amp_data">Security &amp; data</a>
+          <a href="index.html#faq" data-i18n="faq">FAQ</a>
         </nav>
-        <nav class="footer-col" aria-label="Open source">
-          <h2>Open source</h2>
-          <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener">Community Edition on GitHub</a>
-          <a href="licensing.html">Licensing</a>
+        <nav class="footer-col" aria-label="Open-Source" data-i18n-attr="aria-label:open_source">
+          <h2 data-i18n="open_source">Open-Source</h2>
+          <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener" data-i18n="community_edition_on_github">Community Edition on GitHub</a>
+          <a href="licensing.html" data-i18n="licensing">Licensing</a>
         </nav>
-        <nav class="footer-col" aria-label="Company">
-          <h2>Company</h2>
-          <a href="about.html">About</a>
-          <a href="index.html#contact">Contact</a>
-          <a href="impressum.html">Impressum</a>
-          <a href="privacy.html">Privacy</a>
+        <nav class="footer-col" aria-label="Company" data-i18n-attr="aria-label:company">
+          <h2 data-i18n="company">Company</h2>
+          <a href="about.html" data-i18n="about">About</a>
+          <a href="index.html#contact" data-i18n="contact">Contact</a>
+          <a href="impressum.html" data-i18n="impressum">Impressum</a>
+          <a href="privacy.html" data-i18n="privacy">Privacy</a>
         </nav>
       </div>
       <div class="footer-legal">
-        <p>© 2026 Outfinity SARL, Switzerland. Deep Proof is a venture of Outfinity Venture Studio.</p>
-        <p>Platform implementation by <a href="https://www.axiologic.net/" target="_blank" rel="noopener">Axiologic Research</a>.</p>
+        <p data-i18n="2026_outfinity_sarl_switzerland_deep_proof">© 2026 Outfinity SARL, Switzerland. Deep Proof is a venture of Outfinity Venture Studio.</p>
+        <p data-i18n="platform_implementation_by_axiologic_research">Platform implementation by <a href="https://www.axiologic.net/" target="_blank" rel="noopener">Axiologic Research</a>.</p>
       </div>
     </footer>
 

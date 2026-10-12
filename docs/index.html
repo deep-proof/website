@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deep Proof — evidence-based reviews for complex dossiers</title>
-    <meta name="description" content="Deep Proof turns data rooms, credit files and complex proposals into structured, evidence-based reviews with validated AI Review Skills. Open source, from Switzerland." />
+    <title data-i18n="deep_proof_evidence_based_reviews_for">Deep Proof — evidence-based reviews for complex dossiers</title>
+    <meta name="description" content="Deep Proof turns data rooms, credit files and complex proposals into structured, evidence-based reviews with validated AI Review Skills. Open-Source, from Switzerland."  data-i18n-attr="content:deep_proof_turns_data_rooms_credit"/>
     <meta name="theme-color" content="#f7f8f3" />
     <link rel="canonical" href="https://deepproof.ch/" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -13,7 +13,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Deep Proof" />
     <meta property="og:title" content="Deep Proof — evidence-based reviews for complex dossiers" />
-    <meta property="og:description" content="Deep Proof turns data rooms, credit files and complex proposals into structured, evidence-based reviews with validated AI Review Skills. Open source, from Switzerland." />
+    <meta property="og:description" content="Deep Proof turns data rooms, credit files and complex proposals into structured, evidence-based reviews with validated AI Review Skills. Open-Source, from Switzerland." />
     <meta property="og:url" content="https://deepproof.ch/" />
     <meta property="og:image" content="https://deepproof.ch/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -22,61 +22,69 @@
     <meta property="og:locale" content="en_GB" />
     <meta name="twitter:card" content="summary_large_image" />
     <script>try{var t=localStorage.getItem("theme");if(t!=="dark")t="light";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}</script>
+    <script src="i18n/en.js"></script>
+    <script>(function(){var l="en",q=/[?&]lang=(de|en|fr|it)\b/.exec(location.search);try{l=q?q[1]:localStorage.getItem("lang")||"en";if(q)localStorage.setItem("lang",l)}catch(e){if(q)l=q[1]}if(!/^(de|fr|it)$/.test(l))l="en";document.documentElement.lang=l;if(l!=="en")document.write('<script src="i18n/'+l+'.js"><\/script>')})();</script>
     <link rel="stylesheet" href="styles.css" />
     <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://deepproof.ch/#organization", "name": "Outfinity SARL", "alternateName": "Outfinity Venture Studio", "url": "https://outfinity.ch", "address": {"@type": "PostalAddress", "addressCountry": "CH"}}, {"@type": "SoftwareApplication", "name": "Deep Proof", "url": "https://deepproof.ch/", "applicationCategory": "BusinessApplication", "description": "Deep Proof turns complex dossiers into structured, evidence-based reviews with validated AI Review Skills.", "license": "https://www.gnu.org/licenses/gpl-3.0.html", "codeRepository": "https://github.com/deep-proof/deep-proof-community-edition", "publisher": {"@id": "https://deepproof.ch/#organization"}, "contributor": {"@type": "Organization", "name": "Axiologic Research", "url": "https://www.axiologic.net/"}}]}</script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content" data-i18n="skip_to_content">Skip to content</a>
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="Deep Proof home">
+      <a class="brand" href="#top" aria-label="Deep Proof home" data-i18n-attr="aria-label:deep_proof_home">
         <span class="brand-mark" aria-hidden="true">D</span>
-        <span>Deep Proof</span>
+        <span data-i18n="deep_proof">Deep Proof</span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>
-        <span class="menu-toggle-bars" aria-hidden="true"></span><span>Menu</span>
+        <span class="menu-toggle-bars" aria-hidden="true"></span><span data-i18n="menu">Menu</span>
       </button>
-      <nav id="primary-nav" aria-label="Primary navigation" data-menu>
-        <a href="#how-it-works">How it works</a>
-        <a href="#skills">AI Review Skills</a>
-        <a href="security.html">Security</a>
-        <a href="#open-source">Open source</a>
-        <a href="about.html">About</a>
-        <a href="#contact">Contact</a>
+      <nav id="primary-nav" aria-label="Primary navigation" data-menu data-i18n-attr="aria-label:primary_navigation">
+        <a href="#how-it-works" data-i18n="how_it_works">How it works</a>
+        <a href="#skills" data-i18n="ai_review_skills">AI Review Skills</a>
+        <a href="security.html" data-i18n="security">Security</a>
+        <a href="#open-source" data-i18n="open_source">Open-Source</a>
+        <a href="about.html" data-i18n="about">About</a>
+        <a href="#contact" data-i18n="contact">Contact</a>
       </nav>
+      <select class="lang-select" data-lang-select aria-label="Language" data-i18n-attr="aria-label:language">
+        <option value="de" lang="de">DE</option>
+        <option value="en" lang="en">EN</option>
+        <option value="fr" lang="fr">FR</option>
+        <option value="it" lang="it">IT</option>
+      </select>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6z"/></svg>
       </button>
-      <button class="header-contact" type="button" data-contact-open>Discuss your use case <span aria-hidden="true">↗</span></button>
+      <button class="header-contact" type="button" data-contact-open data-i18n="discuss_your_use_case">Discuss your use case <span aria-hidden="true">↗</span></button>
     </header>
 
     <main id="main-content">
       <section class="hero" id="top">
         <div class="hero-copy reveal">
-          <p class="eyebrow"><span></span> Document review for high-stakes decisions</p>
-          <h1>From dossier to <em>decision.</em></h1>
-          <p class="hero-lead">
+          <p class="eyebrow" data-i18n="document_review_for_high_stakes_decisions"><span></span> Document review for high-stakes decisions</p>
+          <h1 data-i18n="from_dossier_to_decision">From dossier to <em>decision.</em></h1>
+          <p class="hero-lead" data-i18n="deep_proof_reviews_data_rooms_credit">
             Deep Proof reviews data rooms, credit files and complex proposals against your own criteria. Every finding comes with the evidence behind it, so your team can inspect it, challenge it and make the call.
           </p>
           <div class="hero-actions">
-            <button class="button button-primary" type="button" data-contact-open>
+            <button class="button button-primary" type="button" data-contact-open data-i18n="discuss_your_use_case">
               Discuss your use case <span aria-hidden="true">↗</span>
             </button>
-            <button class="button button-quiet" type="button" data-story-start>
+            <button class="button button-quiet" type="button" data-story-start data-i18n="see_how_it_works">
               See how it works <span aria-hidden="true">↓</span>
             </button>
           </div>
-          <ul class="trust-list" aria-label="Key facts">
-            <li><span class="trust-check" aria-hidden="true"></span>Open source under GPL-3.0</li>
-            <li><span class="trust-check" aria-hidden="true"></span>Swiss company: Outfinity SARL</li>
-            <li><span class="trust-check" aria-hidden="true"></span>Runs in the environment you choose</li>
-            <li><span class="trust-check" aria-hidden="true"></span>Commercial service: we make your AI Review Skills bulletproof</li>
+          <ul class="trust-list" aria-label="Key facts" data-i18n-attr="aria-label:key_facts">
+            <li data-i18n="open_source_under_gpl_3_0"><span class="trust-check" aria-hidden="true"></span>Open-Source under GPL-3.0</li>
+            <li data-i18n="swiss_company_outfinity_sarl"><span class="trust-check" aria-hidden="true"></span>Swiss company: Outfinity SARL</li>
+            <li data-i18n="runs_in_the_environment_you_choose"><span class="trust-check" aria-hidden="true"></span>Runs in the environment you choose</li>
+            <li data-i18n="commercial_service_we_make_your_ai"><span class="trust-check" aria-hidden="true"></span>Commercial service: we make your AI Review Skills bulletproof</li>
           </ul>
         </div>
 
-        <div class="story-shell reveal" aria-label="Animated Deep Proof introduction">
+        <div class="story-shell reveal" aria-label="Animated Deep Proof introduction" data-i18n-attr="aria-label:animated_deep_proof_introduction">
           <div class="story-topbar">
-            <span class="story-kicker">Deep Proof / an introduction</span>
+            <span class="story-kicker" data-i18n="deep_proof_an_introduction">Deep Proof / an introduction</span>
             <button class="sound-toggle" type="button" data-story-toggle aria-label="Pause story animation">Pause <span>Ⅱ</span></button>
           </div>
 
@@ -86,66 +94,66 @@
             <article class="story-scene is-active" data-scene="0" aria-hidden="false">
               <span class="scene-number">01 / 05</span>
               <div class="scene-intro">
-                <span class="scene-label">The decision in front of you</span>
-                <h2>Invest, lend or walk away?<br />The answer is buried in 400 pages.</h2>
+                <span class="scene-label" data-i18n="the_decision_in_front_of_you">The decision in front of you</span>
+                <h2 data-i18n="invest_lend_or_walk_away_the">Invest, lend or walk away?<br />The answer is buried in 400 pages.</h2>
               </div>
               <div class="project-card floating-card">
-                <div class="project-card-top"><span class="mini-icon">✦</span><span>New project</span><span class="mini-dots">•••</span></div>
-                <h3>Northline<br />Acquisition</h3>
+                <div class="project-card-top"><span class="mini-icon">✦</span><span data-i18n="new_project">New project</span><span class="mini-dots">•••</span></div>
+                <h3 data-i18n="northline_acquisition">Northline<br />Acquisition</h3>
                 <div class="project-rule"></div>
                 <dl>
-                  <div><dt>Decision</dt><dd>Proceed to IC?</dd></div>
-                  <div><dt>Project type</dt><dd>Private equity</dd></div>
-                  <div><dt>Owner</dt><dd>Investment team</dd></div>
+                  <div><dt data-i18n="decision">Decision</dt><dd data-i18n="proceed_to_ic">Proceed to IC?</dd></div>
+                  <div><dt data-i18n="project_type">Project type</dt><dd data-i18n="private_equity">Private equity</dd></div>
+                  <div><dt data-i18n="owner">Owner</dt><dd data-i18n="investment_team">Investment team</dd></div>
                 </dl>
-                <div class="criteria-chip">+ Set review criteria</div>
+                <div class="criteria-chip" data-i18n="set_review_criteria">+ Set review criteria</div>
               </div>
             </article>
 
             <article class="story-scene" data-scene="1" aria-hidden="true">
               <span class="scene-number">02 / 05</span>
               <div class="scene-intro scene-intro-wide">
-                <span class="scene-label">Prepare the method</span>
-                <h2>Give Deep Proof a validated<br />AI Review Skill.</h2>
+                <span class="scene-label" data-i18n="prepare_the_method">Prepare the method</span>
+                <h2 data-i18n="give_deep_proof_a_validated_ai">Give Deep Proof a validated<br />AI Review Skill.</h2>
               </div>
               <div class="skill-card">
-                <div class="skill-card-head"><span class="mini-icon">↳</span><div><strong>Underwriting AI Review Skill</strong><small>Commercial lending · v1.4</small></div></div>
-                <div class="skill-check"><i>✓</i><span>Review instructions</span><em>Expert-reviewed</em></div>
-                <div class="skill-check"><i>✓</i><span>Analysis code</span><em>12 checks</em></div>
-                <div class="skill-check"><i>✓</i><span>Test suite</span><em>48 / 48 passed</em></div>
-                <div class="skill-check"><i>✓</i><span>Calibration</span><em>Signed off</em></div>
-                <div class="skill-card-foot"><div class="skill-meter"><span></span></div><b class="skill-seal">✓ Validated</b></div>
+                <div class="skill-card-head"><span class="mini-icon">↳</span><div><strong data-i18n="underwriting_ai_review_skill">Underwriting AI Review Skill</strong><small data-i18n="commercial_lending_v1_4">Commercial lending · v1.4</small></div></div>
+                <div class="skill-check"><i>✓</i><span data-i18n="review_instructions">Review instructions</span><em data-i18n="expert_reviewed">Expert-reviewed</em></div>
+                <div class="skill-check"><i>✓</i><span data-i18n="analysis_code">Analysis code</span><em data-i18n="12_checks">12 checks</em></div>
+                <div class="skill-check"><i>✓</i><span data-i18n="test_suite">Test suite</span><em data-i18n="48_48_passed">48 / 48 passed</em></div>
+                <div class="skill-check"><i>✓</i><span data-i18n="calibration">Calibration</span><em data-i18n="signed_off">Signed off</em></div>
+                <div class="skill-card-foot"><div class="skill-meter"><span></span></div><b class="skill-seal" data-i18n="validated">✓ Validated</b></div>
               </div>
             </article>
 
             <article class="story-scene" data-scene="2" aria-hidden="true">
               <span class="scene-number">03 / 05</span>
               <div class="scene-intro">
-                <span class="scene-label">Bring the evidence</span>
-                <h2>Add the dossier.<br />Keep its context.</h2>
+                <span class="scene-label" data-i18n="bring_the_evidence">Bring the evidence</span>
+                <h2 data-i18n="add_the_dossier_keep_its_context">Add the dossier.<br />Keep its context.</h2>
               </div>
               <div class="drop-zone">
                 <div class="folder"><span></span><i></i></div>
-                <div class="document document-one"><b>Memo</b><small>Investment thesis</small><i></i></div>
-                <div class="document document-two"><b>xlsx</b><small>Model v12</small><i></i></div>
-                <div class="document document-three"><b>PDF</b><small>Market report</small><i></i></div>
-                <div class="document document-four"><b>PDF</b><small>Customer contracts</small><i></i></div>
-                <div class="upload-status"><span>✓</span> 48 sources indexed</div>
+                <div class="document document-one"><b data-i18n="memo">Memo</b><small data-i18n="investment_thesis">Investment thesis</small><i></i></div>
+                <div class="document document-two"><b data-i18n="xlsx">xlsx</b><small data-i18n="model_v12">Model v12</small><i></i></div>
+                <div class="document document-three"><b data-i18n="pdf">PDF</b><small data-i18n="market_report">Market report</small><i></i></div>
+                <div class="document document-four"><b data-i18n="pdf">PDF</b><small data-i18n="customer_contracts">Customer contracts</small><i></i></div>
+                <div class="upload-status" data-i18n="48_sources_indexed"><span>✓</span> 48 sources indexed</div>
               </div>
             </article>
 
             <article class="story-scene" data-scene="3" aria-hidden="true">
               <span class="scene-number">04 / 05</span>
               <div class="scene-intro scene-intro-wide">
-                <span class="scene-label">Run a structured review</span>
-                <h2>Check every criterion.<br />Surface what matters.</h2>
+                <span class="scene-label" data-i18n="run_a_structured_review">Run a structured review</span>
+                <h2 data-i18n="check_every_criterion_surface_what_matters">Check every criterion.<br />Surface what matters.</h2>
               </div>
               <div class="review-card">
-                <div class="review-heading"><span>Commercial resilience</span><strong>In review</strong></div>
-                <div class="review-row"><i class="check">✓</i><span>Revenue concentration</span><em>Evidence found</em></div>
-                <div class="review-row"><i class="risk">!</i><span>Renewal risk</span><em>Question raised</em></div>
-                <div class="review-row"><i class="gap">—</i><span>Churn cohort analysis</span><em>Support missing</em></div>
-                <div class="review-row"><i class="check">✓</i><span>Pricing power</span><em>Evidence found</em></div>
+                <div class="review-heading"><span data-i18n="commercial_resilience">Commercial resilience</span><strong data-i18n="in_review">In review</strong></div>
+                <div class="review-row"><i class="check">✓</i><span data-i18n="revenue_concentration">Revenue concentration</span><em data-i18n="evidence_found">Evidence found</em></div>
+                <div class="review-row"><i class="risk">!</i><span data-i18n="renewal_risk">Renewal risk</span><em data-i18n="question_raised">Question raised</em></div>
+                <div class="review-row"><i class="gap">—</i><span data-i18n="churn_cohort_analysis">Churn cohort analysis</span><em data-i18n="support_missing">Support missing</em></div>
+                <div class="review-row"><i class="check">✓</i><span data-i18n="pricing_power">Pricing power</span><em data-i18n="evidence_found">Evidence found</em></div>
                 <div class="review-progress"><span></span></div>
               </div>
             </article>
@@ -153,30 +161,30 @@
             <article class="story-scene" data-scene="4" aria-hidden="true">
               <span class="scene-number">05 / 05</span>
               <div class="scene-intro scene-intro-wide">
-                <span class="scene-label">Make the judgement</span>
-                <h2>Read the reasoning.<br />Keep the decision.</h2>
+                <span class="scene-label" data-i18n="make_the_judgement">Make the judgement</span>
+                <h2 data-i18n="read_the_reasoning_keep_the_decision">Read the reasoning.<br />Keep the decision.</h2>
               </div>
               <div class="memo-card">
-                <div class="memo-header"><span>Investment committee memo</span><i>Deep Proof</i></div>
-                <h3>Conditional proceed</h3>
-                <p>The business has credible expansion potential, subject to resolving retention and contract-renewal exposure.</p>
-                <div class="evidence-line"><span>Claim supported by</span><b>▣ Customer analysis.pdf, p. 18</b></div>
-                <div class="memo-question"><span>?</span> Confirm the 2027 renewal assumptions with management.</div>
-                <div class="memo-footer"><span>Confidence: considered</span><span>Review by: your team</span></div>
+                <div class="memo-header"><span data-i18n="investment_committee_memo">Investment committee memo</span><i data-i18n="deep_proof">Deep Proof</i></div>
+                <h3 data-i18n="conditional_proceed">Conditional proceed</h3>
+                <p data-i18n="the_business_has_credible_expansion_potential">The business has credible expansion potential, subject to resolving retention and contract-renewal exposure.</p>
+                <div class="evidence-line"><span data-i18n="claim_supported_by">Claim supported by</span><b data-i18n="customer_analysis_pdf_p_18">▣ Customer analysis.pdf, p. 18</b></div>
+                <div class="memo-question" data-i18n="confirm_the_2027_renewal_assumptions_with"><span>?</span> Confirm the 2027 renewal assumptions with management.</div>
+                <div class="memo-footer"><span data-i18n="confidence_considered">Confidence: considered</span><span data-i18n="review_by_your_team">Review by: your team</span></div>
               </div>
             </article>
           </div>
 
           <div class="story-controls">
-            <div class="story-progress" aria-label="Story progress">
-              <button type="button" data-scene-button="0" class="is-current" aria-label="Story scene 1"></button>
-              <button type="button" data-scene-button="1" aria-label="Story scene 2"></button>
-              <button type="button" data-scene-button="2" aria-label="Story scene 3"></button>
-              <button type="button" data-scene-button="3" aria-label="Story scene 4"></button>
-              <button type="button" data-scene-button="4" aria-label="Story scene 5"></button>
+            <div class="story-progress" aria-label="Story progress" data-i18n-attr="aria-label:story_progress">
+              <button type="button" data-scene-button="0" class="is-current" aria-label="Story scene 1" data-i18n-attr="aria-label:story_scene_1"></button>
+              <button type="button" data-scene-button="1" aria-label="Story scene 2" data-i18n-attr="aria-label:story_scene_2"></button>
+              <button type="button" data-scene-button="2" aria-label="Story scene 3" data-i18n-attr="aria-label:story_scene_3"></button>
+              <button type="button" data-scene-button="3" aria-label="Story scene 4" data-i18n-attr="aria-label:story_scene_4"></button>
+              <button type="button" data-scene-button="4" aria-label="Story scene 5" data-i18n-attr="aria-label:story_scene_5"></button>
             </div>
             <span data-story-label>Project setup</span>
-            <button class="next-scene" type="button" data-story-next>Next <span>→</span></button>
+            <button class="next-scene" type="button" data-story-next data-i18n="next">Next <span>→</span></button>
           </div>
         </div>
       </section>
@@ -184,9 +192,9 @@
       <section class="statement-section section-dark" id="how-it-works">
         <div class="section-count">01 /</div>
         <div class="statement-wrap">
-          <p class="eyebrow"><span></span> Deep Proof, in practice</p>
-          <h2>Complex documents need more than a <em>prompt.</em></h2>
-          <p class="statement-lead">
+          <p class="eyebrow" data-i18n="deep_proof_in_practice"><span></span> Deep Proof, in practice</p>
+          <h2 data-i18n="complex_documents_need_more_than_a">Complex documents need more than a <em>prompt.</em></h2>
+          <p class="statement-lead" data-i18n="create_a_project_add_its_documents">
             Create a project, add its documents, and review them against the criteria that matter. Deep Proof produces clear findings, a decision memo and the questions worth asking, with the evidence beside every claim.
           </p>
         </div>
@@ -194,32 +202,32 @@
 
       <section class="contrast-section" id="why-deep-proof" aria-labelledby="contrast-title">
         <div class="contrast-heading">
-          <p class="eyebrow"><span></span> A different kind of assistance</p>
-          <p class="contrast-kicker">A chat is useful.</p>
-          <h2 id="contrast-title">A proper review needs a method.</h2>
+          <p class="eyebrow" data-i18n="a_different_kind_of_assistance"><span></span> A different kind of assistance</p>
+          <p class="contrast-kicker" data-i18n="a_chat_is_useful">A chat is useful.</p>
+          <h2 id="contrast-title" data-i18n="a_proper_review_needs_a_method">A proper review needs a method.</h2>
         </div>
         <div class="contrast-cards">
           <article class="contrast-card contrast-muted">
-            <div class="contrast-card-head"><span>General-purpose chat</span><i>01</i></div>
-            <h3>Drop files in. Ask a question.</h3>
+            <div class="contrast-card-head"><span data-i18n="general_purpose_chat">General-purpose chat</span><i>01</i></div>
+            <h3 data-i18n="drop_files_in_ask_a_question">Drop files in. Ask a question.</h3>
             <ul>
-              <li>One-off answers vary with each prompt</li>
-              <li>Method and assumptions stay implicit</li>
-              <li>Hard to test, compare or govern</li>
-              <li>Sources may be cited, but gaps are not checked systematically</li>
+              <li data-i18n="one_off_answers_vary_with_each">One-off answers vary with each prompt</li>
+              <li data-i18n="method_and_assumptions_stay_implicit">Method and assumptions stay implicit</li>
+              <li data-i18n="hard_to_test_compare_or_govern">Hard to test, compare or govern</li>
+              <li data-i18n="sources_may_be_cited_but_gaps">Sources may be cited, but gaps are not checked systematically</li>
             </ul>
-            <p>ChatGPT and Claude are powerful starting points. On their own, they do not create a review process tailored to your standards.</p>
+            <p data-i18n="chatgpt_and_claude_are_powerful_starting">ChatGPT and Claude are powerful starting points. On their own, they do not create a review process tailored to your standards.</p>
           </article>
           <article class="contrast-card contrast-active">
-            <div class="contrast-card-head"><span>Deep Proof</span><i>02</i></div>
-            <h3>Define the method. Then apply it.</h3>
+            <div class="contrast-card-head"><span data-i18n="deep_proof">Deep Proof</span><i>02</i></div>
+            <h3 data-i18n="define_the_method_then_apply_it">Define the method. Then apply it.</h3>
             <ul>
-              <li>Validated AI Review Skills turn expertise into a repeatable workflow</li>
-              <li>Every criterion has clear instructions and verification</li>
-              <li>Evidence, gaps and uncertainty are explicit</li>
-              <li>Results stay reviewable by your team</li>
+              <li data-i18n="validated_ai_review_skills_turn_expertise">Validated AI Review Skills turn expertise into a repeatable workflow</li>
+              <li data-i18n="every_criterion_has_clear_instructions_and">Every criterion has clear instructions and verification</li>
+              <li data-i18n="evidence_gaps_and_uncertainty_are_explicit">Evidence, gaps and uncertainty are explicit</li>
+              <li data-i18n="results_stay_reviewable_by_your_team">Results stay reviewable by your team</li>
             </ul>
-            <p>Use your own AI subscription or a custom deployment designed around your privacy requirements.</p>
+            <p data-i18n="use_your_own_ai_subscription_or">Use your own AI subscription or a custom deployment designed around your privacy requirements.</p>
           </article>
         </div>
       </section>
@@ -227,26 +235,26 @@
       <section class="skills-section" id="skills">
         <div class="skills-heading">
           <div>
-            <p class="eyebrow"><span></span> The work behind reliable output</p>
-            <h2>AI Review Skills are where the proof begins.</h2>
+            <p class="eyebrow" data-i18n="the_work_behind_reliable_output"><span></span> The work behind reliable output</p>
+            <h2 data-i18n="ai_review_skills_are_where_the">AI Review Skills are where the proof begins.</h2>
           </div>
-          <p>
+          <p data-i18n="a_deep_proof_ai_review_skill">
             A Deep Proof AI Review Skill is not a prompt template. It is a prepared and validated analysis capability, calibrated for a particular company, project type and use case.
           </p>
         </div>
         <div class="skill-building">
-          <div class="skill-steps" role="group" aria-label="Parts of an AI Review Skill">
+          <div class="skill-steps" role="group" aria-label="Parts of an AI Review Skill" data-i18n-attr="aria-label:parts_of_an_ai_review_skill">
             <button class="skill-step is-selected" type="button" data-skill="0" aria-pressed="true">
-              <span class="skill-step-num">01</span><span class="skill-step-body"><span class="skill-step-title">Review instructions</span><span class="skill-step-text">What to examine, how to reason and what a good finding looks like.</span></span>
+              <span class="skill-step-num">01</span><span class="skill-step-body"><span class="skill-step-title" data-i18n="review_instructions">Review instructions</span><span class="skill-step-text" data-i18n="what_to_examine_how_to_reason">What to examine, how to reason and what a good finding looks like.</span></span>
             </button>
             <button class="skill-step" type="button" data-skill="1" aria-pressed="false">
-              <span class="skill-step-num">02</span><span class="skill-step-body"><span class="skill-step-title">Analysis code &amp; tools</span><span class="skill-step-text">Repeatable checks, calculations and source-handling logic where needed.</span></span>
+              <span class="skill-step-num">02</span><span class="skill-step-body"><span class="skill-step-title" data-i18n="analysis_code_amp_tools">Analysis code &amp; tools</span><span class="skill-step-text" data-i18n="repeatable_checks_calculations_and_source_handling">Repeatable checks, calculations and source-handling logic where needed.</span></span>
             </button>
             <button class="skill-step" type="button" data-skill="2" aria-pressed="false">
-              <span class="skill-step-num">03</span><span class="skill-step-body"><span class="skill-step-title">Verification suite</span><span class="skill-step-text">Test cases that challenge the AI Review Skill before it becomes part of a real decision workflow.</span></span>
+              <span class="skill-step-num">03</span><span class="skill-step-body"><span class="skill-step-title" data-i18n="verification_suite">Verification suite</span><span class="skill-step-text" data-i18n="test_cases_that_challenge_the_ai">Test cases that challenge the AI Review Skill before it becomes part of a real decision workflow.</span></span>
             </button>
             <button class="skill-step" type="button" data-skill="3" aria-pressed="false">
-              <span class="skill-step-num">04</span><span class="skill-step-body"><span class="skill-step-title">Calibration &amp; approval</span><span class="skill-step-text">Refinement with your experts, thresholds and terminology, then ongoing stewardship.</span></span>
+              <span class="skill-step-num">04</span><span class="skill-step-body"><span class="skill-step-title" data-i18n="calibration_amp_approval">Calibration &amp; approval</span><span class="skill-step-text" data-i18n="refinement_with_your_experts_thresholds_and">Refinement with your experts, thresholds and terminology, then ongoing stewardship.</span></span>
             </button>
           </div>
           <div class="skill-preview" aria-live="polite">
@@ -259,48 +267,48 @@
               <span class="code-muted"># Report uncertainty</span>
               <span>When sources disagree, show the conflict.</span>
             </div>
-            <div class="preview-footer"><span data-preview-footer>Instruction set checked by the review owner</span><b>Ready</b></div>
+            <div class="preview-footer"><span data-preview-footer>Instruction set checked by the review owner</span><b data-i18n="ready">Ready</b></div>
           </div>
         </div>
         <div class="skills-callout">
           <span class="callout-symbol" aria-hidden="true">↗</span>
-          <p><strong>We help companies prepare, validate and calibrate their AI Review Skills.</strong> Your team brings the judgement and domain knowledge. We shape a dependable analysis system around it.</p>
-          <a href="#" data-mail="Deep%20Proof%20Skills%20workshop">Plan an AI Review Skills workshop <span aria-hidden="true">→</span></a>
+          <p data-i18n="we_help_companies_prepare_validate_and"><strong>We help companies prepare, validate and calibrate their AI Review Skills.</strong> Your team brings the judgement and domain knowledge. We shape a dependable analysis system around it.</p>
+          <a href="#" data-mail="Deep%20Proof%20Skills%20workshop" data-i18n="plan_an_ai_review_skills_workshop">Plan an AI Review Skills workshop <span aria-hidden="true">→</span></a>
         </div>
       </section>
 
       <section class="review-section">
         <div class="section-count">02 /</div>
         <div class="review-intro">
-          <p class="eyebrow"><span></span> Every review, structured</p>
-          <h2>See the full picture. Interrogate every part.</h2>
+          <p class="eyebrow" data-i18n="every_review_structured"><span></span> Every review, structured</p>
+          <h2 data-i18n="see_the_full_picture_interrogate_every">See the full picture. Interrogate every part.</h2>
         </div>
         <ul class="review-list">
-          <li class="review-list-item"><span>01</span><h3>Criterion-by-criterion review</h3><p>Follow the decision standards your team has set.</p></li>
-          <li class="review-list-item"><span>02</span><h3>Findings &amp; recommendations</h3><p>Distil the meaningful points without flattening the reasoning.</p></li>
-          <li class="review-list-item"><span>03</span><h3>Risks &amp; contradictions</h3><p>Make tensions across the dossier visible early.</p></li>
-          <li class="review-list-item"><span>04</span><h3>Missing evidence</h3><p>Flag what the documents do not actually support.</p></li>
-          <li class="review-list-item"><span>05</span><h3>Questions to ask</h3><p>Turn uncertainty into a sharper next conversation.</p></li>
-          <li class="review-list-item"><span>06</span><h3>Confidence &amp; citations</h3><p>Trace claims back to their source evidence.</p></li>
+          <li class="review-list-item"><span>01</span><h3 data-i18n="criterion_by_criterion_review">Criterion-by-criterion review</h3><p data-i18n="follow_the_decision_standards_your_team">Follow the decision standards your team has set.</p></li>
+          <li class="review-list-item"><span>02</span><h3 data-i18n="findings_amp_recommendations">Findings &amp; recommendations</h3><p data-i18n="distil_the_meaningful_points_without_flattening">Distil the meaningful points without flattening the reasoning.</p></li>
+          <li class="review-list-item"><span>03</span><h3 data-i18n="risks_amp_contradictions">Risks &amp; contradictions</h3><p data-i18n="make_tensions_across_the_dossier_visible">Make tensions across the dossier visible early.</p></li>
+          <li class="review-list-item"><span>04</span><h3 data-i18n="missing_evidence">Missing evidence</h3><p data-i18n="flag_what_the_documents_do_not">Flag what the documents do not actually support.</p></li>
+          <li class="review-list-item"><span>05</span><h3 data-i18n="questions_to_ask">Questions to ask</h3><p data-i18n="turn_uncertainty_into_a_sharper_next">Turn uncertainty into a sharper next conversation.</p></li>
+          <li class="review-list-item"><span>06</span><h3 data-i18n="confidence_amp_citations">Confidence &amp; citations</h3><p data-i18n="trace_claims_back_to_their_source">Trace claims back to their source evidence.</p></li>
         </ul>
       </section>
 
       <section class="governance-section">
         <div class="governance-copy">
-          <p class="eyebrow"><span></span> Your standards. Your access rules.</p>
-          <h2>Set the frame.<br />Keep it under control.</h2>
-          <p>
+          <p class="eyebrow" data-i18n="your_standards_your_access_rules"><span></span> Your standards. Your access rules.</p>
+          <h2 data-i18n="set_the_frame_keep_it_under">Set the frame.<br />Keep it under control.</h2>
+          <p data-i18n="administrators_manage_users_project_types_and">
             Administrators manage users, project types and access by project type. Each review type can have its own editable criteria and playbook. Start with plain language, let Deep Proof draft a first structure, then refine it before use.
           </p>
         </div>
         <div class="governance-board" aria-hidden="true">
-          <div class="board-top"><span>Review governance</span><span class="board-live">● configured</span></div>
-          <div class="board-item"><span class="board-icon">↳</span><div><strong>Private equity</strong><small>Investment committee review</small></div><i>Manage</i></div>
-          <div class="board-item"><span class="board-icon">◎</span><div><strong>Commercial lending</strong><small>Credit underwriting</small></div><i>Manage</i></div>
-          <div class="board-item"><span class="board-icon">□</span><div><strong>Procurement</strong><small>Supplier evaluation</small></div><i>Manage</i></div>
+          <div class="board-top"><span data-i18n="review_governance">Review governance</span><span class="board-live" data-i18n="configured">● configured</span></div>
+          <div class="board-item"><span class="board-icon">↳</span><div><strong data-i18n="private_equity">Private equity</strong><small data-i18n="investment_committee_review">Investment committee review</small></div><i data-i18n="manage">Manage</i></div>
+          <div class="board-item"><span class="board-icon">◎</span><div><strong data-i18n="commercial_lending">Commercial lending</strong><small data-i18n="credit_underwriting">Credit underwriting</small></div><i data-i18n="manage">Manage</i></div>
+          <div class="board-item"><span class="board-icon">□</span><div><strong data-i18n="procurement">Procurement</strong><small data-i18n="supplier_evaluation">Supplier evaluation</small></div><i data-i18n="manage">Manage</i></div>
           <div class="board-line"></div>
-          <div class="board-meta"><span>Project access</span><b>Team + restricted viewers</b></div>
-          <div class="board-meta"><span>Review criteria</span><b>Editable · versioned</b></div>
+          <div class="board-meta"><span data-i18n="project_access">Project access</span><b data-i18n="team_restricted_viewers">Team + restricted viewers</b></div>
+          <div class="board-meta"><span data-i18n="review_criteria">Review criteria</span><b data-i18n="editable_versioned">Editable · versioned</b></div>
         </div>
       </section>
 
@@ -308,125 +316,125 @@
         <div class="security-heading">
           <div class="section-count">03 /</div>
           <div>
-            <p class="eyebrow"><span></span> Security &amp; data handling</p>
-            <h2 id="security-title">Confidential files stay where you <em>decide.</em></h2>
-            <p>Data rooms and credit files are sensitive by nature. These are the answers your security team will ask for first.</p>
+            <p class="eyebrow" data-i18n="security_amp_data_handling"><span></span> Security &amp; data handling</p>
+            <h2 id="security-title" data-i18n="confidential_files_stay_where_you_decide">Confidential files stay where you <em>decide.</em></h2>
+            <p data-i18n="data_rooms_and_credit_files_are">Data rooms and credit files are sensitive by nature. These are the answers your security team will ask for first.</p>
           </div>
         </div>
         <div class="security-grid">
           <article class="security-card">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18M8 4v5"/></svg>
-            <h3>You choose where it runs</h3>
-            <p>The platform is open source. You can run it in your own infrastructure, or we agree a deployment with you around your privacy requirements.</p>
+            <h3 data-i18n="you_choose_where_it_runs">You choose where it runs</h3>
+            <p data-i18n="the_platform_is_open_source_you">The platform is open source. You can run it in your own infrastructure, or we agree a deployment with you around your privacy requirements.</p>
           </article>
           <article class="security-card">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3.5v5.5c0 4.6-3.3 7.9-8 9-4.7-1.1-8-4.4-8-9V6.5L12 3z"/></svg>
-            <h3>You choose the AI provider</h3>
-            <p>Use your own AI subscription, under the terms you already have with that provider, or a custom model deployment.</p>
+            <h3 data-i18n="you_choose_the_ai_provider">You choose the AI provider</h3>
+            <p data-i18n="use_your_own_ai_subscription_under">Use your own AI subscription, under the terms you already have with that provider, or a custom model deployment.</p>
           </article>
           <article class="security-card">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.6-3.6 3.4-6 7-6s6.4 2.4 7 6"/></svg>
-            <h3>You control who sees what</h3>
-            <p>Administrators manage users and grant access by project type, including restricted viewers for sensitive reviews.</p>
+            <h3 data-i18n="you_control_who_sees_what">You control who sees what</h3>
+            <p data-i18n="administrators_manage_users_and_grant_access">Administrators manage users and grant access by project type, including restricted viewers for sensitive reviews.</p>
           </article>
           <article class="security-card">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
-            <h3>You can inspect the code</h3>
-            <p>The Community Edition is published under GPL-3.0. Your engineers can review exactly how documents are processed.</p>
+            <h3 data-i18n="you_can_inspect_the_code">You can inspect the code</h3>
+            <p data-i18n="the_community_edition_is_published_under">The Community Edition is published under GPL-3.0. Your engineers can review exactly how documents are processed.</p>
           </article>
         </div>
-        <a class="text-link text-link-light" href="security.html">Read the security overview <span aria-hidden="true">→</span></a>
+        <a class="text-link text-link-light" href="security.html" data-i18n="read_the_security_overview">Read the security overview <span aria-hidden="true">→</span></a>
       </section>
 
       <section class="uses-section">
-        <p class="eyebrow"><span></span> Built for document-intensive decisions</p>
-        <ul class="uses-cloud" aria-label="Example use cases">
-          <li>Private equity</li><li>Private credit</li><li>M&amp;A</li><li>Family offices</li><li>Commercial lending</li><li>Consulting</li><li>Audit &amp; advisory</li><li>CAPEX portfolios</li><li>Insurance</li><li>Public procurement</li><li>Grants &amp; innovation funds</li><li>Development banks</li><li>Pharma &amp; MedTech</li><li>KYC, AML &amp; investigations</li>
+        <p class="eyebrow" data-i18n="built_for_document_intensive_decisions"><span></span> Built for document-intensive decisions</p>
+        <ul class="uses-cloud" aria-label="Example use cases" data-i18n-attr="aria-label:example_use_cases">
+          <li data-i18n="private_equity">Private equity</li><li data-i18n="private_credit">Private credit</li><li>M&amp;A</li><li data-i18n="family_offices">Family offices</li><li data-i18n="commercial_lending">Commercial lending</li><li data-i18n="consulting">Consulting</li><li data-i18n="audit_amp_advisory">Audit &amp; advisory</li><li data-i18n="capex_portfolios">CAPEX portfolios</li><li data-i18n="insurance">Insurance</li><li data-i18n="public_procurement">Public procurement</li><li data-i18n="grants_amp_innovation_funds">Grants &amp; innovation funds</li><li data-i18n="development_banks">Development banks</li><li data-i18n="pharma_amp_medtech">Pharma &amp; MedTech</li><li data-i18n="kyc_aml_amp_investigations">KYC, AML &amp; investigations</li>
         </ul>
       </section>
 
       <section class="engagement-section" id="engagement" aria-labelledby="engagement-title">
         <div class="engagement-heading">
-          <p class="eyebrow"><span></span> How we work with you</p>
-          <h2 id="engagement-title">From first conversation to a review your team relies on.</h2>
+          <p class="eyebrow" data-i18n="how_we_work_with_you"><span></span> How we work with you</p>
+          <h2 id="engagement-title" data-i18n="from_first_conversation_to_a_review">From first conversation to a review your team relies on.</h2>
         </div>
         <ol class="engagement-steps">
           <li>
             <span class="engagement-num">01</span>
-            <h3>Scoping conversation</h3>
-            <p>We map the decision, the documents and the criteria that matter, and estimate the work needed to prepare its AI Review Skills.</p>
+            <h3 data-i18n="scoping_conversation">Scoping conversation</h3>
+            <p data-i18n="we_map_the_decision_the_documents">We map the decision, the documents and the criteria that matter, and estimate the work needed to prepare its AI Review Skills.</p>
           </li>
           <li>
             <span class="engagement-num">02</span>
-            <h3>AI Review Skills workshop</h3>
-            <p>Your experts bring the judgement. We turn it into review instructions, analysis code and test cases.</p>
+            <h3 data-i18n="ai_review_skills_workshop">AI Review Skills workshop</h3>
+            <p data-i18n="your_experts_bring_the_judgement_we">Your experts bring the judgement. We turn it into review instructions, analysis code and test cases.</p>
           </li>
           <li>
             <span class="engagement-num">03</span>
-            <h3>Validation &amp; calibration</h3>
-            <p>The AI Review Skill is challenged by its verification suite, then refined with your thresholds and terminology before it touches a real decision.</p>
+            <h3 data-i18n="validation_amp_calibration">Validation &amp; calibration</h3>
+            <p data-i18n="the_ai_review_skill_is_challenged">The AI Review Skill is challenged by its verification suite, then refined with your thresholds and terminology before it touches a real decision.</p>
           </li>
           <li>
             <span class="engagement-num">04</span>
-            <h3>Deployment &amp; stewardship</h3>
-            <p>Deep Proof runs in the environment you choose. AI Review Skills are maintained as your standards and policies change.</p>
+            <h3 data-i18n="deployment_amp_stewardship">Deployment &amp; stewardship</h3>
+            <p data-i18n="deep_proof_runs_in_the_environment">Deep Proof runs in the environment you choose. AI Review Skills are maintained as your standards and policies change.</p>
           </li>
         </ol>
       </section>
 
       <section class="open-source-section" id="open-source">
-        <div class="open-source-mark" aria-hidden="true"><span>&lt;/&gt;</span><small>GPL-3.0</small></div>
+        <div class="open-source-mark" aria-hidden="true"><span>&lt;/&gt;</span><small data-i18n="gpl_3_0">GPL-3.0</small></div>
         <div class="open-source-copy">
-          <p class="eyebrow"><span></span> Open source, deliberately practical</p>
-          <h2>The platform is open. The method is <em>yours.</em></h2>
-          <p>
+          <p class="eyebrow" data-i18n="open_source_deliberately_practical"><span></span> Open-Source, deliberately practical</p>
+          <h2 data-i18n="the_platform_is_open_the_method">The platform is open. The method is <em>yours.</em></h2>
+          <p data-i18n="deep_proof_community_edition_is_open">
             Deep Proof Community Edition is open source. You can inspect, extend and run the platform in the environment that suits your organisation. The commercial work is making its analytical AI Review Skills dependable in your real setting.
           </p>
           <div class="open-source-links">
-            <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener">Explore Community Edition <span aria-hidden="true">↗</span></a>
-            <a href="licensing.html">How licensing works <span aria-hidden="true">→</span></a>
+            <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener" data-i18n="explore_community_edition">Explore Community Edition <span aria-hidden="true">↗</span></a>
+            <a href="licensing.html" data-i18n="how_licensing_works">How licensing works <span aria-hidden="true">→</span></a>
           </div>
         </div>
-        <aside class="venture-note" aria-label="Who is behind Deep Proof">
-          <span>Who is behind Deep Proof</span>
+        <aside class="venture-note" aria-label="Who is behind Deep Proof" data-i18n-attr="aria-label:who_is_behind_deep_proof">
+          <span data-i18n="who_is_behind_deep_proof">Who is behind Deep Proof</span>
           <dl>
-            <div><dt>Company</dt><dd>Outfinity SARL, Switzerland</dd></div>
-            <div><dt>Venture studio</dt><dd><a href="https://outfinity.ch" target="_blank" rel="noopener">Outfinity Venture Studio</a></dd></div>
-            <div><dt>Implementation</dt><dd><a href="https://www.axiologic.net/" target="_blank" rel="noopener">Axiologic Research</a></dd></div>
+            <div><dt data-i18n="company">Company</dt><dd data-i18n="outfinity_sarl_switzerland">Outfinity SARL, Switzerland</dd></div>
+            <div><dt data-i18n="venture_studio">Venture studio</dt><dd><a href="https://outfinity.ch" target="_blank" rel="noopener" data-i18n="outfinity_venture_studio">Outfinity Venture Studio</a></dd></div>
+            <div><dt data-i18n="implementation">Implementation</dt><dd><a href="https://www.axiologic.net/" target="_blank" rel="noopener" data-i18n="axiologic_research">Axiologic Research</a></dd></div>
           </dl>
-          <a class="venture-more" href="about.html">About us <span aria-hidden="true">→</span></a>
+          <a class="venture-more" href="about.html" data-i18n="about_us">About us <span aria-hidden="true">→</span></a>
         </aside>
       </section>
 
       <section class="faq-section" id="faq" aria-labelledby="faq-title">
         <div class="faq-heading">
-          <p class="eyebrow"><span></span> Questions we hear first</p>
-          <h2 id="faq-title">Before you book a call.</h2>
+          <p class="eyebrow" data-i18n="questions_we_hear_first"><span></span> Questions we hear first</p>
+          <h2 id="faq-title" data-i18n="before_you_book_a_call">Before you book a call.</h2>
         </div>
         <div class="faq-list">
           <details>
-            <summary>How is this different from uploading files to ChatGPT or Claude?</summary>
-            <p>A chat answers the question you typed. Deep Proof applies a defined review method: the same criteria, instructions and checks every time, with evidence, gaps and uncertainty recorded for each criterion. The method can be tested, versioned and governed like any other part of your process.</p>
+            <summary data-i18n="how_is_this_different_from_uploading">How is this different from uploading files to ChatGPT or Claude?</summary>
+            <p data-i18n="a_chat_answers_the_question_you">A chat answers the question you typed. Deep Proof applies a defined review method: the same criteria, instructions and checks every time, with evidence, gaps and uncertainty recorded for each criterion. The method can be tested, versioned and governed like any other part of your process.</p>
           </details>
           <details>
-            <summary>Which AI models does Deep Proof use?</summary>
-            <p>You can connect your own AI subscription, under the terms you already have with that provider, or use a custom deployment designed around your privacy requirements. The choice is made per organisation during scoping.</p>
+            <summary data-i18n="which_ai_models_does_deep_proof">Which AI models does Deep Proof use?</summary>
+            <p data-i18n="you_can_connect_your_own_ai">You can connect your own AI subscription, under the terms you already have with that provider, or use a custom deployment designed around your privacy requirements. The choice is made per organisation during scoping.</p>
           </details>
           <details>
-            <summary>Where do our documents go?</summary>
-            <p>That depends on the deployment you choose. When you run the platform in your own infrastructure, documents are stored there and text is only sent to the AI provider you configure. The <a href="security.html">security overview</a> explains the options.</p>
+            <summary data-i18n="where_do_our_documents_go">Where do our documents go?</summary>
+            <p data-i18n="that_depends_on_the_deployment_you">That depends on the deployment you choose. When you run the platform in your own infrastructure, documents are stored there and text is only sent to the AI provider you configure. The <a href="security.html">security overview</a> explains the options.</p>
           </details>
           <details>
-            <summary>Does Deep Proof make the decision?</summary>
-            <p>No. Deep Proof makes its reasoning inspectable: findings, citations, contradictions and open questions. Your team reads the reasoning and makes the call.</p>
+            <summary data-i18n="does_deep_proof_make_the_decision">Does Deep Proof make the decision?</summary>
+            <p data-i18n="no_deep_proof_makes_its_reasoning">No. Deep Proof makes its reasoning inspectable: findings, citations, contradictions and open questions. Your team reads the reasoning and makes the call.</p>
           </details>
           <details>
-            <summary>What is free and what is paid?</summary>
-            <p>The Community Edition platform is open source under GPL-3.0. The commercial work is preparing, validating and calibrating AI Review Skills for your use case, and supporting the implementation. See <a href="licensing.html">licensing</a> for details.</p>
+            <summary data-i18n="what_is_free_and_what_is">What is free and what is paid?</summary>
+            <p data-i18n="the_community_edition_platform_is_open">The Community Edition platform is open source under GPL-3.0. The commercial work is preparing, validating and calibrating AI Review Skills for your use case, and supporting the implementation. See <a href="licensing.html">licensing</a> for details.</p>
           </details>
           <details>
-            <summary>Who is behind Deep Proof?</summary>
-            <p>Deep Proof is developed by Outfinity SARL, a Swiss company that trades as Outfinity Venture Studio. The platform was implemented together with our associated company, Axiologic Research. <a href="about.html">More about us</a>.</p>
+            <summary data-i18n="who_is_behind_deep_proof_2">Who is behind Deep Proof?</summary>
+            <p data-i18n="deep_proof_is_developed_by_outfinity">Deep Proof is developed by Outfinity SARL, a Swiss company that trades as Outfinity Venture Studio. The platform was implemented together with our associated company, Axiologic Research. <a href="about.html">More about us</a>.</p>
           </details>
         </div>
       </section>
@@ -446,88 +454,88 @@
           <circle class="da-core" cx="160" cy="160" r="18" />
           <path class="da-check" d="M152 160.5l5.5 5.5 11-12" />
         </svg>
-        <p class="eyebrow"><span></span> Let’s work together</p>
-        <h2>Let’s make AI work for your team, not <em>decide for it.</em></h2>
-        <p>AI should prepare your decisions, not make them on autopilot. In a first conversation we map your project, estimate the work needed to prepare its AI Review Skills and show you how Deep Proof fits your team.</p>
+        <p class="eyebrow" data-i18n="let_s_work_together"><span></span> Let’s work together</p>
+        <h2 data-i18n="let_s_make_ai_work_for">Let’s make AI work for your team, not <em>decide for it.</em></h2>
+        <p data-i18n="ai_should_prepare_your_decisions_not">AI should prepare your decisions, not make them on autopilot. In a first conversation we map your project, estimate the work needed to prepare its AI Review Skills and show you how Deep Proof fits your team.</p>
         <div class="contact-actions">
-          <button class="button button-primary" type="button" data-contact-open>Describe your use case <span aria-hidden="true">↗</span></button>
+          <button class="button button-primary" type="button" data-contact-open data-i18n="describe_your_use_case">Describe your use case <span aria-hidden="true">↗</span></button>
         </div>
       </section>
     </main>
 
     <dialog class="contact-dialog" data-contact-dialog aria-labelledby="contact-dialog-title">
       <div class="dialog-panel">
-        <button class="dialog-close" type="button" data-contact-close aria-label="Close contact form">×</button>
-        <p class="eyebrow"><span></span> Deep Proof / project conversation</p>
-        <h2 id="contact-dialog-title">Discuss your use case.</h2>
-        <p class="dialog-lead">Tell us what decision you need to prepare. When you send the form, your email application opens with the message drafted to us. Nothing is stored on this website.</p>
+        <button class="dialog-close" type="button" data-contact-close aria-label="Close contact form" data-i18n-attr="aria-label:close_contact_form">×</button>
+        <p class="eyebrow" data-i18n="deep_proof_project_conversation"><span></span> Deep Proof / project conversation</p>
+        <h2 id="contact-dialog-title" data-i18n="discuss_your_use_case_2">Discuss your use case.</h2>
+        <p class="dialog-lead" data-i18n="tell_us_what_decision_you_need">Tell us what decision you need to prepare. When you send the form, your email application opens with the message drafted to us. Nothing is stored on this website.</p>
         <form class="contact-form" data-contact-form>
           <label>
-            Your name
+            <span data-i18n="your_name">Your name</span>
             <input name="name" autocomplete="name" required />
           </label>
           <label>
-            Work email
+            <span data-i18n="work_email">Work email</span>
             <input name="email" type="email" autocomplete="email" required />
           </label>
           <label>
-            Company
+            <span data-i18n="company">Company</span>
             <input name="company" autocomplete="organization" />
           </label>
           <label>
-            Type of review
+            <span data-i18n="type_of_review">Type of review</span>
             <select name="reviewType">
-              <option>Private equity or M&amp;A</option>
-              <option>Private credit or lending</option>
-              <option>Procurement or public investment</option>
-              <option>Audit, advisory or another use case</option>
+              <option value="Private equity or M&amp;A" data-i18n="private_equity_or_m_amp_a">Private equity or M&amp;A</option>
+              <option value="Private credit or lending" data-i18n="private_credit_or_lending">Private credit or lending</option>
+              <option value="Procurement or public investment" data-i18n="procurement_or_public_investment">Procurement or public investment</option>
+              <option value="Audit, advisory or another use case" data-i18n="audit_advisory_or_another_use_case">Audit, advisory or another use case</option>
             </select>
           </label>
           <label class="form-message">
-            What would you like to review?
-            <textarea name="message" rows="4" required placeholder="A short description of the project, documents and criteria that matter."></textarea>
+            <span data-i18n="what_would_you_like_to_review">What would you like to review?</span>
+            <textarea name="message" rows="4" required placeholder="A short description of the project, documents and criteria that matter." data-i18n-attr="placeholder:a_short_description_of_the_project"></textarea>
           </label>
-          <button class="button button-primary" type="submit">Draft email to Deep Proof <span aria-hidden="true">↗</span></button>
+          <button class="button button-primary" type="submit" data-i18n="draft_email_to_deep_proof">Draft email to Deep Proof <span aria-hidden="true">↗</span></button>
         </form>
         <div class="form-fallback" data-form-fallback hidden>
-          <p role="status">Your email application should now be open with the message drafted. If nothing happened, copy the message and send it to <a href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>.</p>
+          <p role="status" data-i18n="your_email_application_should_now_be">Your email application should now be open with the message drafted. If nothing happened, copy the message and send it to <a href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>.</p>
           <button class="button button-quiet" type="button" data-copy-message>Copy message</button>
         </div>
-        <p class="direct-email">Or write to us directly: <a href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>. See our <a href="privacy.html">privacy notice</a>.</p>
+        <p class="direct-email" data-i18n="or_write_to_us_directly_see">Or write to us directly: <a href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>. See our <a href="privacy.html">privacy notice</a>.</p>
       </div>
     </dialog>
 
     <footer class="site-footer">
       <div class="footer-top">
         <div class="footer-brand">
-          <a class="brand" href="index.html" aria-label="Deep Proof home"><span class="brand-mark" aria-hidden="true">D</span><span>Deep Proof</span></a>
-          <p>Evidence-based document review for teams making high-stakes decisions.</p>
+          <a class="brand" href="index.html" aria-label="Deep Proof home" data-i18n-attr="aria-label:deep_proof_home"><span class="brand-mark" aria-hidden="true">D</span><span data-i18n="deep_proof">Deep Proof</span></a>
+          <p data-i18n="evidence_based_document_review_for_teams">Evidence-based document review for teams making high-stakes decisions.</p>
           <a class="footer-email" href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>
         </div>
-        <nav class="footer-col" aria-label="Product">
-          <h2>Product</h2>
-          <a href="index.html#how-it-works">How it works</a>
-          <a href="index.html#skills">AI Review Skills</a>
-          <a href="index.html#engagement">How we work</a>
-          <a href="security.html">Security &amp; data</a>
-          <a href="index.html#faq">FAQ</a>
+        <nav class="footer-col" aria-label="Product" data-i18n-attr="aria-label:product">
+          <h2 data-i18n="product">Product</h2>
+          <a href="index.html#how-it-works" data-i18n="how_it_works">How it works</a>
+          <a href="index.html#skills" data-i18n="ai_review_skills">AI Review Skills</a>
+          <a href="index.html#engagement" data-i18n="how_we_work">How we work</a>
+          <a href="security.html" data-i18n="security_amp_data">Security &amp; data</a>
+          <a href="index.html#faq" data-i18n="faq">FAQ</a>
         </nav>
-        <nav class="footer-col" aria-label="Open source">
-          <h2>Open source</h2>
-          <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener">Community Edition on GitHub</a>
-          <a href="licensing.html">Licensing</a>
+        <nav class="footer-col" aria-label="Open-Source" data-i18n-attr="aria-label:open_source">
+          <h2 data-i18n="open_source">Open-Source</h2>
+          <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener" data-i18n="community_edition_on_github">Community Edition on GitHub</a>
+          <a href="licensing.html" data-i18n="licensing">Licensing</a>
         </nav>
-        <nav class="footer-col" aria-label="Company">
-          <h2>Company</h2>
-          <a href="about.html">About</a>
-          <a href="index.html#contact">Contact</a>
-          <a href="impressum.html">Impressum</a>
-          <a href="privacy.html">Privacy</a>
+        <nav class="footer-col" aria-label="Company" data-i18n-attr="aria-label:company">
+          <h2 data-i18n="company">Company</h2>
+          <a href="about.html" data-i18n="about">About</a>
+          <a href="index.html#contact" data-i18n="contact">Contact</a>
+          <a href="impressum.html" data-i18n="impressum">Impressum</a>
+          <a href="privacy.html" data-i18n="privacy">Privacy</a>
         </nav>
       </div>
       <div class="footer-legal">
-        <p>© 2026 Outfinity SARL, Switzerland. Deep Proof is a venture of Outfinity Venture Studio.</p>
-        <p>Platform implementation by <a href="https://www.axiologic.net/" target="_blank" rel="noopener">Axiologic Research</a>.</p>
+        <p data-i18n="2026_outfinity_sarl_switzerland_deep_proof">© 2026 Outfinity SARL, Switzerland. Deep Proof is a venture of Outfinity Venture Studio.</p>
+        <p data-i18n="platform_implementation_by_axiologic_research">Platform implementation by <a href="https://www.axiologic.net/" target="_blank" rel="noopener">Axiologic Research</a>.</p>
       </div>
     </footer>
 
