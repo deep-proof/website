@@ -23,14 +23,14 @@
     <meta name="twitter:card" content="summary_large_image" />
     <script>try{var t=localStorage.getItem("theme");if(t!=="dark")t="light";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}</script>
     <script src="i18n/en.js"></script>
-    <script>(function(){var l="en",q=/[?&]lang=(de|en|fr|it)\b/.exec(location.search);try{l=q?q[1]:localStorage.getItem("lang")||"en";if(q)localStorage.setItem("lang",l)}catch(e){if(q)l=q[1]}if(!/^(de|fr|it)$/.test(l))l="en";document.documentElement.lang=l;if(l!=="en")document.write('<script src="i18n/'+l+'.js"><\/script>')})();</script>
+    <script>(function(){var l="en",q=/[?&]lang=(de|en|es|fr|it|nl|pl|pt|rm|ro)\b/.exec(location.search);try{l=q?q[1]:localStorage.getItem("lang")||"en";if(q)localStorage.setItem("lang",l)}catch(e){if(q)l=q[1]}if(!/^(de|es|fr|it|nl|pl|pt|rm|ro)$/.test(l))l="en";document.documentElement.lang=l;if(l!=="en")document.write('<script src="i18n/'+l+'.js"><\/script>')})();</script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="legal-page">
     <a class="skip-link" href="#main-content" data-i18n="skip_to_content">Skip to content</a>
     <header class="site-header">
       <a class="brand" href="index.html" aria-label="Deep Proof home" data-i18n-attr="aria-label:deep_proof_home">
-        <span class="brand-mark" aria-hidden="true">D</span>
+        <img class="brand-mark" src="favicon.svg" alt="" aria-hidden="true" width="28" height="28" />
         <span data-i18n="deep_proof">Deep Proof</span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>
@@ -47,8 +47,14 @@
       <select class="lang-select" data-lang-select aria-label="Language" data-i18n-attr="aria-label:language">
         <option value="de" lang="de">DE</option>
         <option value="en" lang="en">EN</option>
+        <option value="es" lang="es">ES</option>
         <option value="fr" lang="fr">FR</option>
         <option value="it" lang="it">IT</option>
+        <option value="nl" lang="nl">NL</option>
+        <option value="pl" lang="pl">PL</option>
+        <option value="pt" lang="pt">PT</option>
+        <option value="rm" lang="rm">RM</option>
+        <option value="ro" lang="ro">RO</option>
       </select>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
@@ -94,7 +100,7 @@
     <footer class="site-footer">
       <div class="footer-top">
         <div class="footer-brand">
-          <a class="brand" href="index.html" aria-label="Deep Proof home" data-i18n-attr="aria-label:deep_proof_home"><span class="brand-mark" aria-hidden="true">D</span><span data-i18n="deep_proof">Deep Proof</span></a>
+          <a class="brand" href="index.html" aria-label="Deep Proof home" data-i18n-attr="aria-label:deep_proof_home"><img class="brand-mark" src="favicon.svg" alt="" aria-hidden="true" width="28" height="28" /><span data-i18n="deep_proof">Deep Proof</span></a>
           <p data-i18n="evidence_based_document_review_for_teams">Evidence-based document review for teams making high-stakes decisions.</p>
           <a class="footer-email" href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>
         </div>
