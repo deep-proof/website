@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security & data handling — Deep Proof</title>
+    <meta name="description" content="How Deep Proof handles confidential documents: deployment options, AI providers, access control and open-source transparency." />
+    <meta name="theme-color" content="#07151d" />
+    <link rel="canonical" href="https://deepproof.ch/security.html" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Deep Proof" />
+    <meta property="og:title" content="Security & data handling — Deep Proof" />
+    <meta property="og:description" content="How Deep Proof handles confidential documents: deployment options, AI providers, access control and open-source transparency." />
+    <meta property="og:url" content="https://deepproof.ch/security.html" />
+    <meta property="og:image" content="https://deepproof.ch/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Deep Proof: from dossier to decision." />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="legal-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Deep Proof home">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <span>Deep Proof</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>
+        <span class="menu-toggle-bars" aria-hidden="true"></span><span>Menu</span>
+      </button>
+      <nav id="primary-nav" aria-label="Primary navigation" data-menu>
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="security.html">Security</a>
+        <a href="index.html#open-source">Open source</a>
+        <a href="about.html">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <a class="header-contact" href="index.html#contact">Discuss your use case <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="main-content" class="legal-content">
+      <p class="eyebrow"><span></span> Security &amp; data handling</p>
+      <h1>Confidential files deserve clear answers.</h1>
+      <div class="legal-copy">
+        <p class="legal-lead">Deep Proof is used on data rooms, credit files and other confidential dossiers. This page explains where documents go and who controls each part of the system.</p>
+
+        <h2>Where Deep Proof runs</h2>
+        <p>Deep Proof Community Edition is open-source software. You can run it in infrastructure you control: your own servers, or your own account with a cloud provider. In that setup, uploaded documents and review results are stored in your environment.</p>
+        <p>For a commercial implementation, we agree the deployment with you during scoping, based on your privacy, residency and compliance requirements.</p>
+
+        <h2>Which AI provider processes the text</h2>
+        <p>To analyse documents, Deep Proof sends relevant text to a large language model. You choose that model:</p>
+        <ul>
+          <li><strong>Your own AI subscription.</strong> Text is processed under the agreement you already have with that provider, including its data-retention and training terms.</li>
+          <li><strong>A custom deployment.</strong> A model deployment designed around your privacy requirements, agreed with you.</li>
+        </ul>
+        <p>Check your provider's enterprise terms before connecting it. Your security team stays in control of that relationship.</p>
+
+        <h2>Who can see what</h2>
+        <ul>
+          <li>Administrators manage users and project types.</li>
+          <li>Access is granted by project type, including restricted viewers for sensitive reviews.</li>
+          <li>Review criteria and playbooks are editable and versioned, so you can see which standard a review followed.</li>
+        </ul>
+
+        <h2>Transparency</h2>
+        <p>The platform source code is published under GPL-3.0 on <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener">GitHub</a>. Your engineers can review how documents are ingested, stored and sent for analysis, and can verify a deployment against that code.</p>
+
+        <h2>Questions from your security team</h2>
+        <p>Send your questions or your security questionnaire to <a href="mailto:contact@deepproof.ch?subject=Deep%20Proof%20security%20questions">contact@deepproof.ch</a>. We answer them as part of scoping, before any confidential document is shared.</p>
+        <p class="legal-updated">Last updated: 12 October 2026</p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="brand" href="index.html" aria-label="Deep Proof home"><span class="brand-mark" aria-hidden="true">D</span><span>Deep Proof</span></a>
+          <p>Evidence-based document review for teams making high-stakes decisions.</p>
+          <a class="footer-email" href="mailto:contact@deepproof.ch">contact@deepproof.ch</a>
+        </div>
+        <nav class="footer-col" aria-label="Product">
+          <h2>Product</h2>
+          <a href="index.html#how-it-works">How it works</a>
+          <a href="index.html#skills">Skills</a>
+          <a href="index.html#engagement">How we work</a>
+          <a href="security.html">Security &amp; data</a>
+          <a href="index.html#faq">FAQ</a>
+        </nav>
+        <nav class="footer-col" aria-label="Open source">
+          <h2>Open source</h2>
+          <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener">Community Edition on GitHub</a>
+          <a href="licensing.html">Licensing</a>
+        </nav>
+        <nav class="footer-col" aria-label="Company">
+          <h2>Company</h2>
+          <a href="about.html">About</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="impressum.html">Impressum</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <p>© 2026 Outfinity SARL, Switzerland. Deep Proof is a venture of Outfinity Venture Studio.</p>
+        <p>Platform implementation by <a href="https://www.axiologic.net/" target="_blank" rel="noopener">Axiologic Research</a>.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
