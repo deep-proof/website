@@ -601,7 +601,7 @@ html[lang="en"] .english-note { display: none; }
 .rf-trap { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
 .form-status { min-height: 1.5rem; margin: 1rem 0 0; color: var(--paper); font-size: .92rem; }
 .rf-result { margin-top: .5rem; padding: 1.2rem 1.3rem; border: 1px solid rgba(203,255,77,.45); }
-.rf-result[hidden] { display: none; }
+.rf-result[hidden], .report-request-form[hidden] { display: none; }
 .rf-result p { margin: 0 0 .7rem; color: var(--mist); }
 .rf-result #rf-success { color: var(--paper); font-weight: 650; }
 .rf-link-row a { color: var(--acid); border-bottom: 1px solid currentColor; word-break: break-all; }

@@ -8,6 +8,7 @@ const vm = require("vm");
 
 const DOCS = path.resolve(__dirname, "..", "docs");
 const SOURCE = fs.readFileSync(path.join(DOCS, "report-form.js"), "utf8");
+const SCRIPT_JS = fs.readFileSync(path.join(DOCS, "script.js"), "utf8");
 const TEST_CONSENT = "2026-11-17";
 const COLLECTOR = "https://bizanso.com/base-agent-additional-server/bizanso/8787/visitor-data/v1/submissions";
 
@@ -55,17 +56,22 @@ function makePage(options = {}) {
   ["name", "email", "company", "comment", "website", "consent"].forEach((n) => (fields[n] = new FakeElement("rf-" + n, { name: n })));
   els["report-request-form"] = new FakeElement("report-request-form", { elements: fields });
   const docListeners = {};
+  // Enough of a document for the real script.js to load and run applyLanguage().
   const document = {
+    documentElement: { lang: options.lang || "en", dataset: { theme: "light" } },
     getElementById: (id) => els[id] || null,
+    querySelector: () => null,
+    querySelectorAll: () => [],
     addEventListener: (type, fn) => (docListeners[type] = docListeners[type] || []).push(fn),
-    dispatch: (type) => (docListeners[type] || []).forEach((fn) => fn({ type }))
+    dispatchEvent: (event) => { (docListeners[event.type] || []).forEach((fn) => fn(event)); return true; }
   };
   const calls = [];
   const tracked = [];
   const clipboard = [];
   const context = {
     document,
-    window: {},
+    window: { DP_I18N: JSON.parse(JSON.stringify(I18N)), matchMedia: () => ({ matches: false }) },
+    CustomEvent: class CustomEvent { constructor(type) { this.type = type; } },
     navigator: { clipboard: { writeText: async (text) => { if (options.clipboardFails) throw new Error("denied"); clipboard.push(text); } } },
     console,
     URL,
@@ -85,10 +91,11 @@ function makePage(options = {}) {
   };
   if (options.umami) context.window.umami = { track: (name, data) => tracked.push([name, data]) };
   vm.createContext(context);
-  // t() and currentLang are lexical globals of script.js; defined the same way here.
-  vm.runInContext("const I18N = " + JSON.stringify(I18N) + "; let currentLang = " + JSON.stringify(options.lang || "en") + ";\n" +
-    "function t(key) { return I18N[currentLang]?.[key] ?? I18N.en?.[key] ?? key; }", context, { filename: "prelude.js" });
-  const source = options.unsetConsent ? SOURCE : SOURCE.replace(/const CONSENT_VERSION = "[^"]*";/, 'const CONSENT_VERSION = "' + TEST_CONSENT + '";');
+  // The real script.js runs first, as on the page: it defines t() and currentLang as lexical
+  // globals and dispatches "dp:language" from applyLanguage().
+  vm.runInContext(SCRIPT_JS, context, { filename: "script.js" });
+  const version = "consent" in options ? options.consent : TEST_CONSENT;
+  const source = SOURCE.replace(/const CONSENT_VERSION = "[^"]*";/, 'const CONSENT_VERSION = "' + version + '";');
   vm.runInContext(source, context, { filename: "report-form.js" });
   const page = {
     els, fields, calls, tracked, clipboard, context,
@@ -98,7 +105,7 @@ function makePage(options = {}) {
       await els["report-request-form"].dispatch("submit", { type: "submit", preventDefault() { prevented = true; } });
       return prevented;
     },
-    setLang(lang) { vm.runInContext("currentLang = " + JSON.stringify(lang) + ";", context); document.dispatch("dp:language"); },
+    setLang(lang) { vm.runInContext("applyLanguage(" + JSON.stringify(lang) + ");", context); },
     status() { return els["rf-status"].textContent; }
   };
   return page;
@@ -180,6 +187,15 @@ test("sending: request shape, credentials omit, only content-type, button disabl
   release();
   await done;
   eq(p.els["report-request-form"].hidden, true, "form hidden after success");
+});
+
+test("sending: a filled honeypot is sent as is, and fields are NFC-normalised", async () => {
+  const p = makePage({ fetch: respond(201, { downloadUrl: "https://bizanso.com/visitor-data/r/x.y", expiresAt: "2026-11-24T10:00:00Z" }) });
+  p.fill({ ...VALID, name: "Zoe\u0301 Fixture", website: "http://spam.example" });
+  await p.submit();
+  const body = JSON.parse(p.calls[0].init.body);
+  eq(body.website, "http://spam.example", "honeypot value");
+  eq(body.name, "Zo\u00e9 Fixture", "NFC name");
 });
 
 test("sending: an empty comment is left out of the body", async () => {
@@ -294,8 +310,13 @@ for (const [label, fetchImpl] of [
   });
 }
 
+test("shipped consent version is the UNSET marker or a YYYY-MM-DD date", async () => {
+  const m = /const CONSENT_VERSION = "([^"]*)";/.exec(SOURCE);
+  assert(m && (m[1] === "UNSET-awaiting-owner-approval" || /^\d{4}-\d{2}-\d{2}$/.test(m[1])), "CONSENT_VERSION is " + (m && m[1]));
+});
+
 test("unset consent version: nothing is sent and the state is unavailable", async () => {
-  const p = makePage({ unsetConsent: true, fetch: respond(201, {}) });
+  const p = makePage({ consent: "UNSET-test", fetch: respond(201, {}) });
   p.fill(VALID);
   await p.submit();
   eq(p.calls.length, 0, "fetch calls");
