@@ -104,6 +104,19 @@ function checkIndex(docsDir, fragment) {
     else if (plainText(link[2]) !== plainText(h1[1])) problems.push("the title in " + INDEX + " ('" + plainText(link[2]) + "') differs from the article's <h1> ('" + plainText(h1[1]) + "')");
   }
   if (!html.includes('data-i18n="' + SUMMARY_KEY + '"')) problems.push(INDEX + " does not show the summary key " + SUMMARY_KEY);
+  // The English in the HTML (no-JS fallback, meta and og text) must equal en.js and carry no digit.
+  let en = null;
+  try { en = loadEnglish(docsDir); } catch (error) { /* reported below */ }
+  if (en) {
+    for (const m of html.matchAll(/<([a-z0-9]+)\b[^>]*\bdata-i18n="([^"]+)"[^>]*>([\s\S]*?)<\/\1>/g)) {
+      if (m[2] in en && m[3].trim() !== en[m[2]].trim()) problems.push(INDEX + ": the English text of '" + m[2] + "' differs from i18n/en.js");
+    }
+    const desc = /<meta name="description" content="([^"]*)"/.exec(html);
+    if (!desc || desc[1] !== en.articles_description) problems.push(INDEX + ": the meta description differs from articles_description in i18n/en.js");
+  }
+  for (const m of html.matchAll(/<meta (?:name|property)="(description|og:title|og:description)" content="([^"]*)"/g)) {
+    if (/\d/.test(m[2])) problems.push(INDEX + ": " + m[1] + " holds a digit");
+  }
   for (const lang of LANGS) {
     let d = null;
     try { d = loadLanguage(docsDir, lang); } catch (error) { problems.push("cannot load i18n/" + lang + ".js"); continue; }
@@ -112,7 +125,7 @@ function checkIndex(docsDir, fragment) {
   }
   for (const file of fs.readdirSync(docsDir).filter((f) => f.endsWith(".html")).sort()) {
     const nav = /<nav id="primary-nav"[\s\S]*?<\/nav>/.exec(fs.readFileSync(path.join(docsDir, file), "utf8"));
-    if (!nav) continue;
+    if (!nav) { problems.push(file + ": no primary navigation (<nav id=\"primary-nav\">)"); continue; }
     if (!/data-i18n="open_source">Open-Source<\/a>\s*<a href="articles\.html" data-i18n="articles">Articles<\/a>/.test(nav[0])) problems.push(file + ": the Articles tab must follow Open-Source in the primary navigation");
   }
   return problems;
@@ -327,7 +340,16 @@ function selfTest() {
     ["index title with data-i18n", INDEX, (h) => h.replace('long-documents.html" lang="en">', 'long-documents.html" lang="en" data-i18n="x">'), "English-only"],
     ["index without the summary key", INDEX, (h) => h.replace('data-i18n="art_misread_summary"', 'data-i18n="art_other"'), "summary key"],
     ["a summary with a digit (pl)", "i18n/pl.js", (h) => h.replace(/("art_misread_summary": ")/, "$1W 2026 "), "pl summary holds a digit"],
-    ["a page without the Articles tab", "about.html", (h) => h.replace('<a href="articles.html" data-i18n="articles">Articles</a>', ""), "about.html: the Articles tab"]
+    ["a page without the Articles tab", "about.html", (h) => h.replace('<a href="articles.html" data-i18n="articles">Articles</a>', ""), "about.html: the Articles tab"],
+    ["a page whose nav lost its id", "about.html", (h) => h.replace('<nav id="primary-nav"', '<nav id="main-nav"'), "about.html: no primary navigation"],
+    ["index title without lang=en", INDEX, (h) => h.replace('long-documents.html" lang="en">', 'long-documents.html">'), "English-only"],
+    ["a summary missing in one language (rm)", "i18n/rm.js", (h) => h.replace(/\n  "art_misread_summary": "[^"]*"/, '\n  "art_misread_other": "x"'), "rm.js has no art_misread_summary"],
+    ["an index fallback that differs from en.js", INDEX, (h) => h.replace('data-i18n="art_misread_summary">Test results', 'data-i18n="art_misread_summary">Edited results'), "differs from i18n/en.js"],
+    ["an index og:description with a digit", INDEX, (h) => h.replace('<meta property="og:description" content="Articles', '<meta property="og:description" content="29 articles'), "og:description holds a digit"],
+    ["an index meta description that differs from en.js", INDEX, (h) => h.replace('<meta name="description" content="Articles from', '<meta name="description" content="Notes from'), "meta description differs"],
+    ["consent box labelled by an element without rf_consent", PAGE, (h) => h.replace('<span id="rf-consent-text" data-i18n="rf_consent">', '<span id="rf-consent-text" data-i18n="rf_consent_x">').replace('</label>\n            <span class="field-error" id="rf-error-consent">', '<span data-i18n="rf_consent"></span></label>\n            <span class="field-error" id="rf-error-consent">'), "aria-labelledby the element that holds"],
+    ["website field without autocomplete=off", PAGE, (h) => h.replace('tabindex="-1" autocomplete="off"', 'tabindex="-1"'), "autocomplete"],
+    ["website field outside the rf-trap wrapper", PAGE, (h) => h.replace('<input id="rf-website" name="website" type="text" tabindex="-1" autocomplete="off" />\n          </div>', '</div>\n          <input id="rf-website" name="website" type="text" tabindex="-1" autocomplete="off" />'), "inside the rf-trap wrapper"]
   ]) {
     c = inserted("article-fragment-table.html");
     const before = fs.readFileSync(path.join(c.dir, file), "utf8");

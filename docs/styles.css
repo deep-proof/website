@@ -622,13 +622,16 @@ html[lang="en"] .english-note { display: none; }
 .article-entry h2 a:hover, .article-entry h2 a:focus-visible { color: var(--acid); border-bottom-color: currentColor; }
 .article-summary { margin: 0; color: var(--mist); font-size: 1rem; line-height: 1.65; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 
-/* Header with the Articles tab: the brand and the labels never wrap. From 1101 to 1420px
-   the nav text is a little smaller, and up to 1290px the "Discuss your use case" button
-   gives way (the nav keeps "Contact"), so the longest languages (rm, ro, de) stay on one line. */
-.site-header .brand { flex-shrink: 0; white-space: nowrap; }
+/* Header with the Articles tab: the brand (from 370px) and the labels never wrap. From 1101
+   to 1420px the nav text is a little smaller. Where a language's labels still leave no room,
+   the "Discuss your use case" button gives way (the nav keeps "Contact"): up to 1120px in
+   English, up to 1210px in de, es, fr, it, nl, pl and pt, up to 1290px in rm and ro. */
+@media (min-width: 370px) { .site-header .brand { flex-shrink: 0; white-space: nowrap; } }
 .site-header nav a, .site-header .header-contact { white-space: nowrap; }
 @media (min-width: 1101px) and (max-width: 1420px) {
   .site-header nav a, .site-header .header-contact { font-size: .8rem; }
   .site-header nav { gap: 1.1rem; margin-right: 1.5rem; }
 }
-@media (min-width: 1101px) and (max-width: 1290px) { .site-header .header-contact { display: none; } }
+@media (min-width: 1101px) and (max-width: 1120px) { .site-header .header-contact { display: none; } }
+@media (min-width: 1101px) and (max-width: 1210px) { html:not([lang="en"]) .site-header .header-contact { display: none; } }
+@media (min-width: 1101px) and (max-width: 1290px) { html:is([lang="rm"], [lang="ro"]) .site-header .header-contact { display: none; } }

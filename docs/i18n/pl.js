@@ -409,5 +409,5 @@ window.DP_I18N.pl = {
   "articles_deep_proof": "Artykuły — Deep Proof",
   "articles_description": "Artykuły projektu Deep Proof.",
   "art_in_english": "Po angielsku",
-  "art_misread_summary": "Wyniki testów projektu Deep Proof dotyczące tego, kiedy agenci AI działający w wierszu poleceń udzielają błędnych odpowiedzi na temat długich dokumentów."
+  "art_misread_summary": "Wyniki testów projektu Deep Proof dotyczące przypadków, w których agenci AI działający w wierszu poleceń udzielają błędnych odpowiedzi na temat długich dokumentów."
 };
