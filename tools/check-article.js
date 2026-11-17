@@ -14,6 +14,9 @@ const os = require("os");
 const path = require("path");
 
 const PAGE = "ai-agents-misread-long-documents.html";
+const INDEX = "articles.html";
+const SUMMARY_KEY = "art_misread_summary";
+const LANGS = ["en", "de", "es", "fr", "it", "nl", "pl", "pt", "rm", "ro"];
 const BEGIN_RE = /<!-- ARTICLE:BEGIN sha256=([0-9a-f]{64}) -->\n/g;
 const END_MARK = "<!-- ARTICLE:END -->";
 const OPEN_TAG = '<article lang="en" class="article-copy">';
@@ -72,11 +75,47 @@ function checkFragment(fragment, { allowDraft = false } = {}) {
   return problems;
 }
 
-function loadEnglish(docsDir) {
+function loadLanguage(docsDir, lang) {
   const sandbox = { window: {} };
-  const code = fs.readFileSync(path.join(docsDir, "i18n", "en.js"), "utf8");
+  const code = fs.readFileSync(path.join(docsDir, "i18n", lang + ".js"), "utf8");
   new Function("window", code)(sandbox.window);
-  return sandbox.window.DP_I18N.en;
+  return sandbox.window.DP_I18N[lang];
+}
+function loadEnglish(docsDir) { return loadLanguage(docsDir, "en"); }
+
+const plainText = (html) => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+
+// The articles index (articles.html) and the Articles tab of every page.
+function checkIndex(docsDir, fragment) {
+  const problems = [];
+  let html;
+  try { html = fs.readFileSync(path.join(docsDir, INDEX), "utf8"); } catch (error) { return ["cannot read " + INDEX]; }
+  for (const [name, page] of [[INDEX, html], [PAGE, null]]) {
+    let text = page;
+    if (text === null) { try { text = fs.readFileSync(path.join(docsDir, PAGE), "utf8"); } catch (error) { continue; } }
+    if (!/<meta name="robots" content="noindex" \/>/.test(text)) problems.push(name + " must keep <meta name=\"robots\" content=\"noindex\" /> until go-live");
+  }
+  const link = new RegExp('<a href="' + PAGE.replace(/\./g, "\\.") + '"([^>]*)>([\\s\\S]*?)</a>').exec(html);
+  if (!link) problems.push(INDEX + " has no link to " + PAGE);
+  else {
+    if (!/\blang="en"/.test(link[1]) || /data-i18n/.test(link[1])) problems.push("the article title in " + INDEX + " must carry lang=\"en\" and no data-i18n (English-only exception)");
+    const h1 = fragment && /<h1\b[^>]*>([\s\S]*?)<\/h1>/.exec(fragment);
+    if (!h1) problems.push("the article fragment has no <h1> to compare the index title with");
+    else if (plainText(link[2]) !== plainText(h1[1])) problems.push("the title in " + INDEX + " ('" + plainText(link[2]) + "') differs from the article's <h1> ('" + plainText(h1[1]) + "')");
+  }
+  if (!html.includes('data-i18n="' + SUMMARY_KEY + '"')) problems.push(INDEX + " does not show the summary key " + SUMMARY_KEY);
+  for (const lang of LANGS) {
+    let d = null;
+    try { d = loadLanguage(docsDir, lang); } catch (error) { problems.push("cannot load i18n/" + lang + ".js"); continue; }
+    if (!d || typeof d[SUMMARY_KEY] !== "string" || !d[SUMMARY_KEY].trim()) problems.push("i18n/" + lang + ".js has no " + SUMMARY_KEY);
+    else if (/\d/.test(d[SUMMARY_KEY])) problems.push("the " + lang + " summary holds a digit: the index summary carries no number or rate");
+  }
+  for (const file of fs.readdirSync(docsDir).filter((f) => f.endsWith(".html")).sort()) {
+    const nav = /<nav id="primary-nav"[\s\S]*?<\/nav>/.exec(fs.readFileSync(path.join(docsDir, file), "utf8"));
+    if (!nav) continue;
+    if (!/data-i18n="open_source">Open-Source<\/a>\s*<a href="articles\.html" data-i18n="articles">Articles<\/a>/.test(nav[0])) problems.push(file + ": the Articles tab must follow Open-Source in the primary navigation");
+  }
+  return problems;
 }
 
 // Checks of the page around the fragment: form fields, keys, scripts, consent version.
@@ -154,6 +193,7 @@ function checkPage(docsDir, expect) {
     problems.push(...checkFragment(loc.fragment));
   }
   problems.push(...checkFrame(html, docsDir));
+  problems.push(...checkIndex(docsDir, loc.error ? null : loc.fragment));
   return problems;
 }
 
@@ -170,8 +210,8 @@ function selfTest() {
   function freshCopy() {
     const dir = fs.mkdtempSync(path.join(tmp, "docs-"));
     fs.mkdirSync(path.join(dir, "i18n"));
-    fs.copyFileSync(path.join(docs, PAGE), path.join(dir, PAGE));
-    fs.copyFileSync(path.join(docs, "i18n", "en.js"), path.join(dir, "i18n", "en.js"));
+    for (const f of fs.readdirSync(docs).filter((f) => f.endsWith(".html"))) fs.copyFileSync(path.join(docs, f), path.join(dir, f));
+    for (const lang of LANGS) fs.copyFileSync(path.join(docs, "i18n", lang + ".js"), path.join(dir, "i18n", lang + ".js"));
     const script = fs.readFileSync(path.join(docs, "report-form.js"), "utf8").replace(/const CONSENT_VERSION = "[^"]*";/, 'const CONSENT_VERSION = "2026-11-17";');
     fs.writeFileSync(path.join(dir, "report-form.js"), script);
     return dir;
@@ -188,10 +228,17 @@ function selfTest() {
     if (!ok) failures++;
     results.push((ok ? "ok   " : "FAIL ") + name + (passed ? " (passes)" : " (refused: " + problems[0] + (problems.length > 1 ? "; +" + (problems.length - 1) : "") + ")"));
   }
+  // The index shows the inserted article's title, as it must for the real article.
+  function setIndexTitle(dir, fragment) {
+    const h1 = /<h1\b[^>]*>([\s\S]*?)<\/h1>/.exec(fragment);
+    const indexPath = path.join(dir, INDEX);
+    if (h1) fs.writeFileSync(indexPath, fs.readFileSync(indexPath, "utf8").replace(/(<a href="ai-agents-misread-long-documents\.html" lang="en">)[^<]*/, (m, open) => open + plainText(h1[1])));
+  }
   function inserted(fixture) {
     const dir = freshCopy();
     const file = path.join(fixtures, fixture);
     const out = insert.insertFragment(path.join(dir, PAGE), file, null);
+    setIndexTitle(dir, fs.readFileSync(file, "utf8"));
     return { dir, hash: out.hash, file };
   }
 
@@ -244,6 +291,7 @@ function selfTest() {
     const dir = freshCopy();
     const frag = fs.readFileSync(path.join(fixtures, "article-fragment-plain.html"), "utf8").replace("</article>", "<p>30.2% and 130% are fine.</p>\n</article>");
     edit(dir, (h) => { const l = locateFragment(h); return h.slice(0, l.start).replace(/sha256=[0-9a-f]{64}/, "sha256=" + sha256(frag)) + frag + h.slice(l.end); });
+    setIndexTitle(dir, frag);
     expectCase("'30.2%' and '130%' pass", dir, true);
   }
 
@@ -267,6 +315,24 @@ function selfTest() {
     let changed = false;
     edit(c.dir, (h) => { changed = h.includes(from); return h.replace(from, to); });
     if (!changed) { failures++; results.push("FAIL " + label + ": the page no longer holds the text the case edits"); continue; }
+    expectCase(label + " is refused", c.dir, false, null, mention);
+  }
+
+  // The articles index and the Articles tab.
+  function editFile(dir, file, fn) { const p = path.join(dir, file); fs.writeFileSync(p, fn(fs.readFileSync(p, "utf8"))); }
+  for (const [label, file, fn, mention] of [
+    ["index without noindex", INDEX, (h) => h.replace('<meta name="robots" content="noindex" />', ""), "noindex"],
+    ["article page without noindex", PAGE, (h) => h.replace('<meta name="robots" content="noindex" />', ""), "noindex"],
+    ["index title that differs from the article's h1", INDEX, (h) => h.replace(/(<a href="ai-agents-misread-long-documents\.html" lang="en">)[^<]*/, "$1Another title"), "differs from the article's"],
+    ["index title with data-i18n", INDEX, (h) => h.replace('long-documents.html" lang="en">', 'long-documents.html" lang="en" data-i18n="x">'), "English-only"],
+    ["index without the summary key", INDEX, (h) => h.replace('data-i18n="art_misread_summary"', 'data-i18n="art_other"'), "summary key"],
+    ["a summary with a digit (pl)", "i18n/pl.js", (h) => h.replace(/("art_misread_summary": ")/, "$1W 2026 "), "pl summary holds a digit"],
+    ["a page without the Articles tab", "about.html", (h) => h.replace('<a href="articles.html" data-i18n="articles">Articles</a>', ""), "about.html: the Articles tab"]
+  ]) {
+    c = inserted("article-fragment-table.html");
+    const before = fs.readFileSync(path.join(c.dir, file), "utf8");
+    editFile(c.dir, file, fn);
+    if (fs.readFileSync(path.join(c.dir, file), "utf8") === before) { failures++; results.push("FAIL " + label + ": the edit changed nothing"); continue; }
     expectCase(label + " is refused", c.dir, false, null, mention);
   }
 
@@ -332,5 +398,5 @@ function main(argv) {
   return 0;
 }
 
-module.exports = { locateFragment, checkFragment, checkPage, sha256, PAGE, END_MARK, OPEN_TAG };
+module.exports = { locateFragment, checkFragment, checkPage, checkIndex, sha256, PAGE, INDEX, END_MARK, OPEN_TAG };
 if (require.main === module) process.exitCode = main(process.argv.slice(2));

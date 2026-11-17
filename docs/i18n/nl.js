@@ -12,6 +12,7 @@ window.DP_I18N.nl = {
   "ai_review_skills": "AI Review Skills",
   "security": "Beveiliging",
   "open_source": "Open-Source",
+  "articles": "Artikelen",
   "about": "Over ons",
   "contact": "Contact",
   "discuss_your_use_case": "Bespreek uw toepassing <span aria-hidden=\"true\">↗</span>",
@@ -404,5 +405,9 @@ window.DP_I18N.nl = {
   "js_rf_field_long": "Deze tekst is te lang.",
   "js_rf_consent_required": "Bevestig dat u akkoord gaat.",
   "js_rf_rate_limited": "Te veel aanvragen. Probeer het over {minutes} minuten opnieuw.",
-  "js_rf_unavailable": "Het rapport kan op dit moment niet worden aangevraagd. Probeer het later opnieuw."
+  "js_rf_unavailable": "Het rapport kan op dit moment niet worden aangevraagd. Probeer het later opnieuw.",
+  "articles_deep_proof": "Artikelen — Deep Proof",
+  "articles_description": "Artikelen van het project Deep Proof.",
+  "art_in_english": "In het Engels",
+  "art_misread_summary": "Testresultaten van het project Deep Proof over waar AI-agents op de opdrachtregel verkeerde antwoorden geven over lange documenten."
 };

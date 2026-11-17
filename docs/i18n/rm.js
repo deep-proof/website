@@ -12,6 +12,7 @@ window.DP_I18N.rm = {
   "ai_review_skills": "AI Review Skills",
   "security": "Segirezza",
   "open_source": "Open-Source",
+  "articles": "Artitgels",
   "about": "Davart nus",
   "contact": "Contact",
   "discuss_your_use_case": "Discutar Voss cas d’applicaziun <span aria-hidden=\"true\">↗</span>",
@@ -404,5 +405,9 @@ window.DP_I18N.rm = {
   "js_rf_field_long": "Quest text è memia lung.",
   "js_rf_consent_required": "Confermai per plaschair Voss consentiment.",
   "js_rf_rate_limited": "Memia bleras dumondas. Empruvai per plaschair danovamain en {minutes} minutas.",
-  "js_rf_unavailable": "Il rapport na po momentanamain betg vegnir dumandà. Empruvai per plaschair pli tard."
+  "js_rf_unavailable": "Il rapport na po momentanamain betg vegnir dumandà. Empruvai per plaschair pli tard.",
+  "articles_deep_proof": "Artitgels — Deep Proof",
+  "articles_description": "Artitgels dal project Deep Proof.",
+  "art_in_english": "En englais",
+  "art_misread_summary": "Resultats dals tests dal project Deep Proof davart ils cas nua che agents d’IA da la lingia da cumonds dattan respostas sbagliadas davart documents lungs."
 };

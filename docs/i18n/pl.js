@@ -12,6 +12,7 @@ window.DP_I18N.pl = {
   "ai_review_skills": "AI Review Skills",
   "security": "Bezpieczeństwo",
   "open_source": "Open-Source",
+  "articles": "Artykuły",
   "about": "O nas",
   "contact": "Kontakt",
   "discuss_your_use_case": "Omówmy Państwa potrzeby <span aria-hidden=\"true\">↗</span>",
@@ -404,5 +405,9 @@ window.DP_I18N.pl = {
   "js_rf_field_long": "Ten tekst jest zbyt długi.",
   "js_rf_consent_required": "Prosimy potwierdzić zgodę.",
   "js_rf_rate_limited": "Zbyt wiele zgłoszeń. Prosimy spróbować ponownie za {minutes} min.",
-  "js_rf_unavailable": "Obecnie nie można zamówić raportu. Prosimy spróbować ponownie później."
+  "js_rf_unavailable": "Obecnie nie można zamówić raportu. Prosimy spróbować ponownie później.",
+  "articles_deep_proof": "Artykuły — Deep Proof",
+  "articles_description": "Artykuły projektu Deep Proof.",
+  "art_in_english": "Po angielsku",
+  "art_misread_summary": "Wyniki testów projektu Deep Proof dotyczące tego, kiedy agenci AI działający w wierszu poleceń udzielają błędnych odpowiedzi na temat długich dokumentów."
 };

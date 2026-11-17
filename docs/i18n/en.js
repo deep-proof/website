@@ -13,6 +13,7 @@ window.DP_I18N.en = {
   "ai_review_skills": "AI Review Skills",
   "security": "Security",
   "open_source": "Open-Source",
+  "articles": "Articles",
   "about": "About",
   "contact": "Contact",
   "discuss_your_use_case": "Discuss your use case <span aria-hidden=\"true\">↗</span>",
@@ -405,5 +406,9 @@ window.DP_I18N.en = {
   "js_rf_field_long": "This text is too long.",
   "js_rf_consent_required": "Please confirm that you agree.",
   "js_rf_rate_limited": "Too many requests. Please try again in {minutes} minutes.",
-  "js_rf_unavailable": "The report cannot be requested right now. Please try again later."
+  "js_rf_unavailable": "The report cannot be requested right now. Please try again later.",
+  "articles_deep_proof": "Articles — Deep Proof",
+  "articles_description": "Articles from the Deep Proof project.",
+  "art_in_english": "In English",
+  "art_misread_summary": "Test results from the Deep Proof project on where command-line AI agents give wrong answers about long documents."
 };

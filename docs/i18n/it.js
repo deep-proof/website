@@ -12,6 +12,7 @@ window.DP_I18N.it = {
   "ai_review_skills": "AI Review Skills",
   "security": "Sicurezza",
   "open_source": "Open-Source",
+  "articles": "Articoli",
   "about": "Chi siamo",
   "contact": "Contatto",
   "discuss_your_use_case": "Parliamo del Suo caso d’uso <span aria-hidden=\"true\">↗</span>",
@@ -404,5 +405,9 @@ window.DP_I18N.it = {
   "js_rf_field_long": "Questo testo è troppo lungo.",
   "js_rf_consent_required": "Confermi di essere d’accordo.",
   "js_rf_rate_limited": "Troppe richieste. Riprovi tra {minutes} minuti.",
-  "js_rf_unavailable": "Al momento non è possibile richiedere il rapporto. Riprovi più tardi."
+  "js_rf_unavailable": "Al momento non è possibile richiedere il rapporto. Riprovi più tardi.",
+  "articles_deep_proof": "Articoli — Deep Proof",
+  "articles_description": "Articoli del progetto Deep Proof.",
+  "art_in_english": "In inglese",
+  "art_misread_summary": "Risultati dei test del progetto Deep Proof sui casi in cui agenti di IA a riga di comando danno risposte sbagliate su documenti lunghi."
 };

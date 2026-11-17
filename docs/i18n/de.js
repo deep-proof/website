@@ -12,6 +12,7 @@ window.DP_I18N.de = {
   "ai_review_skills": "AI Review Skills",
   "security": "Sicherheit",
   "open_source": "Open-Source",
+  "articles": "Artikel",
   "about": "Über uns",
   "contact": "Kontakt",
   "discuss_your_use_case": "Anwendungsfall besprechen <span aria-hidden=\"true\">↗</span>",
@@ -404,5 +405,9 @@ window.DP_I18N.de = {
   "js_rf_field_long": "Dieser Text ist zu lang.",
   "js_rf_consent_required": "Bitte bestätigen Sie, dass Sie einverstanden sind.",
   "js_rf_rate_limited": "Zu viele Anfragen. Bitte versuchen Sie es in {minutes} Minuten erneut.",
-  "js_rf_unavailable": "Der Bericht kann im Moment nicht angefordert werden. Bitte versuchen Sie es später erneut."
+  "js_rf_unavailable": "Der Bericht kann im Moment nicht angefordert werden. Bitte versuchen Sie es später erneut.",
+  "articles_deep_proof": "Artikel — Deep Proof",
+  "articles_description": "Artikel aus dem Projekt Deep Proof.",
+  "art_in_english": "Auf Englisch",
+  "art_misread_summary": "Testergebnisse aus dem Projekt Deep Proof dazu, wo KI-Agenten auf der Kommandozeile zu langen Dokumenten falsche Antworten geben."
 };

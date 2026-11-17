@@ -612,3 +612,23 @@ html[lang="en"] .english-note { display: none; }
 [data-theme="light"] .report-request-form [aria-invalid="true"] { border-color: #b3261e; }
 [data-theme="light"] .field-error { color: #b3261e; }
 [data-theme="light"] .rf-result { border-color: rgba(74, 115, 0, .45); }
+
+/* ---------- Articles index (articles.html) ---------- */
+.article-list { max-width: 46rem; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.article-entry { padding: 1.8rem 0; border-bottom: 1px solid var(--line); }
+.article-meta { margin: 0 0 .7rem; color: var(--mist); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.article-entry h2 { margin: 0 0 .8rem; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.12; }
+.article-entry h2 a { color: var(--paper); border-bottom: 1px solid transparent; transition: color .2s ease, border-color .2s ease; }
+.article-entry h2 a:hover, .article-entry h2 a:focus-visible { color: var(--acid); border-bottom-color: currentColor; }
+.article-summary { margin: 0; color: var(--mist); font-size: 1rem; line-height: 1.65; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+
+/* Header with the Articles tab: the brand and the labels never wrap. From 1101 to 1420px
+   the nav text is a little smaller, and up to 1290px the "Discuss your use case" button
+   gives way (the nav keeps "Contact"), so the longest languages (rm, ro, de) stay on one line. */
+.site-header .brand { flex-shrink: 0; white-space: nowrap; }
+.site-header nav a, .site-header .header-contact { white-space: nowrap; }
+@media (min-width: 1101px) and (max-width: 1420px) {
+  .site-header nav a, .site-header .header-contact { font-size: .8rem; }
+  .site-header nav { gap: 1.1rem; margin-right: 1.5rem; }
+}
+@media (min-width: 1101px) and (max-width: 1290px) { .site-header .header-contact { display: none; } }

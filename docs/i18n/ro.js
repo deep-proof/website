@@ -12,6 +12,7 @@ window.DP_I18N.ro = {
   "ai_review_skills": "AI Review Skills",
   "security": "Securitate",
   "open_source": "Open-Source",
+  "articles": "Articole",
   "about": "Despre noi",
   "contact": "Contact",
   "discuss_your_use_case": "Discutați cazul dumneavoastră <span aria-hidden=\"true\">↗</span>",
@@ -404,5 +405,9 @@ window.DP_I18N.ro = {
   "js_rf_field_long": "Acest text este prea lung.",
   "js_rf_consent_required": "Confirmați că sunteți de acord.",
   "js_rf_rate_limited": "Prea multe cereri. Încercați din nou peste {minutes} minute.",
-  "js_rf_unavailable": "Raportul nu poate fi solicitat în acest moment. Încercați din nou mai târziu."
+  "js_rf_unavailable": "Raportul nu poate fi solicitat în acest moment. Încercați din nou mai târziu.",
+  "articles_deep_proof": "Articole — Deep Proof",
+  "articles_description": "Articole din proiectul Deep Proof.",
+  "art_in_english": "În limba engleză",
+  "art_misread_summary": "Rezultatele testelor din proiectul Deep Proof despre cazurile în care agenții AI din linia de comandă dau răspunsuri greșite despre documente lungi."
 };
