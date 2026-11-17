@@ -34,6 +34,13 @@ The site is available in English (default), German, French, Italian, Romansh, Sp
 - Adding a language: new `docs/i18n/<lang>.js`, a `<option>` in the language selector (options sorted alphabetically by code) and the language code in the head script regexes of every page, and the code in `tools/check-i18n.js`.
 - Titles with `<br />` keep exactly one `<br />`, placed after the first sentence in that language.
 
+## Articles
+
+- `docs/ai-agents-misread-long-documents.html` holds an article between `<!-- ARTICLE:BEGIN sha256=<hex> -->` and `<!-- ARTICLE:END -->`. The article body is **English only**, a documented exception to the translation rule above: it carries no `data-i18n` and is not in the `i18n` files. The page frame (header, footer, the English note, the report form, its consent text and messages) is translated like every other text.
+- The body is generated in the testing-docs repository (`article/build_article.py --final --out FILE`, which prints the fragment's sha256) and inserted with `node tools/insert-article.js FILE --expect <sha256>`. Never edit the text between the markers by hand.
+- `node tools/check-article.js docs --expect <sha256>` must exit 0 before the page is published: marker hash, no `data-i18n`, address, script, form or DRAFT mark inside the fragment, the form's fields and keys, and a set consent version in `docs/report-form.js`. `node tools/check-article.js --self-test` and `node tools/test-report-form.js` test the tools and the form script.
+- The report form posts to Bizanso (the collector address, site, form and consent version are constants at the top of `docs/report-form.js`). A new consent text needs a new consent version, registered in Bizanso before the page shows it.
+
 ## Other conventions
 
 - The contact email address never appears as text in the source. It is assembled in `script.js` and drawn as an SVG (`.email-img`, `data-mail` links).
