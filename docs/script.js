@@ -251,6 +251,8 @@ function applyLanguage(lang) {
   applyTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
   if (copyButton) copyButton.textContent = t("js_copy_message");
   if (langSelect) langSelect.value = currentLang;
+  // Page scripts that draw their own texts (report-form.js) redraw on this event.
+  document.dispatchEvent(new CustomEvent("dp:language"));
 }
 
 function loadLanguage(lang, done) {
