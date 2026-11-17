@@ -551,6 +551,7 @@ h1, h2 { font-weight: 500; }
 /* ---------- Article page (ai-agents-misread-long-documents.html) ----------
    The article body between the ARTICLE markers is generated English text; the
    frame, the form and its messages are translated. */
+.eyebrow .eyebrow-label { font-weight: inherit; }
 .english-note { max-width: 46rem; margin: 0 0 2.5rem; padding: .8rem 1rem; border-left: 2px solid var(--acid); color: var(--mist); font-size: .9rem; line-height: 1.55; }
 html[lang="en"] .english-note { display: none; }
 .article-copy { max-width: 46rem; color: var(--mist); font-size: 1.05rem; line-height: 1.7; }
@@ -604,7 +605,7 @@ html[lang="en"] .english-note { display: none; }
 .rf-result p { margin: 0 0 .7rem; color: var(--mist); }
 .rf-result #rf-success { color: var(--paper); font-weight: 650; }
 .rf-link-row a { color: var(--acid); border-bottom: 1px solid currentColor; word-break: break-all; }
-@media (max-width: 640px) { .report-request-form { grid-template-columns: 1fr; } .article-copy { font-size: 1rem; } }
+@media (max-width: 640px) { .report-request-form { grid-template-columns: 1fr; } .article-copy { font-size: 1rem; } .article-copy h1 { font-size: 2.1rem; } .report-form h2 { font-size: 1.9rem; } }
 
 [data-theme="light"] .report-request-form input:not([type="checkbox"]), [data-theme="light"] .report-request-form textarea { border-color: rgba(7, 21, 29, .25); background-color: #fff; }
 [data-theme="light"] .report-request-form input:focus, [data-theme="light"] .report-request-form textarea:focus { box-shadow: 0 0 0 2px rgba(74, 115, 0, .18); }
