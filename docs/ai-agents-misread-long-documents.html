@@ -100,13 +100,13 @@
             <textarea id="rf-comment" name="comment" maxlength="1000" rows="4" aria-describedby="rf-error-comment"></textarea>
             <span class="field-error" id="rf-error-comment"></span>
           </div>
-          <div class="rf-trap" aria-hidden="true">
+          <div class="rf-trap" aria-hidden="true" inert>
             <label for="rf-website">Website</label>
             <input id="rf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
           </div>
           <div class="rf-field rf-wide rf-consent">
-            <input id="rf-consent" name="consent" type="checkbox" required aria-describedby="rf-error-consent" />
-            <label for="rf-consent"><span data-i18n="rf_consent">I agree that Outfinity SARL stores the details I enter here to give me the report and to contact me about Deep Proof. They are kept on bizanso.com and deleted after 12 months, or earlier if I ask. See the <a href="privacy.html#report-request">privacy notice</a>.</span></label>
+            <input id="rf-consent" name="consent" type="checkbox" required aria-labelledby="rf-consent-text" aria-describedby="rf-error-consent" />
+            <label for="rf-consent"><span id="rf-consent-text" data-i18n="rf_consent">I agree that Outfinity SARL stores the details I enter here to give me the report and to contact me about Deep Proof. They are kept on bizanso.com and deleted after 12 months, or earlier if I ask. See the <a href="privacy.html#report-request">privacy notice</a>.</span></label>
             <span class="field-error" id="rf-error-consent"></span>
           </div>
           <button class="button button-primary" type="submit" id="rf-submit" disabled data-i18n="rf_submit">Get the report</button>

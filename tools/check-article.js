@@ -91,6 +91,7 @@ function checkFrame(html, docsDir) {
       if (!new RegExp('<(input|textarea)\\b[^>]*\\bname="' + field + '"').test(formMatch[1])) problems.push("form field '" + field + "' is missing");
     }
     if (!/<input\b[^>]*name="consent"[^>]*type="checkbox"[^>]*\brequired\b|<input\b[^>]*type="checkbox"[^>]*name="consent"[^>]*\brequired\b/.test(formMatch[1])) problems.push("the consent field is not a required checkbox");
+    problems.push(...checkAccessibility(formMatch[1]));
   }
   for (const id of SCRIPT_IDS) if (!frame.includes('id="' + id + '"')) problems.push("element id '" + id + "' is missing");
   const statusTag = /<[a-z]+\b[^>]*\bid="rf-status"[^>]*>/.exec(frame);
@@ -114,6 +115,28 @@ function checkFrame(html, docsDir) {
   const consent = /const CONSENT_VERSION = "([^"]*)";/.exec(script);
   if (!consent) problems.push("report-form.js has no CONSENT_VERSION constant");
   else if (!/^\d{4}-\d{2}-\d{2}$/.test(consent[1])) problems.push("CONSENT_VERSION in report-form.js is unset ('" + consent[1] + "'): it must be the date the owner approved the consent text");
+  return problems;
+}
+
+// The consent box is named by the consent text, and the trap field is out of the
+// accessibility tree and the tab order while it stays in the form for the server's check.
+function checkAccessibility(form) {
+  const problems = [];
+  const box = /<input\b[^>]*\bname="consent"[^>]*>/.exec(form);
+  const labelledBy = box && /\baria-labelledby="([^"]+)"/.exec(box[0]);
+  const idOf = box && /\bid="([^"]+)"/.exec(box[0]);
+  const textTag = labelledBy && new RegExp('<[a-z]+\\b[^>]*\\bid="' + labelledBy[1] + '"[^>]*>').exec(form);
+  if (!textTag || !/data-i18n="rf_consent"/.test(textTag[0])) problems.push("the consent checkbox must be aria-labelledby the element that holds data-i18n=\"rf_consent\"");
+  if (!idOf || !new RegExp('<label\\b[^>]*\\bfor="' + idOf[1] + '"').test(form)) problems.push("the consent checkbox needs a <label for> holding the consent text");
+  const trap = /<div\b[^>]*\bclass="rf-trap"[^>]*>([\s\S]*?)<\/div>/.exec(form);
+  if (!trap) problems.push("the trap field must sit in a <div class=\"rf-trap\">");
+  else {
+    const open = /<div\b[^>]*>/.exec(trap[0])[0];
+    if (!/\baria-hidden="true"/.test(open) || !/\binert\b/.test(open)) problems.push("the rf-trap wrapper needs aria-hidden=\"true\" and inert");
+    const input = /<input\b[^>]*\bname="website"[^>]*>/.exec(trap[1]);
+    if (!input) problems.push("the website field must be inside the rf-trap wrapper");
+    else if (!/\btabindex="-1"/.test(input[0]) || !/\bautocomplete="off"/.test(input[0])) problems.push("the website field needs tabindex=\"-1\" and autocomplete=\"off\"");
+  }
   return problems;
 }
 
@@ -231,6 +254,21 @@ function selfTest() {
   c = inserted("article-fragment-table.html");
   edit(c.dir, (h) => h.replace('data-i18n="rf_consent"', 'data-i18n="rf_consent_x"'));
   expectCase("missing page key 'rf_consent' is refused", c.dir, false, null, "rf_consent");
+
+  for (const [label, from, to, mention] of [
+    ["trap wrapper without inert", 'class="rf-trap" aria-hidden="true" inert>', 'class="rf-trap" aria-hidden="true">', "inert"],
+    ["trap wrapper without aria-hidden", 'class="rf-trap" aria-hidden="true" inert>', 'class="rf-trap" inert>', "aria-hidden"],
+    ["website field without tabindex=-1", 'name="website" type="text" tabindex="-1"', 'name="website" type="text"', "tabindex"],
+    ["consent box without aria-labelledby", ' aria-labelledby="rf-consent-text"', "", "aria-labelledby"],
+    ["consent text without its id", '<span id="rf-consent-text" data-i18n="rf_consent">', '<span data-i18n="rf_consent">', "aria-labelledby"],
+    ["consent label without for", '<label for="rf-consent">', "<label>", "label for"]
+  ]) {
+    c = inserted("article-fragment-table.html");
+    let changed = false;
+    edit(c.dir, (h) => { changed = h.includes(from); return h.replace(from, to); });
+    if (!changed) { failures++; results.push("FAIL " + label + ": the page no longer holds the text the case edits"); continue; }
+    expectCase(label + " is refused", c.dir, false, null, mention);
+  }
 
   c = inserted("article-fragment-table.html");
   edit(c.dir, (h) => h.replace('<script src="report-form.js"></script>', ""));
