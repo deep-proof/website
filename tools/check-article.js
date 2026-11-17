@@ -237,7 +237,7 @@ function selfTest() {
   expectCase("page without report-form.js is refused", c.dir, false, null, "report-form.js");
 
   c = inserted("article-fragment-table.html");
-  fs.writeFileSync(path.join(c.dir, "report-form.js"), fs.readFileSync(path.join(docs, "report-form.js"), "utf8"));
+  fs.writeFileSync(path.join(c.dir, "report-form.js"), fs.readFileSync(path.join(docs, "report-form.js"), "utf8").replace(/const CONSENT_VERSION = "[^"]*";/, 'const CONSENT_VERSION = "UNSET-test";'));
   expectCase("unset consent version is refused", c.dir, false, null, "CONSENT_VERSION");
 
   c = inserted("article-fragment-table.html");
