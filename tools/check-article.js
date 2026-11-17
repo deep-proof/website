@@ -389,11 +389,15 @@ function selfTest() {
     results.push((threw ? "ok   " : "FAIL ") + label);
   }
 
-  // The committed page itself must be refused while it holds the placeholder or the unset consent.
+  // The committed page is either final (no problem at all) or still holds the DRAFT placeholder (then it must be
+  // refused for it). Any other problem on the committed page fails the self-test. The draft state is recognised by
+  // the checker's own message, not by the word DRAFT anywhere in a message, since messages can quote page text.
   const committed = checkPage(docs);
-  const refusedNow = committed.some((p) => p.includes("DRAFT"));
-  if (!refusedNow) failures++;
-  results.push((refusedNow ? "ok   " : "FAIL ") + "the committed page (placeholder fragment) is refused: " + committed.length + " problem(s)");
+  const draftNow = committed.some((p) => p.startsWith("fragment holds the DRAFT mark"));
+  const committedOk = committed.length === 0 || draftNow;
+  if (!committedOk) failures++;
+  const committedState = draftNow ? "a draft and is refused" : committed.length === 0 ? "final and is accepted" : "refused for another reason";
+  results.push((committedOk ? "ok   " : "FAIL ") + "the committed page is " + committedState + ": " + committed.length + " problem(s)");
 
   fs.rmSync(tmp, { recursive: true, force: true });
   console.log(results.join("\n"));

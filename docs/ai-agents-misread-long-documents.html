@@ -69,11 +69,70 @@
     <main id="main-content" class="legal-content">
       <p class="eyebrow"><span></span> <b class="eyebrow-label" data-i18n="test_results">Test results</b></p>
       <p class="english-note" data-i18n="art_english_note">This article is available in English only. The navigation, the form and the privacy texts on this page are in your language.</p>
-<!-- ARTICLE:BEGIN sha256=b33154030349fb14c3ec8e3993f1a66b943d7131135335ce3d328e5abde7cca0 -->
+<!-- ARTICLE:BEGIN sha256=342bbec76548c876902ab20184359fc707fcc33fa4d3ca802cead8aae4773154 -->
 <article lang="en" class="article-copy">
-<p class="draft-mark">DRAFT: placeholder. The article text is generated in the testing-docs repository and inserted with tools/insert-article.js. Do not publish this page.</p>
 <h1>Where AI agents misread long documents</h1>
-<p class="lede">The article text is not inserted yet.</p>
+<p class="lede">Test results from the Deep Proof project, 12 to 17 November 2026. We tried to make command-line AI agents give wrong answers about documents. The traps we ran caught nothing. Long books of minutes with sums of money in them did.</p>
+
+<h2>What we tested</h2>
+<p>Deep Proof is a review workspace: it checks the statements of a report against the source documents the report is about. To build it well we need to know where current AI agents actually go wrong, so we wrote test documents and measured.</p>
+<p>Except for the public benchmark cases in section 4, the documents are synthetic: invented organisations and invented figures. Each dossier comes with one or two reports of numbered statements. An agent reads the sources and says, for each statement, whether the sources support it, refute it or do not settle it; in most runs it also had to give the value of a sum or count. The expected answer to every statement was fixed before any agent ran, and a script compared the answers with it.</p>
+<p>Every figure below comes from a <strong>plain agent</strong>: a command-line coding agent with a model and nothing else. No review skill, no memory of earlier runs and, except where a result says so, no added instruction. <strong>None of these figures measures the Deep Proof product itself.</strong></p>
+
+<h2>1. Where plain agents got answers wrong</h2>
+<p>The family that gave these results is the plainest one: several volumes of committee minutes and reports about sums of money, counts of payments and awards. Nothing in it is hidden from a reader who reads every page. The reader has to find every entry among hundreds, and one missed entry makes every later total wrong.</p>
+<ul>
+<li>On six fresh dossiers of the fourth edition, gpt-6.1-sol got <strong>98 of 576 answers (17.0%)</strong> not right. An answer counts as right only when the verdict and the value are both right.</li>
+<li>On six larger dossiers of the second edition, where the task asked for the verdict only, the same model gave 64 of 576 answers (11.1%) that were wrong or withheld; 41 of the 576 (7.1%) were wrong outright. A withheld answer says the sources do not settle a statement that they do settle. By the rule fixed before the run, 2 of 6 dossiers failed, or 1 of 6 if withheld answers are not counted; the rule reads the first count as &ldquo;in between&rdquo;, neither a clear failure nor a pass.</li>
+<li>On the same six dossiers, when the task also asked for the value and for quotes of the passages behind it, 520 of 576 verdicts (90.3%) were right; the others were wrong or withheld. This was a first measurement with no bar set beforehand.</li>
+<li>On two dossiers of the fifth edition, gpt-6.1-sol gave 20 of 192 answers (10.4%) not right and gpt-6-astra gave 12 of 192 (6.2%), both at medium effort. This was a small scout.</li>
+</ul>
+<p>The first two were confirming runs, each read by a rule fixed before it started.</p>
+<p><!--edition8-->On six books of a later edition of the minutes, gpt-6-astra at the xhigh effort setting, working as it does by default, got <strong>169 of 576</strong> answers not right in 24 reviews. A planned extension of this run was not carried out, so we give the count and draw no rate from it.<!--/edition8--> That edition, the eighth, differs from the sixth in one respect: some returns of money are told without a figure or a money word, in wordings chosen because this agent's own searches in earlier reviews had rarely matched them. The count shows how the agent does on such sentences when it is left to work its own way. It is not a measure of how often it fails on documents in general.</p>
+<p>On two dense books of the sixth edition, gpt-6-astra at the xhigh effort setting got 8 of 192 answers (4.2%) not right. This was a scout. The books, editions and models differ between these results, so the figures of this section cannot be compared with one another as rates of one model.</p>
+<p>In the reviews we examined, the agents did not read these books from start to finish. They searched for the paragraphs that mention money, printed those and built a ledger from them, often with a small program. Where an answer that was not right was traced, it mostly went back to an entry that never reached the agent's ledger: its search or its program had passed the entry over, or the agent program had cut it out of a long output. One ledger serves every statement of a report, so the errors came in blocks: some reviews were flawless and a few held most of the errors.</p>
+
+<h2>2. What one sentence of instruction changed</h2>
+<p>In separate runs, the same model was told in one sentence to print and read every source file in full before answering. It got <strong>0 of 192</strong> answers not right. That figure pools three small runs: half of its answers are on the same two dense books as the plain figure above, a quarter on one of those books edited by hand, and a quarter on a smaller book. It is a scout on these books only: it does not show that the sentence has the same effect on other books, the later edition above among them.</p>
+
+<h2>3. What caught nothing</h2>
+<p>We built ten kinds of trap, each aimed at one careless way of reading, such as taking a short note that vouches for a record at its word or looking only at the files a report cites.</p>
+<p>gpt-6.1-sol, with no skill, answered <strong>0 of 233</strong> trap statements the way the careless reader would. It made the same kind of error on 0 of 2,614 statements that carried no trap. This was a pilot on short dossiers, with one review of each report.</p>
+<p>A further family, about dispatching crews to jobs under shared capacity, caught nothing either: gpt-6-astra at the xhigh effort setting made 0 errors in 96 answers with no instruction, and 288 of 288 answers were correct across three ways of asking, two of them with an added instruction. This was a scout on four dossiers.</p>
+
+<h2>4. A first broad comparison: near-perfect on our dossiers, and a benchmark we do not trust yet</h2>
+<p>We compared eight combinations of agent program and model on 141 reviews each: 48 on our generated dossiers and 93 on cases built from three public benchmark datasets (FaithBench 38, RAGTruth 32, FinanceBench 23). The benchmark cases are other people's documents, not synthetic ones of ours. In each of them the agent says whether a text that an AI wrote about a document contains a statement the document contradicts or does not support.</p>
+<p>On our generated dossiers every combination scored between 96.0% and 100.0%. On the benchmark cases the scores lie between 60.1% and 65.9%. The last score in the table is the mean of the two.</p>
+<p>We do not read the table as a ranking. Of the 28 pairs of combinations, 3 have a difference whose 95% interval excludes zero. An audit of the benchmark verdicts on which one agent disagreed with the answer key sorted none of them as a clear model error, and judged the key incomplete or debatable in most of them; under any one consistent reading of the instruction, though, a few of the disagreements are model errors, because the agent applied the instruction unevenly. The audit's readers were language models, and when the audit was written a person had not yet checked their sorting.</p>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Agent program</th><th>Model</th><th>Effort</th><th>Our dossiers</th><th>Benchmark cases</th><th>Mean</th><th>95% interval of the mean</th></tr></thead>
+<tbody>
+<tr><td>Claude Code</td><td>claude-fable-5-2</td><td>default</td><td>100.0%</td><td>65.9%</td><td>83.0%</td><td>77.6 to 88.1</td></tr>
+<tr><td>Claude Code</td><td>haiku</td><td>medium</td><td>100.0%</td><td>65.2%</td><td>82.6%</td><td>77.3 to 87.6</td></tr>
+<tr><td>Claude Code</td><td>opus</td><td>medium</td><td>100.0%</td><td>62.6%</td><td>81.3%</td><td>75.7 to 86.8</td></tr>
+<tr><td>Codex</td><td>gpt-6.1-sol</td><td>medium</td><td>98.9%</td><td>61.6%</td><td>80.3%</td><td>74.9 to 85.5</td></tr>
+<tr><td>Codex</td><td>gpt-6-luna</td><td>medium</td><td>96.0%</td><td>63.5%</td><td>79.8%</td><td>73.9 to 85.5</td></tr>
+<tr><td>Codex</td><td>gpt-6-astra</td><td>medium</td><td>98.9%</td><td>60.6%</td><td>79.7%</td><td>74.4 to 84.9</td></tr>
+<tr><td>Claude Code</td><td>sonnet</td><td>medium</td><td>96.9%</td><td>60.7%</td><td>78.8%</td><td>72.3 to 85.0</td></tr>
+<tr><td>OpenCode 1.19.5</td><td>openai/gpt-6-luna</td><td>medium</td><td>97.1%</td><td>60.1%</td><td>78.6%</td><td>73.3 to 83.7</td></tr>
+</tbody>
+</table>
+</div>
+<p>Model names are as recorded in the run settings of 12 November 2026; "haiku", "opus" and "sonnet" are the agent program's own aliases for the models current on that day.</p>
+
+<h2>What this does and does not show</h2>
+<ul>
+<li><strong>It is not a test of Deep Proof.</strong> The figures are for plain agents. They tell us what a review product has to be better than.</li>
+<li><strong>The minutes family was built to find errors.</strong> We changed it from edition to edition so that agents would make more mistakes on it, and the latest edition was worded against one agent's own search habits. Its figures say how these agents do on documents made to be hard for them. They are not rates of failure on documents in general.</li>
+<li><strong>The numbers are small.</strong> The scouts use two to four dossiers, and most results rest on one or two reviews of each report. The statements of one dossier are not independent: one slip in a running total spoils every total after it.</li>
+<li><strong>Apart from the public benchmark cases, the documents are synthetic, and almost all are in English.</strong> Long scanned documents, handwriting and other languages were not measured.</li>
+<li><strong>Part of every error rate belongs to the agent program,</strong> not only the model. In one run 173 of 520 tool outputs (33.3%) came back cut short: 106 by the agent program's own cap, the rest only at limits the agent had set itself. The cuts appear to explain some of the withheld answers.</li>
+<li><strong>The models are the ones available in November 2026,</strong> at the settings named in each result.</li>
+</ul>
+
+<h2>The full report</h2>
+<p>The full report gives every figure behind this article with its status and sources, explains how the tests were done and how answers were scored, shows specimen examples written for it of the main kinds of test, and sets out the limits. You can ask for it with the form below.</p>
 </article>
 <!-- ARTICLE:END -->
 
