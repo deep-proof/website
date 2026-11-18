@@ -69,20 +69,50 @@
     <main id="main-content" class="legal-content">
       <p class="eyebrow"><span></span> <b class="eyebrow-label" data-i18n="test_results">Test results</b></p>
       <p class="english-note" data-i18n="art_english_note">This article is available in English only. The navigation, the form and the privacy texts on this page are in your language.</p>
-<!-- ARTICLE:BEGIN sha256=daa927d8d9b0828320840c2f50f04ae39ecbec09ff32038460220c8724438e4e -->
+<!-- ARTICLE:BEGIN sha256=6e14ff98798faa26806b86e7f305cc273eabc0a97a31791f7b45662808ad379e -->
 <article lang="en" class="article-copy">
 <h1>Where AI agents misread long documents</h1>
-<p class="lede">Test results from the Deep Proof project, 12 to 17 November 2026. We tried to make command-line AI agents give wrong answers about documents. The traps we ran caught nothing. Long books of minutes with sums of money in them did.</p>
+<p class="lede">Test results from 12 to 17 November 2026. We tried to make command-line AI agents give wrong answers about documents. The traps we ran caught nothing. Long books of minutes with sums of money in them did.</p>
 
 <h2>What we tested</h2>
-<p>Deep Proof is a review workspace: it checks the statements of a report against the source documents the report is about. To build it well we need to know where current AI agents actually go wrong, so we wrote test documents and measured.</p>
+<p>We wanted to know where current AI agents actually go wrong when they check the statements of a report against the source documents the report is about. So we wrote test documents and measured.</p>
 <p>Except for the public benchmark cases in section 4, the documents are synthetic: invented organisations and invented figures. Each dossier comes with one or two reports of numbered statements. An agent reads the sources and says, for each statement, whether the sources support it, refute it or do not settle it; in most runs it also had to give the value of a sum or count. The expected answer to every statement was fixed before any agent ran, and a script compared the answers with it.</p>
-<p>Every figure below comes from a <strong>plain agent</strong>: a command-line coding agent with a model and nothing else. No review skill, no memory of earlier runs and, except where a result says so, no added instruction. <strong>None of these figures measures the Deep Proof product itself.</strong></p>
+<p>Every figure below comes from a <strong>plain agent</strong>: a command-line coding agent with a model and nothing else. No review skill, no memory of earlier runs and, except where a result says so, no added instruction.</p>
 
 <h2>1. Where plain agents got answers wrong</h2>
 <p>The family that gave these results is the plainest one: several volumes of committee minutes and reports about sums of money, counts of payments and awards. Nothing in it is hidden from a reader who reads every page. The reader has to find every entry among hundreds, and one missed entry makes every later total wrong.</p>
 <p>The first two results come from confirming runs, each read by a rule fixed before it started. On six fresh dossiers of the fourth edition, gpt-6.1-sol got <strong>98 of 576 answers (17.0%)</strong> not right. An answer counts as right only when the verdict and the value are both right.</p>
 <p>On six larger dossiers of the second edition, where the task asked for the verdict only, the same model gave 64 of 576 answers (11.1%) that were wrong or withheld; 41 of the 576 (7.1%) were wrong outright. A withheld answer says the sources do not settle a statement that they do settle. By the rule fixed before the run, 2 of 6 dossiers failed, or 1 of 6 if withheld answers are not counted; the rule reads the first count as &ldquo;in between&rdquo;, neither a clear failure nor a pass.</p>
+<figure class="chart" id="chart-answers-split">
+<svg class="chart-plot" width="100%" height="28" role="img" aria-labelledby="chart-answers-split-title chart-answers-split-desc" fill="currentColor">
+<title id="chart-answers-split-title">How the answers of one run split</title>
+<desc id="chart-answers-split-desc">A bar divided in proportion to the counts. Of 576 answers, 41 were wrong outright, 23 were withheld and 512 were right.</desc>
+<svg viewBox="0 0 1000 28" preserveAspectRatio="none" width="100%" height="28">
+<rect class="chart-a" x="0" y="0" width="69" height="28"/>
+<rect class="chart-b" x="73" y="0" width="36" height="28" fill-opacity="0.6"/>
+<rect class="chart-rest" x="113" y="0" width="887" height="28" fill-opacity="0.25"/>
+</svg>
+</svg>
+<div class="chart-key">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="0" y="0" width="12" height="12"/>
+</svg>
+Wrong outright: 41 of 576
+</div>
+<div class="chart-key">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-b" x="0" y="0" width="12" height="12" fill-opacity="0.6"/>
+</svg>
+Withheld: 23 of 576
+</div>
+<div class="chart-key">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-rest" x="0" y="0" width="12" height="12" fill-opacity="0.25"/>
+</svg>
+Right: 512 of 576
+</div>
+<figcaption>The 576 answers of the run on six larger dossiers of the second edition, where the task asked for the verdict only: 41 wrong outright, 23 withheld, 512 right. Status: confirming run. Model: gpt-6.1-sol.</figcaption>
+</figure>
 <p>On the same six dossiers, when the task also asked for the value and for quotes of the passages behind it, 520 of 576 verdicts (90.3%) were right; the others were wrong or withheld. This was a first measurement with no bar set beforehand.</p>
 <p>On two dossiers of the fifth edition, gpt-6.1-sol gave 20 of 192 answers (10.4%) not right and gpt-6-astra gave 12 of 192 (6.2%), both at medium effort. This was a small scout.</p>
 <p><!--edition8-->On six books of a later edition of the minutes, gpt-6-astra at the xhigh effort setting, working as it does by default, got <strong>169 of 576</strong> answers not right in 24 reviews. A planned extension of this run was not carried out, so we give the count and draw no rate from it.<!--/edition8--> That edition, the eighth, differs from the sixth in one respect: some returns of money are told without a figure or a money word, in wordings chosen because this agent's own searches in earlier reviews had rarely matched them. The count shows how the agent does on such sentences when it is left to work its own way. It is not a measure of how often it fails on documents in general.</p>
@@ -101,6 +131,108 @@
 <p>We compared eight combinations of agent program and model on 141 reviews each: 48 on our generated dossiers and 93 on cases built from three public benchmark datasets (FaithBench 38, RAGTruth 32, FinanceBench 23). The benchmark cases are other people's documents, not synthetic ones of ours. In each of them the agent says whether a text that an AI wrote about a document contains a statement the document contradicts or does not support.</p>
 <p>On our generated dossiers every combination scored between 96.0% and 100.0%. On the benchmark cases the scores lie between 60.1% and 65.9%. The last score in the table is the mean of the two.</p>
 <p>We do not read the table as a ranking. Of the 28 pairs of combinations, 3 have a difference whose 95% interval excludes zero. An audit of the benchmark verdicts on which one agent disagreed with the answer key sorted none of them as a clear model error, and judged the key incomplete or debatable in most of them; under any one consistent reading of the instruction, though, a few of the disagreements are model errors, because the agent applied the instruction unevenly. The audit's readers were language models, and when the audit was written a person had not yet checked their sorting.</p>
+<figure class="chart" id="chart-comparison-intervals">
+<div class="chart-label">Claude Code, claude-fable-5-2</div>
+<svg class="chart-plot" width="100%" height="16" role="img" aria-labelledby="chart-comparison-intervals-a-title" fill="currentColor">
+<title id="chart-comparison-intervals-a-title">Claude Code, claude-fable-5-2: mean 83.0%, interval 77.6 to 88.1</title>
+<svg viewBox="0 0 204 16" preserveAspectRatio="none" width="100%" height="16">
+<line class="chart-grid" x1="2" y1="1" x2="2" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="102" y1="1" x2="102" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="202" y1="1" x2="202" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<rect class="chart-range" x="78" y="7" width="105" height="2"/>
+<line class="chart-mark" x1="132" y1="5" x2="132" y2="11" stroke-width="6" stroke-linecap="round" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+</svg>
+</svg>
+<div class="chart-label">Claude Code, haiku</div>
+<svg class="chart-plot" width="100%" height="16" role="img" aria-labelledby="chart-comparison-intervals-b-title" fill="currentColor">
+<title id="chart-comparison-intervals-b-title">Claude Code, haiku: mean 82.6%, interval 77.3 to 87.6</title>
+<svg viewBox="0 0 204 16" preserveAspectRatio="none" width="100%" height="16">
+<line class="chart-grid" x1="2" y1="1" x2="2" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="102" y1="1" x2="102" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="202" y1="1" x2="202" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<rect class="chart-range" x="75" y="7" width="103" height="2"/>
+<line class="chart-mark" x1="128" y1="5" x2="128" y2="11" stroke-width="6" stroke-linecap="round" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+</svg>
+</svg>
+<div class="chart-label">Claude Code, opus</div>
+<svg class="chart-plot" width="100%" height="16" role="img" aria-labelledby="chart-comparison-intervals-c-title" fill="currentColor">
+<title id="chart-comparison-intervals-c-title">Claude Code, opus: mean 81.3%, interval 75.7 to 86.8</title>
+<svg viewBox="0 0 204 16" preserveAspectRatio="none" width="100%" height="16">
+<line class="chart-grid" x1="2" y1="1" x2="2" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="102" y1="1" x2="102" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="202" y1="1" x2="202" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<rect class="chart-range" x="59" y="7" width="111" height="2"/>
+<line class="chart-mark" x1="115" y1="5" x2="115" y2="11" stroke-width="6" stroke-linecap="round" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+</svg>
+</svg>
+<div class="chart-label">Codex, gpt-6.1-sol</div>
+<svg class="chart-plot" width="100%" height="16" role="img" aria-labelledby="chart-comparison-intervals-d-title" fill="currentColor">
+<title id="chart-comparison-intervals-d-title">Codex, gpt-6.1-sol: mean 80.3%, interval 74.9 to 85.5</title>
+<svg viewBox="0 0 204 16" preserveAspectRatio="none" width="100%" height="16">
+<line class="chart-grid" x1="2" y1="1" x2="2" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="102" y1="1" x2="102" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="202" y1="1" x2="202" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<rect class="chart-range" x="51" y="7" width="106" height="2"/>
+<line class="chart-mark" x1="105" y1="5" x2="105" y2="11" stroke-width="6" stroke-linecap="round" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+</svg>
+</svg>
+<div class="chart-label">Codex, gpt-6-luna</div>
+<svg class="chart-plot" width="100%" height="16" role="img" aria-labelledby="chart-comparison-intervals-e-title" fill="currentColor">
+<title id="chart-comparison-intervals-e-title">Codex, gpt-6-luna: mean 79.8%, interval 73.9 to 85.5</title>
+<svg viewBox="0 0 204 16" preserveAspectRatio="none" width="100%" height="16">
+<line class="chart-grid" x1="2" y1="1" x2="2" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="102" y1="1" x2="102" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="202" y1="1" x2="202" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<rect class="chart-range" x="41" y="7" width="116" height="2"/>
+<line class="chart-mark" x1="100" y1="5" x2="100" y2="11" stroke-width="6" stroke-linecap="round" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+</svg>
+</svg>
+<div class="chart-label">Codex, gpt-6-astra</div>
+<svg class="chart-plot" width="100%" height="16" role="img" aria-labelledby="chart-comparison-intervals-f-title" fill="currentColor">
+<title id="chart-comparison-intervals-f-title">Codex, gpt-6-astra: mean 79.7%, interval 74.4 to 84.9</title>
+<svg viewBox="0 0 204 16" preserveAspectRatio="none" width="100%" height="16">
+<line class="chart-grid" x1="2" y1="1" x2="2" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="102" y1="1" x2="102" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="202" y1="1" x2="202" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<rect class="chart-range" x="46" y="7" width="105" height="2"/>
+<line class="chart-mark" x1="99" y1="5" x2="99" y2="11" stroke-width="6" stroke-linecap="round" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+</svg>
+</svg>
+<div class="chart-label">Claude Code, sonnet</div>
+<svg class="chart-plot" width="100%" height="16" role="img" aria-labelledby="chart-comparison-intervals-g-title" fill="currentColor">
+<title id="chart-comparison-intervals-g-title">Claude Code, sonnet: mean 78.8%, interval 72.3 to 85.0</title>
+<svg viewBox="0 0 204 16" preserveAspectRatio="none" width="100%" height="16">
+<line class="chart-grid" x1="2" y1="1" x2="2" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="102" y1="1" x2="102" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="202" y1="1" x2="202" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<rect class="chart-range" x="25" y="7" width="127" height="2"/>
+<line class="chart-mark" x1="90" y1="5" x2="90" y2="11" stroke-width="6" stroke-linecap="round" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+</svg>
+</svg>
+<div class="chart-label">OpenCode 1.19.5, openai/gpt-6-luna</div>
+<svg class="chart-plot" width="100%" height="16" role="img" aria-labelledby="chart-comparison-intervals-h-title" fill="currentColor">
+<title id="chart-comparison-intervals-h-title">OpenCode 1.19.5, openai/gpt-6-luna: mean 78.6%, interval 73.3 to 83.7</title>
+<svg viewBox="0 0 204 16" preserveAspectRatio="none" width="100%" height="16">
+<line class="chart-grid" x1="2" y1="1" x2="2" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="102" y1="1" x2="102" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<line class="chart-grid" x1="202" y1="1" x2="202" y2="15" stroke-opacity="0.25" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+<rect class="chart-range" x="35" y="7" width="104" height="2"/>
+<line class="chart-mark" x1="88" y1="5" x2="88" y2="11" stroke-width="6" stroke-linecap="round" stroke="currentColor" vector-effect="non-scaling-stroke"/>
+</svg>
+</svg>
+<svg class="chart-axis" width="100%" height="24" fill="currentColor">
+<svg viewBox="0 0 2 24" preserveAspectRatio="xMinYMid meet" width="100%" height="24">
+<text class="chart-tick" x="0" y="18" text-anchor="start">70%</text>
+</svg>
+<svg viewBox="0 0 2 24" preserveAspectRatio="xMidYMid meet" width="100%" height="24">
+<text class="chart-tick" x="1" y="18" text-anchor="middle">80%</text>
+</svg>
+<svg viewBox="0 0 2 24" preserveAspectRatio="xMaxYMid meet" width="100%" height="24">
+<text class="chart-tick" x="2" y="18" text-anchor="end">90%</text>
+</svg>
+</svg>
+<figcaption>Mean score of each combination (the upright mark) and the interval of that mean given in the table (the line), in the order of the table. 141 reviews for each combination. Status in the project's records: pooled ranking. Every interval overlaps every other. The axis starts at 70%, not at zero.</figcaption>
+</figure>
 <div class="table-scroll">
 <table>
 <thead><tr><th>Agent program</th><th>Model</th><th>Effort</th><th>Our dossiers</th><th>Benchmark cases</th><th>Mean</th><th>95% interval of the mean</th></tr></thead>
@@ -119,11 +251,41 @@
 <p>Model names are as recorded in the run settings of 12 November 2026; "haiku", "opus" and "sonnet" are the agent program's own aliases for the models current on that day.</p>
 
 <h2>What this does and does not show</h2>
-<p>It is not a test of Deep Proof. The figures are for plain agents. They tell us what a review product has to be better than.</p>
+<p>The figures are for plain agents. They say nothing about agents that are set up in any other way.</p>
 <p>The minutes family was built to find errors. We changed it from edition to edition so that agents would make more mistakes on it, and the latest edition was worded against one agent's own search habits. Its figures say how these agents do on documents made to be hard for them. They are not rates of failure on documents in general.</p>
 <p>The numbers are small. The scouts use two to four dossiers, and most results rest on one or two reviews of each report. The statements of one dossier are not independent: one slip in a running total spoils every total after it.</p>
 <p>Apart from the public benchmark cases, the documents are synthetic, and almost all are in English. Long scanned documents, handwriting and other languages were not measured.</p>
 <p>Part of every error rate belongs to the agent program, not only the model. In one run 173 of 520 tool outputs (33.3%) came back cut short: 106 by the agent program's own cap, the rest only at limits the agent had set itself. The cuts appear to explain some of the withheld answers.</p>
+<figure class="chart" id="chart-outputs-cut">
+<svg class="chart-plot" width="100%" height="28" role="img" aria-labelledby="chart-outputs-cut-title chart-outputs-cut-desc" fill="currentColor">
+<title id="chart-outputs-cut-title">How many tool outputs came back cut short</title>
+<desc id="chart-outputs-cut-desc">A bar divided in proportion to the counts. Of 520 tool outputs, 106 were cut short by the agent program's own cap, 67 only at a limit the agent had set itself, and 347 were not cut.</desc>
+<svg viewBox="0 0 1000 28" preserveAspectRatio="none" width="100%" height="28">
+<rect class="chart-a" x="0" y="0" width="202" height="28"/>
+<rect class="chart-b" x="206" y="0" width="125" height="28" fill-opacity="0.6"/>
+<rect class="chart-rest" x="335" y="0" width="665" height="28" fill-opacity="0.25"/>
+</svg>
+</svg>
+<div class="chart-key">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="0" y="0" width="12" height="12"/>
+</svg>
+Cut short by the agent program's cap: 106 of 520
+</div>
+<div class="chart-key">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-b" x="0" y="0" width="12" height="12" fill-opacity="0.6"/>
+</svg>
+Cut short only at the agent's own limit: 67 of 520
+</div>
+<div class="chart-key">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-rest" x="0" y="0" width="12" height="12" fill-opacity="0.25"/>
+</svg>
+Not cut: 347 of 520
+</div>
+<figcaption>The 520 tool outputs of the 24 reviews of the run on six larger dossiers of the second edition: 106 cut short by the agent program's own cap, 67 cut short only at a limit the agent had set itself, 347 not cut. Status: confirming run. Model: gpt-6.1-sol.</figcaption>
+</figure>
 <p>The models are the ones available in November 2026, at the settings named in each result.</p>
 
 <h2>The full report</h2>
