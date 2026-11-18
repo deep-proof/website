@@ -54,11 +54,13 @@ function makePage(options = {}) {
   els["rf-result"].hidden = true;
   const fields = {};
   ["name", "email", "company", "comment", "website", "consent"].forEach((n) => (fields[n] = new FakeElement("rf-" + n, { name: n })));
-  els["report-request-form"] = new FakeElement("report-request-form", { elements: fields });
+  // The page's document: options.document (default the real article's); undefined means no data-document.
+  const documentId = "document" in options ? options.document : "llm-document-failures";
+  els["report-request-form"] = new FakeElement("report-request-form", { elements: fields, dataset: documentId === undefined ? {} : { document: documentId } });
   const docListeners = {};
   // Enough of a document for the real script.js to load and run applyLanguage().
   const document = {
-    documentElement: { lang: options.lang || "en", dataset: { theme: "light" } },
+    documentElement: { lang: "lang" in options ? options.lang : "en", dataset: { theme: "light" } },
     getElementById: (id) => els[id] || null,
     querySelector: () => null,
     querySelectorAll: () => [],
@@ -92,8 +94,9 @@ function makePage(options = {}) {
   if (options.umami) context.window.umami = { track: (name, data) => tracked.push([name, data]) };
   vm.createContext(context);
   // The real script.js runs first, as on the page: it defines t() and currentLang as lexical
-  // globals and dispatches "dp:language" from applyLanguage().
-  vm.runInContext(SCRIPT_JS, context, { filename: "script.js" });
+  // globals and dispatches "dp:language" from applyLanguage(). options.noScript leaves it out,
+  // as on another website that copied report-form.js only.
+  if (!options.noScript) vm.runInContext(SCRIPT_JS, context, { filename: "script.js" });
   const version = "consent" in options ? options.consent : TEST_CONSENT;
   const source = SOURCE.replace(/const CONSENT_VERSION = "[^"]*";/, 'const CONSENT_VERSION = "' + version + '";');
   vm.runInContext(source, context, { filename: "report-form.js" });
@@ -175,9 +178,10 @@ test("sending: request shape, credentials omit, only content-type, button disabl
   eq(init.headers["content-type"], "application/json", "content-type");
   eq(init.signal && init.signal.timeoutMs, 20000, "timeout signal");
   const body = JSON.parse(init.body);
-  eq(JSON.stringify(Object.keys(body).sort()), JSON.stringify(["comment", "company", "consent", "consentVersion", "email", "form", "lang", "name", "site", "website"]), "body keys");
+  eq(JSON.stringify(Object.keys(body).sort()), JSON.stringify(["comment", "company", "consent", "consentVersion", "document", "email", "form", "lang", "name", "site", "website"]), "body keys");
   eq(body.site, "deepproof", "site");
   eq(body.form, "report-request", "form");
+  eq(body.document, "llm-document-failures", "document");
   eq(body.name, "Ada Fixture", "trimmed name");
   eq(body.comment, "a comment", "trimmed comment");
   eq(body.consent, true, "consent");
@@ -345,6 +349,134 @@ test("language change redraws the status, field messages and success texts", asy
   eq(r.els["rf-success"].textContent, I18N.fr.js_rf_success, "French success");
   eq(r.els["rf-no-email"].textContent, I18N.fr.js_rf_no_email, "French no-email");
   assert(r.els["rf-expires"].textContent.startsWith(I18N.fr.js_rf_expires.split("{date}")[0]), "French expiry");
+});
+
+/* ---------- The document of the page (plan J8) ---------- */
+const OK_BODY = { status: "created", downloadUrl: "https://bizanso.com/visitor-data/r/abc.def", expiresAt: "2026-11-24T10:00:00Z" };
+
+test("document: the data-document of the form is sent, and another page's value is sent as is", async () => {
+  const p = makePage({ document: "second-report-2", fetch: respond(201, OK_BODY) });
+  p.fill(VALID);
+  await p.submit();
+  eq(p.calls.length, 1, "fetch calls");
+  eq(JSON.parse(p.calls[0].init.body).document, "second-report-2", "document");
+});
+
+for (const [label, value] of [
+  ["missing", undefined], ["empty", ""], ["upper case", "Bad Id"], ["a space", "a b"], ["a slash", "a/b"], ["a dot dot", "../x"],
+  ["a leading hyphen", "-a"], ["a trailing hyphen", "a-"], ["an underscore", "a_b"], ["65 characters", "a".repeat(65)], ["padded with a space", " llm-document-failures"]
+]) {
+  test("document: a data-document that is " + label + " sends nothing and shows unavailable, even with valid fields", async () => {
+    const p = makePage({ document: value, fetch: respond(201, OK_BODY) });
+    eq(p.status(), en.js_rf_unavailable, "status at load");
+    p.fill(VALID);
+    await p.submit();
+    eq(p.calls.length, 0, "fetch calls");
+    eq(p.status(), en.js_rf_unavailable, "status after submit");
+    eq(p.els["report-request-form"].hidden, false, "form hidden");
+    eq(p.els["rf-result"].hidden, true, "result shown");
+  });
+}
+
+test("document: 63 and 1 characters are valid ids", async () => {
+  for (const id of ["a".repeat(63), "a", "0-9"]) {
+    const p = makePage({ document: id, fetch: respond(201, OK_BODY) });
+    p.fill(VALID);
+    await p.submit();
+    eq(p.calls.length, 1, "fetch calls for " + id);
+  }
+});
+
+test("document: a 404 unknown_document is shown as unavailable", async () => {
+  const p = makePage({ fetch: respond(404, { error: "unknown_document" }) });
+  p.fill(VALID);
+  await p.submit();
+  eq(p.status(), en.js_rf_unavailable, "status");
+  eq(p.els["rf-submit"].disabled, false, "button enabled");
+});
+
+test("document: the script's id pattern is the contract's", async () => {
+  const m = /const DOCUMENT_ID = (\/[^\n]+\/);/.exec(SOURCE);
+  assert(m, "DOCUMENT_ID constant not found");
+  eq(m[1], "/^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/", "pattern");
+});
+
+/* ---------- No t() and no currentLang: another website (plan J8) ---------- */
+test("standalone: with no script.js the form sends, in the page's language", async () => {
+  const p = makePage({ noScript: true, lang: "de", fetch: respond(201, OK_BODY) });
+  eq(p.context.t, undefined, "t is defined");
+  eq(p.status(), "", "status at load");
+  p.fill(VALID);
+  await p.submit();
+  eq(p.calls.length, 1, "fetch calls");
+  const body = JSON.parse(p.calls[0].init.body);
+  eq(body.lang, "de", "lang");
+  eq(body.document, "llm-document-failures", "document");
+  eq(p.els["rf-result"].hidden, false, "result shown");
+  eq(p.els["rf-success"].textContent, en.js_rf_success, "built-in English success text");
+  assert(p.els["rf-expires"].textContent.includes("2026") && !p.els["rf-expires"].textContent.includes("{date}"), "expiry date: " + p.els["rf-expires"].textContent);
+  eq(p.els["rf-copy"].textContent, en.js_rf_copy, "copy button");
+  await p.els["rf-copy"].dispatch("click");
+  eq(p.els["rf-copy"].textContent, en.js_rf_copied, "copied");
+});
+
+test("standalone: client validation, 422, 429 and failure texts come from the built-in English", async () => {
+  const p = makePage({ noScript: true });
+  await p.submit();
+  eq(p.status(), en.js_rf_invalid, "status");
+  eq(p.els["rf-error-name"].textContent, en.js_rf_field_required, "name message");
+  eq(p.els["rf-error-email"].textContent, en.js_rf_field_required, "email message");
+  eq(p.els["rf-error-consent"].textContent, en.js_rf_consent_required, "consent message");
+  const q = makePage({ noScript: true, fetch: respond(429, { retryAfterSeconds: 1500 }) });
+  q.fill(VALID);
+  await q.submit();
+  eq(q.status(), en.js_rf_rate_limited.replace("{minutes}", "25"), "429");
+  const r = makePage({ noScript: true, fetch: respond(503, {}) });
+  r.fill(VALID);
+  await r.submit();
+  eq(r.status(), en.js_rf_unavailable, "503");
+  const u = makePage({ noScript: true, document: undefined });
+  eq(u.status(), en.js_rf_unavailable, "no document at load");
+  let release;
+  const pending = new Promise((x) => (release = x));
+  const s = makePage({ noScript: true, fetch: async () => { await pending; return { status: 201, json: async () => OK_BODY }; } });
+  s.fill(VALID);
+  const done = s.submit();
+  await new Promise((x) => setImmediate(x));
+  eq(s.status(), en.js_rf_sending, "sending");
+  release();
+  await done;
+});
+
+test("standalone: lang is sent only for one of the ten codes; a region tag gives its language", async () => {
+  const sent = async (options) => {
+    const p = makePage({ noScript: true, fetch: respond(201, OK_BODY), ...options });
+    p.fill(VALID);
+    await p.submit();
+    return JSON.parse(p.calls[0].init.body);
+  };
+  eq((await sent({ lang: "ro" })).lang, "ro", "ro");
+  eq((await sent({ lang: "de-CH" })).lang, "de", "de-CH");
+  eq((await sent({ lang: "EN-us" })).lang, "en", "EN-us");
+  for (const lang of ["", "xx", "klingon", "english"]) assert(!("lang" in (await sent({ lang }))), "lang '" + lang + "' was sent");
+});
+
+test("language: the language is read when the form is sent, not once at load", async () => {
+  const p = makePage({ fetch: respond(201, OK_BODY) });
+  p.setLang("fr");
+  p.fill(VALID);
+  await p.submit();
+  eq(JSON.parse(p.calls[0].init.body).lang, "fr", "lang after a language change");
+});
+
+test("fallback texts: the built-in English equals i18n/en.js for every key the script uses", async () => {
+  const block = /const FALLBACK_TEXTS = (\{[\s\S]*?\n  \});/.exec(SOURCE);
+  assert(block, "FALLBACK_TEXTS not found");
+  const fallback = new Function("return " + block[1])();
+  const used = [...new Set([...SOURCE.matchAll(/\btext\("([a-z_]+)"\)/g)].map((m) => m[1]))].sort();
+  assert(used.length >= 14, "keys used: " + used.length);
+  eq(JSON.stringify(Object.keys(fallback).sort()), JSON.stringify(used), "keys of the fallback and the keys the script asks for");
+  for (const key of used) eq(fallback[key], en[key], "fallback text of " + key);
 });
 
 test("every js_rf key is present in all ten languages", async () => {
