@@ -576,6 +576,22 @@ html[lang="en"] .english-note { display: none; }
 .article-copy figcaption { margin-top: .6rem; color: var(--muted); font-size: .85rem; line-height: 1.5; }
 .article-copy .draft-mark { padding: .6rem .9rem; border: 1px dashed var(--acid); color: var(--paper); font-weight: 700; }
 
+/* Charts in an article: inline SVG drawn by the article build. Unstyled, a chart's marks take the colour of the text
+   around them. Here the two parts a chart is about get the first two colours of a palette checked for colour-blind
+   separation on each theme's background; every mark also has a label with its count, and the numbers are in the text. */
+.article-copy figure.chart { max-width: 46rem; }
+.article-copy figure.chart svg { color: var(--mist); }
+.article-copy .table-scroll { max-width: 100%; overflow-x: auto; }
+.chart-a { fill: #3987e5; fill-opacity: 1; }
+.chart-b { fill: #d95926; fill-opacity: 1; }
+.chart-rest { fill: var(--muted); fill-opacity: .32; }
+.chart-range, .chart-mark { fill: var(--acid); fill-opacity: 1; }
+.chart-grid { fill: var(--muted); fill-opacity: .45; }
+.chart-label { fill: var(--paper); }
+.chart-tick { fill: var(--muted); }
+[data-theme="light"] .chart-a { fill: #2a78d6; }
+[data-theme="light"] .chart-b { fill: #eb6834; }
+
 /* Report request form */
 .report-form { max-width: 76rem; margin-top: 4.5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); }
 .legal-content > .report-form { padding-left: 0; padding-right: 0; }
