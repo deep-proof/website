@@ -13,7 +13,7 @@
   const FORM_ID = "report-request";
   // The date (YYYY-MM-DD) on which the owner approves the consent text (rf_consent).
   // UNSET until then: the form sends nothing and tools/check-article.js refuses the page.
-  const CONSENT_VERSION = "2026-11-17";
+  const CONSENT_VERSION = "2026-11-18";
   const REQUEST_TIMEOUT_MS = 20000;
 
   const LIMITS = {
