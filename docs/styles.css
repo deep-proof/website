@@ -552,9 +552,9 @@ h1, h2 { font-weight: 500; }
    The article body between the ARTICLE markers is generated English text; the
    frame, the form and its messages are translated. */
 .eyebrow .eyebrow-label { font-weight: inherit; }
-.english-note { max-width: 46rem; margin: 0 0 2.5rem; padding: .8rem 1rem; border-left: 2px solid var(--acid); color: var(--mist); font-size: .9rem; line-height: 1.55; }
+.english-note { max-width: 76rem; margin: 0 0 2.5rem; padding: .8rem 1rem; border-left: 2px solid var(--acid); color: var(--mist); font-size: .9rem; line-height: 1.55; }
 html[lang="en"] .english-note { display: none; }
-.article-copy { max-width: 46rem; color: var(--mist); font-size: 1.05rem; line-height: 1.7; }
+.article-copy { max-width: 76rem; color: var(--mist); font-size: 1.05rem; line-height: 1.7; }
 .article-copy h1 { max-width: none; margin-bottom: 2rem; color: var(--paper); font-size: clamp(2.4rem, 5.2vw, 4.8rem); }
 .article-copy h2 { margin: 2.8rem 0 .85rem; color: var(--paper); font-size: 1.6rem; font-weight: 500; letter-spacing: -.04em; line-height: 1.15; }
 .article-copy h3 { margin: 2rem 0 .6rem; color: var(--paper); font-size: 1.15rem; font-weight: 600; letter-spacing: -.02em; }
@@ -577,7 +577,9 @@ html[lang="en"] .english-note { display: none; }
 .article-copy .draft-mark { padding: .6rem .9rem; border: 1px dashed var(--acid); color: var(--paper); font-weight: 700; }
 
 /* Report request form */
-.report-form { max-width: 46rem; margin-top: 4.5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); }
+.report-form { max-width: 76rem; margin-top: 4.5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); }
+.legal-content > .report-form { padding-left: 0; padding-right: 0; }
+.report-form .rf-intro, .report-request-form, .rf-result { max-width: 46rem; }
 .report-form h2 { margin-bottom: .9rem; color: var(--paper); font-size: clamp(2rem, 4vw, 3.2rem); }
 .rf-intro { margin-bottom: 1.8rem; color: var(--mist); line-height: 1.6; text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
 .report-request-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1rem; }
@@ -614,7 +616,7 @@ html[lang="en"] .english-note { display: none; }
 [data-theme="light"] .rf-result { border-color: rgba(74, 115, 0, .45); }
 
 /* ---------- Articles index (articles.html) ---------- */
-.article-list { max-width: 46rem; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.article-list { max-width: 76rem; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
 .article-entry { padding: 1.8rem 0; border-bottom: 1px solid var(--line); }
 .article-meta { margin: 0 0 .7rem; color: var(--mist); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .article-entry h2 { margin: 0 0 .8rem; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.12; }
