@@ -1,6 +1,9 @@
 // Asks the Bizanso collector whether every document a page offers is live, before a push to main
 // (managed documents plan J9, M6, acceptance B3 and B4).
 // Usage: node tools/check-documents.js docs --origin https://deepproof.ch [--collector URL] [--allow-none]
+// --collector replaces the address of report-form.js for a fake on this machine; a collector that is not local is
+// accepted only when it equals COLLECTOR_URL of report-form.js. stderr names the collector's host; stdout holds only
+// the result lines.
 //        node tools/check-documents.js --self-test
 // For each article page with a report form it reads the data-document of the form. For each distinct
 // document it sends one POST of { site, form, document, consentVersion } with the given Origin, and prints
@@ -177,10 +180,14 @@ async function run(argv, io, opts = {}) {
 
   let constants;
   try { constants = readConstants(docsDir); } catch (error) { io.err(error.message); return 2; }
-  if (collector === null) {
-    if (!validCollector(constants.collector)) { io.err("COLLECTOR_URL in docs/report-form.js is not an https address: " + constants.collector); return 2; }
-    collector = constants.collector;
+  if (!validCollector(constants.collector)) { io.err("COLLECTOR_URL in docs/report-form.js is not an https address (http only for localhost, 127.0.0.1 or [::1]): " + constants.collector); return 2; }
+  if (collector === null) collector = constants.collector;
+  // A collector that is not on this machine is asked only when it is the one the form itself posts to.
+  else if (!isLoopback(new URL(collector).hostname) && collector !== constants.collector) {
+    io.err("--collector " + collector + " is not on this machine and differs from COLLECTOR_URL in docs/report-form.js; nothing was sent");
+    return 2;
   }
+  io.err("collector: " + new URL(collector).host);
 
   const results = new Map(); // document -> null (pass) or reason; one request per distinct document
   for (const page of pages) {
@@ -363,15 +370,6 @@ async function selfTest() {
   }
   await failCase("network: the connection is cut without an answer", () => ({ destroy: true }), "network");
   await scenario("network: no answer within the timeout", { pages: [pageWith(PAGE_A, "doc-a")], handler: () => ({ hang: true }), timeoutMs: 300, expect: fails("network") });
-  // The host is a reserved name that never resolves (RFC 2606), so even a broken guard sends nothing to a real host;
-  // the message on stderr proves that the guard, and not a failed lookup, refused it.
-  await scenario("network: the self-test refuses a collector that is not on loopback, and says so", {
-    noFake: true, pages: [pageWith(PAGE_A, "doc-a")], args: () => ["--collector", "https://collector.invalid/visitor-data/v1/submissions"],
-    expect: {
-      code: 1, lines: ["FAIL " + PAGE_A + " doc-a network", "checked 1 page(s) with a form, 1 document(s): 1 failed"],
-      check: ({ errs }) => (errs.length === 1 && errs[0].includes("the self-test sends to loopback only: collector.invalid") ? null : "stderr " + JSON.stringify(errs))
-    }
-  });
   await failCase("origin_refused: 403 origin_not_allowed with no CORS header", () => ({ status: 403, body: { error: "origin_not_allowed" } }), "origin_refused");
   await failCase("origin_refused: 403 with an echo and any body", (r) => ({ status: 403, headers: echo(r.headers.origin), body: "forbidden" }), "origin_refused");
   await failCase("unknown_site: 404 unknown_form", () => ({ status: 404, body: { error: "unknown_form" } }), "unknown_site");
@@ -508,8 +506,29 @@ async function selfTest() {
     handler: withFields({ consentVersion: "invalid" }), expect: fails("consent_version_refused", { check: ({ requests }) => (requests[0].body.consentVersion === "UNSET-awaiting-owner-approval" ? null : requests[0].raw) })
   });
 
+  // The collector the tool asks, and which one it may ask. The host in these cases is a reserved name that never
+  // resolves (RFC 2606), so even a broken guard sends nothing to a real host; the stderr message proves that the
+  // guard, and not a failed lookup, refused it.
+  await scenario("stderr names the collector's host and stdout holds only the result lines", {
+    pages: [pageWith(PAGE_A, "doc-a")],
+    expect: { code: 0, lines: ["OK " + PAGE_A + " doc-a", "checked 1 page(s) with a form, 1 document(s): 0 failed"], requests: 1, check: ({ errs, requests }) => (errs.length === 1 && errs[0].startsWith("collector: 127.0.0.1:") ? null : "stderr " + JSON.stringify(errs)) }
+  });
+  await scenario("COLLECTOR_URL over http to a host that is not local exits 2 and sends nothing", {
+    pages: [pageWith(PAGE_A, "doc-a")], constants: { collector: "http://collector.invalid/visitor-data/v1/submissions" },
+    expect: { code: 2, requests: 0, check: ({ errs }) => (errs.some((e) => e.includes("COLLECTOR_URL")) ? null : "stderr " + JSON.stringify(errs)) }
+  });
+  await scenario("a --collector that is not local and differs from COLLECTOR_URL exits 2 and sends nothing", {
+    pages: [pageWith(PAGE_A, "doc-a")], args: () => ["--collector", "https://collector.invalid/visitor-data/v1/submissions"],
+    expect: { code: 2, requests: 0, check: ({ errs }) => (errs.length === 1 && errs[0].includes("nothing was sent") ? null : "stderr " + JSON.stringify(errs)) }
+  });
+  await scenario("network: the self-test refuses a non-loopback collector (a reserved .invalid name, equal to COLLECTOR_URL), and says so", {
+    pages: [pageWith(PAGE_A, "doc-a")], noFake: true, constants: { collector: "https://collector.invalid/visitor-data/v1/submissions" },
+    args: () => ["--collector", "https://collector.invalid/visitor-data/v1/submissions"],
+    expect: { code: 1, lines: ["FAIL " + PAGE_A + " doc-a network", "checked 1 page(s) with a form, 1 document(s): 1 failed"], check: ({ errs }) => (errs[0] === "collector: collector.invalid" && errs[1].includes("loopback only") ? null : "stderr " + JSON.stringify(errs)) }
+  });
+
   // 7. The exit code and the output of the real command, in a child process (the fake runs here, so the child is async).
-  const runChild = (args) => new Promise((resolve) => execFile(process.execPath, [__filename, ...args], { timeout: 30000 }, (error, stdout, stderr) => resolve({ code: error ? (typeof error.code === "number" ? error.code : -1) : 0, stdout, stderr })));
+  const runChild = (args) => new Promise((resolve) => execFile(process.execPath, [__filename, ...args], { timeout: 30000, env: { ...process.env, CHECK_DOCUMENTS_LOOPBACK_ONLY: "1" } }, (error, stdout, stderr) => resolve({ code: error ? (typeof error.code === "number" ? error.code : -1) : 0, stdout, stderr })));
   {
     const fake = await startFake(okAnswer);
     const dir = makeDocs(tmp, { pages: [pageWith(PAGE_A, "doc-a")], constants: { collector: fake.url } });
@@ -527,6 +546,9 @@ async function selfTest() {
     record("the command exits 2 without --origin", noOrigin.code === 2 && noOrigin.stderr.includes("usage"), JSON.stringify(noOrigin));
     const none = await runChild([makeDocs(tmp, { pages: [] }), "--origin", ORIGIN]);
     record("the command exits 1 when no page with a form is found", none.code === 1, JSON.stringify(none));
+    const guardDocs = makeDocs(tmp, { pages: [pageWith(PAGE_A, "doc-a")], constants: { collector: "https://collector.invalid/visitor-data/v1/submissions" } });
+    const guarded = await runChild([guardDocs, "--origin", ORIGIN]);
+    record("a child of the self-test refuses a collector that is not on loopback (the environment setting restricts it)", guarded.code === 1 && guarded.stdout.startsWith("FAIL " + PAGE_A + " doc-a network\n") && guarded.stderr.includes("loopback only: collector.invalid"), JSON.stringify(guarded));
     const allow = await runChild([makeDocs(tmp, { pages: [] }), "--origin", ORIGIN, "--allow-none"]);
     record("the command exits 0 with --allow-none when no page with a form is found", allow.code === 0, JSON.stringify(allow));
   }
@@ -540,7 +562,9 @@ async function selfTest() {
 if (require.main === module) {
   const argv = process.argv.slice(2);
   const io = { out: (line) => console.log(line), err: (line) => console.error(line) };
-  (argv[0] === "--self-test" ? selfTest() : run(argv, io)).then(
+  // The self-test sets CHECK_DOCUMENTS_LOOPBACK_ONLY=1 for the commands it starts: a setting that can only restrict.
+  const loopbackOnly = process.env.CHECK_DOCUMENTS_LOOPBACK_ONLY === "1";
+  (argv[0] === "--self-test" ? selfTest() : run(argv, io, { loopbackOnly })).then(
     (code) => { process.exitCode = code; },
     (error) => { console.error("check-documents failed: " + (error && error.stack || error)); process.exitCode = 1; }
   );
