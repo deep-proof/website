@@ -114,16 +114,17 @@ function ladder(res, origin) {
   return "no_cors_echo";
 }
 
-// One document: null when it passes, else the reason. A gap in the ladder can never print a pass.
+// One document: { reason: null } when it passes, else { reason }. A gap in the ladder can never print a pass.
+// detail is the transport error of a network failure, which run() prints on stderr.
 async function checkDocument(collector, origin, constants, documentId, opts) {
   let res;
   try {
     res = await postJson(collector, origin, { site: constants.site, form: constants.form, document: documentId, consentVersion: constants.consentVersion }, opts);
   } catch (error) {
-    return "network";
+    return { reason: "network", detail: error.message };
   }
-  if (passes(res, origin)) return null;
-  return ladder(res, origin);
+  if (passes(res, origin)) return { reason: null };
+  return { reason: ladder(res, origin) };
 }
 
 function validOrigin(value) {
@@ -183,7 +184,10 @@ async function run(argv, io, opts = {}) {
 
   const results = new Map(); // document -> null (pass) or reason; one request per distinct document
   for (const page of pages) {
-    if (page.document !== null && !results.has(page.document)) results.set(page.document, await checkDocument(collector, origin, constants, page.document, options));
+    if (page.document === null || results.has(page.document)) continue;
+    const outcome = await checkDocument(collector, origin, constants, page.document, options);
+    results.set(page.document, outcome.reason);
+    if (outcome.detail) io.err(page.document + ": " + outcome.detail);
   }
   let failed = 0;
   for (const page of pages) {
@@ -324,6 +328,22 @@ async function selfTest() {
     pages: [pageWith(PAGE_A, "doc-a")], constants: { site: "othersite", form: "other-form", consent: "2026-01-02" }, origin: "http://localhost:8080",
     expect: { code: 0, requests: 1, check: ({ requests }) => (JSON.stringify(requests[0].body) === JSON.stringify({ site: "othersite", form: "other-form", document: "doc-a", consentVersion: "2026-01-02" }) && requests[0].headers.origin === "http://localhost:8080" ? null : requests[0].raw + " " + requests[0].headers.origin) }
   });
+  await scenario("the real docs folder with --collector set to the fake: the request B4 sends, built from docs/report-form.js", {
+    noFake: false, handler: okAnswer,
+    docs: () => path.resolve(__dirname, "..", "docs"),
+    args: (fake) => ["--collector", fake.url],
+    expect: {
+      code: 0, requests: 1,
+      check: ({ requests, lines }) => {
+        const script = fs.readFileSync(path.resolve(__dirname, "..", "docs", "report-form.js"), "utf8");
+        const consent = /const CONSENT_VERSION = "([^"]*)";/.exec(script)[1];
+        const want = { site: "deepproof", form: "report-request", document: "llm-document-failures", consentVersion: consent };
+        if (JSON.stringify(requests[0].body) !== JSON.stringify(want)) return "body " + requests[0].raw;
+        if (requests[0].headers.origin !== ORIGIN) return "origin " + requests[0].headers.origin;
+        return lines[0] === "OK ai-agents-misread-long-documents.html llm-document-failures" ? null : "lines " + JSON.stringify(lines);
+      }
+    }
+  });
   await scenario("--collector overrides the address in report-form.js", {
     pages: [pageWith(PAGE_A, "doc-a")], constantsCollector: (fake, decoy) => decoy.url, decoyHandler: okAnswer,
     args: (fake) => ["--collector", fake.url],
@@ -343,9 +363,14 @@ async function selfTest() {
   }
   await failCase("network: the connection is cut without an answer", () => ({ destroy: true }), "network");
   await scenario("network: no answer within the timeout", { pages: [pageWith(PAGE_A, "doc-a")], handler: () => ({ hang: true }), timeoutMs: 300, expect: fails("network") });
-  await scenario("network: the self-test refuses a collector that is not on loopback (nothing is sent)", {
-    noFake: true, pages: [pageWith(PAGE_A, "doc-a")], args: () => ["--collector", "https://bizanso.com/base-agent-additional-server/bizanso/8787/visitor-data/v1/submissions"],
-    expect: { code: 1, lines: ["FAIL " + PAGE_A + " doc-a network", "checked 1 page(s) with a form, 1 document(s): 1 failed"] }
+  // The host is a reserved name that never resolves (RFC 2606), so even a broken guard sends nothing to a real host;
+  // the message on stderr proves that the guard, and not a failed lookup, refused it.
+  await scenario("network: the self-test refuses a collector that is not on loopback, and says so", {
+    noFake: true, pages: [pageWith(PAGE_A, "doc-a")], args: () => ["--collector", "https://collector.invalid/visitor-data/v1/submissions"],
+    expect: {
+      code: 1, lines: ["FAIL " + PAGE_A + " doc-a network", "checked 1 page(s) with a form, 1 document(s): 1 failed"],
+      check: ({ errs }) => (errs.length === 1 && errs[0].includes("the self-test sends to loopback only: collector.invalid") ? null : "stderr " + JSON.stringify(errs))
+    }
   });
   await failCase("origin_refused: 403 origin_not_allowed with no CORS header", () => ({ status: 403, body: { error: "origin_not_allowed" } }), "origin_refused");
   await failCase("origin_refused: 403 with an echo and any body", (r) => ({ status: 403, headers: echo(r.headers.origin), body: "forbidden" }), "origin_refused");
