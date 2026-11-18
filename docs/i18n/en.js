@@ -410,5 +410,5 @@ window.DP_I18N.en = {
   "articles_deep_proof": "Articles — Deep Proof",
   "articles_description": "Articles from the Deep Proof project.",
   "art_in_english": "In English",
-  "art_misread_summary": "Test results from the Deep Proof project on where command-line AI agents give wrong answers about long documents."
+  "art_misread_summary": "Test results on where command-line AI agents give wrong answers about long documents."
 };

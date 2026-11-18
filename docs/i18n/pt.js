@@ -409,5 +409,5 @@ window.DP_I18N.pt = {
   "articles_deep_proof": "Artigos — Deep Proof",
   "articles_description": "Artigos do projeto Deep Proof.",
   "art_in_english": "Em inglês",
-  "art_misread_summary": "Resultados dos testes do projeto Deep Proof sobre os casos em que agentes de IA de linha de comandos dão respostas erradas sobre documentos longos."
+  "art_misread_summary": "Resultados dos testes sobre os casos em que agentes de IA de linha de comandos dão respostas erradas sobre documentos longos."
 };
