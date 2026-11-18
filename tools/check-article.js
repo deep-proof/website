@@ -1,27 +1,31 @@
-// Checks the article page (plan I9, I11; acceptance B2).
-// Usage: node tools/check-article.js docs [--expect <sha256>]
+// Checks the article pages (plan I9, I11; acceptance B2; managed documents plan J9, B1).
+// An article page is any docs/*.html that holds an ARTICLE:BEGIN marker.
+// Usage: node tools/check-article.js docs [--page NAME --expect <sha256>]
+//        node tools/check-article.js docs --expect <sha256>     (when there is one article page)
 //        node tools/check-article.js --self-test
 // Exits 0 when every check passes, 1 when one fails, 2 on a usage error.
 //
 // The fragment is the text strictly between the line of
 //   <!-- ARTICLE:BEGIN sha256=<hex> -->
 // (after its newline) and the start of <!-- ARTICLE:END -->. Its sha256 must equal the
-// marker's, and, when --expect is given, the hash that build_article.py --final printed.
+// marker's, and, for the page --expect is bound to, the hash that build_article.py --final printed.
 "use strict";
 const crypto = require("crypto");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
 
-const PAGE = "ai-agents-misread-long-documents.html";
+const PAGE = "ai-agents-misread-long-documents.html"; // the first article page; the self-test builds on it
 const INDEX = "articles.html";
-const SUMMARY_KEY = "art_misread_summary";
+// The document id pattern of the collector and of docs/report-form.js (bizanso sites.mjs).
+const DOCUMENT_ID = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 const LANGS = ["en", "de", "es", "fr", "it", "nl", "pl", "pt", "rm", "ro"];
 const BEGIN_RE = /<!-- ARTICLE:BEGIN sha256=([0-9a-f]{64}) -->\n/g;
 const END_MARK = "<!-- ARTICLE:END -->";
 const OPEN_TAG = '<article lang="en" class="article-copy">';
 const FORM_FIELDS = ["name", "email", "company", "comment", "website", "consent"];
-const PAGE_KEYS = ["art_english_note", "test_results", "rf_heading", "rf_intro", "rf_name", "rf_email", "rf_company", "rf_comment", "rf_consent", "rf_submit"];
+const ARTICLE_KEYS = ["art_english_note", "test_results"];
+const FORM_KEYS = ["rf_heading", "rf_intro", "rf_name", "rf_email", "rf_company", "rf_comment", "rf_consent", "rf_submit"];
 const SCRIPT_KEYS = ["js_rf_sending", "js_rf_success", "js_rf_expires", "js_rf_no_email", "js_rf_copy", "js_rf_copied", "js_rf_invalid", "js_rf_field_required", "js_rf_field_email", "js_rf_field_long", "js_rf_consent_required", "js_rf_rate_limited", "js_rf_unavailable", "js_copy_failed"];
 const SCRIPT_IDS = ["report-request-form", "rf-submit", "rf-status", "rf-result", "rf-success", "rf-link", "rf-expires", "rf-no-email", "rf-copy", "rf-error-name", "rf-error-email", "rf-error-company", "rf-error-comment", "rf-error-consent"];
 // Refused inside the fragment. Kept in step with build_article.py's refusals (plan I11).
@@ -84,26 +88,59 @@ function loadLanguage(docsDir, lang) {
 function loadEnglish(docsDir) { return loadLanguage(docsDir, "en"); }
 
 const plainText = (html) => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const escapeRe = (text) => text.replace(/[.*+?^${}()|[\]\\\/-]/g, "\\$&");
 
-// The articles index (articles.html) and the Articles tab of every page.
-function checkIndex(docsDir, fragment) {
+// The article pages of a docs folder: every *.html that mentions ARTICLE:BEGIN, loosely, so that a
+// page with a broken marker is still checked (and refused) instead of dropping out.
+function articlePages(docsDir) {
+  return fs.readdirSync(docsDir).filter((f) => f.endsWith(".html") && fs.readFileSync(path.join(docsDir, f), "utf8").includes("ARTICLE:BEGIN")).sort();
+}
+
+// The page outside the article fragment (the whole page when the markers are broken).
+function outsideFragment(html) {
+  const loc = locateFragment(html);
+  return loc.error ? html : html.slice(0, loc.start) + html.slice(loc.end);
+}
+
+// The report form of a page: { tag, count, document } or null. document is the data-document value or null.
+// check-documents.js reads pages through this function too, so the two tools cannot disagree.
+function pageForm(html) {
+  const frame = outsideFragment(html);
+  const tags = [...frame.matchAll(/<form\b[^>]*\bid="report-request-form"[^>]*>/g)].map((m) => m[0]);
+  if (!tags.length) return null;
+  const attr = /\bdata-document="([^"]*)"/.exec(tags[0]);
+  return { tag: tags[0], count: tags.length, document: attr ? attr[1] : null };
+}
+
+// The articles index (articles.html) and the Articles tab of every page. pages: [{ name, fragment }].
+function checkIndex(docsDir, pages) {
   const problems = [];
   let html;
   try { html = fs.readFileSync(path.join(docsDir, INDEX), "utf8"); } catch (error) { return ["cannot read " + INDEX]; }
-  for (const [name, page] of [[INDEX, html], [PAGE, null]]) {
-    let text = page;
-    if (text === null) { try { text = fs.readFileSync(path.join(docsDir, PAGE), "utf8"); } catch (error) { continue; } }
-    if (!/<meta name="robots" content="noindex" \/>/.test(text)) problems.push(name + " must keep <meta name=\"robots\" content=\"noindex\" /> until go-live");
+  const noindex = /<meta name="robots" content="noindex" \/>/;
+  if (!noindex.test(html)) problems.push(INDEX + " must keep <meta name=\"robots\" content=\"noindex\" /> until go-live");
+  for (const { name } of pages) {
+    let text;
+    try { text = fs.readFileSync(path.join(docsDir, name), "utf8"); } catch (error) { continue; }
+    if (!noindex.test(text)) problems.push(name + " must keep <meta name=\"robots\" content=\"noindex\" /> until go-live");
   }
-  const link = new RegExp('<a href="' + PAGE.replace(/\./g, "\\.") + '"([^>]*)>([\\s\\S]*?)</a>').exec(html);
-  if (!link) problems.push(INDEX + " has no link to " + PAGE);
-  else {
-    if (!/\blang="en"/.test(link[1]) || /data-i18n/.test(link[1])) problems.push("the article title in " + INDEX + " must carry lang=\"en\" and no data-i18n (English-only exception)");
+  const entries = [...html.matchAll(/<li class="article-entry">([\s\S]*?)<\/li>/g)].map((m) => m[1]);
+  const summaryKeys = [];
+  for (const { name, fragment } of pages) {
+    // Exactly one entry per article page; its link, title and summary key are read from that entry alone.
+    const own = entries.filter((entry) => new RegExp('<a href="' + escapeRe(name) + '"').test(entry));
+    if (own.length === 0) { problems.push(INDEX + " has no link to " + name); continue; }
+    if (own.length > 1) { problems.push(INDEX + " has " + own.length + " entries for " + name + ": exactly one is allowed"); continue; }
+    const link = new RegExp('<a href="' + escapeRe(name) + '"([^>]*)>([\\s\\S]*?)</a>').exec(own[0]);
+    if (!/\blang="en"/.test(link[1]) || /data-i18n/.test(link[1])) problems.push("the article title of " + name + " in " + INDEX + " must carry lang=\"en\" and no data-i18n (English-only exception)");
     const h1 = fragment && /<h1\b[^>]*>([\s\S]*?)<\/h1>/.exec(fragment);
-    if (!h1) problems.push("the article fragment has no <h1> to compare the index title with");
-    else if (plainText(link[2]) !== plainText(h1[1])) problems.push("the title in " + INDEX + " ('" + plainText(link[2]) + "') differs from the article's <h1> ('" + plainText(h1[1]) + "')");
+    if (!h1) problems.push(name + ": the article fragment has no <h1> to compare the index title with");
+    else if (plainText(link[2]) !== plainText(h1[1])) problems.push("the title in " + INDEX + " ('" + plainText(link[2]) + "') differs from the article's <h1> ('" + plainText(h1[1]) + "') in " + name);
+    const summary = /<p\b[^>]*\bclass="article-summary"[^>]*>/.exec(own[0]);
+    const key = summary && /\bdata-i18n="([^"]+)"/.exec(summary[0]);
+    if (!key) problems.push(INDEX + ": the entry for " + name + " has no summary key (data-i18n on its <p class=\"article-summary\">)");
+    else summaryKeys.push([name, key[1]]);
   }
-  if (!html.includes('data-i18n="' + SUMMARY_KEY + '"')) problems.push(INDEX + " does not show the summary key " + SUMMARY_KEY);
   // The English in the HTML (no-JS fallback, meta and og text) must equal en.js and carry no digit.
   let en = null;
   try { en = loadEnglish(docsDir); } catch (error) { /* reported below */ }
@@ -120,8 +157,10 @@ function checkIndex(docsDir, fragment) {
   for (const lang of LANGS) {
     let d = null;
     try { d = loadLanguage(docsDir, lang); } catch (error) { problems.push("cannot load i18n/" + lang + ".js"); continue; }
-    if (!d || typeof d[SUMMARY_KEY] !== "string" || !d[SUMMARY_KEY].trim()) problems.push("i18n/" + lang + ".js has no " + SUMMARY_KEY);
-    else if (/\d/.test(d[SUMMARY_KEY])) problems.push("the " + lang + " summary holds a digit: the index summary carries no number or rate");
+    for (const [name, key] of summaryKeys) {
+      if (!d || typeof d[key] !== "string" || !d[key].trim()) problems.push("i18n/" + lang + ".js has no " + key + " (the summary key of " + name + ")");
+      else if (/\d/.test(d[key])) problems.push("the " + lang + " summary holds a digit: the index summary carries no number or rate");
+    }
   }
   for (const file of fs.readdirSync(docsDir).filter((f) => f.endsWith(".html")).sort()) {
     const nav = /<nav id="primary-nav"[\s\S]*?<\/nav>/.exec(fs.readFileSync(path.join(docsDir, file), "utf8"));
@@ -132,41 +171,47 @@ function checkIndex(docsDir, fragment) {
 }
 
 // Checks of the page around the fragment: form fields, keys, scripts, consent version.
+// A page with a form (id="report-request-form") gets the form rules, a data-document that matches the
+// document id pattern, and report-form.js loaded after script.js. A page without one must not load report-form.js.
 function checkFrame(html, docsDir) {
   const problems = [];
-  const loc = locateFragment(html);
-  const frame = loc.error ? html : html.slice(0, loc.start) + html.slice(loc.end);
-  const formMatch = /<form\b[^>]*\bid="report-request-form"[^>]*>([\s\S]*?)<\/form>/.exec(frame);
-  if (!formMatch) problems.push("no <form id=\"report-request-form\"> outside the fragment");
-  else {
+  const frame = outsideFragment(html);
+  const form = pageForm(html);
+  const scripts = [...frame.matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]);
+  const a = scripts.indexOf("script.js"), b = scripts.indexOf("report-form.js");
+  let en = null;
+  try { en = loadEnglish(docsDir); } catch (error) { problems.push("cannot load i18n/en.js: " + error.message); }
+  const used = new Set([...frame.matchAll(/data-i18n="([^"]+)"/g)].map((m) => m[1]));
+  for (const m of frame.matchAll(/data-i18n-attr="([^"]+)"/g)) m[1].split(";").forEach((pair) => used.add(pair.split(":")[1]));
+
+  for (const key of ARTICLE_KEYS) if (!frame.includes('data-i18n="' + key + '"')) problems.push("data-i18n key '" + key + "' is missing on the page");
+  if (!form) {
+    if (b >= 0) problems.push("the page has no <form id=\"report-request-form\"> but loads report-form.js: an article without a form does not load the script");
+    if (/\bid="rf-/.test(frame)) problems.push("the page has report form elements (id=\"rf-...\") but no <form id=\"report-request-form\">");
+  } else {
+    if (form.count !== 1) problems.push("the page has " + form.count + " report forms: one form per page");
+    if (form.document === null) problems.push("the form has no data-document: it must name the document the page offers");
+    else if (!DOCUMENT_ID.test(form.document)) problems.push("data-document '" + form.document + "' does not match the document id pattern " + DOCUMENT_ID);
+    const formMatch = /<form\b[^>]*\bid="report-request-form"[^>]*>([\s\S]*?)<\/form>/.exec(frame);
     for (const field of FORM_FIELDS) {
       if (!new RegExp('<(input|textarea)\\b[^>]*\\bname="' + field + '"').test(formMatch[1])) problems.push("form field '" + field + "' is missing");
     }
     if (!/<input\b[^>]*name="consent"[^>]*type="checkbox"[^>]*\brequired\b|<input\b[^>]*type="checkbox"[^>]*name="consent"[^>]*\brequired\b/.test(formMatch[1])) problems.push("the consent field is not a required checkbox");
     problems.push(...checkAccessibility(formMatch[1]));
-  }
-  for (const id of SCRIPT_IDS) if (!frame.includes('id="' + id + '"')) problems.push("element id '" + id + "' is missing");
-  const statusTag = /<[a-z]+\b[^>]*\bid="rf-status"[^>]*>/.exec(frame);
-  if (statusTag && (!/role="status"/.test(statusTag[0]) || !/aria-live="polite"/.test(statusTag[0]) || /data-i18n/.test(statusTag[0]))) problems.push("rf-status needs role=\"status\", aria-live=\"polite\" and no data-i18n");
-  for (const key of PAGE_KEYS) if (!frame.includes('data-i18n="' + key + '"')) problems.push("data-i18n key '" + key + "' is missing on the page");
-  const scripts = [...frame.matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]);
-  const a = scripts.indexOf("script.js"), b = scripts.indexOf("report-form.js");
-  if (a < 0 || b < 0 || b < a) problems.push("script.js must be loaded, then report-form.js");
-
-  let en = null;
-  try { en = loadEnglish(docsDir); } catch (error) { problems.push("cannot load i18n/en.js: " + error.message); }
-  if (en) {
-    const used = new Set([...frame.matchAll(/data-i18n="([^"]+)"/g)].map((m) => m[1]));
-    for (const m of frame.matchAll(/data-i18n-attr="([^"]+)"/g)) m[1].split(";").forEach((pair) => used.add(pair.split(":")[1]));
+    for (const id of SCRIPT_IDS) if (!frame.includes('id="' + id + '"')) problems.push("element id '" + id + "' is missing");
+    const statusTag = /<[a-z]+\b[^>]*\bid="rf-status"[^>]*>/.exec(frame);
+    if (statusTag && (!/role="status"/.test(statusTag[0]) || !/aria-live="polite"/.test(statusTag[0]) || /data-i18n/.test(statusTag[0]))) problems.push("rf-status needs role=\"status\", aria-live=\"polite\" and no data-i18n");
+    for (const key of FORM_KEYS) if (!frame.includes('data-i18n="' + key + '"')) problems.push("data-i18n key '" + key + "' is missing on the page");
+    if (a < 0 || b < 0 || b < a) problems.push("script.js must be loaded, then report-form.js");
     SCRIPT_KEYS.forEach((key) => used.add(key));
-    for (const key of used) if (!(key in en)) problems.push("key '" + key + "' is not in i18n/en.js");
-  }
 
-  let script = "";
-  try { script = fs.readFileSync(path.join(docsDir, "report-form.js"), "utf8"); } catch (error) { problems.push("cannot read report-form.js"); }
-  const consent = /const CONSENT_VERSION = "([^"]*)";/.exec(script);
-  if (!consent) problems.push("report-form.js has no CONSENT_VERSION constant");
-  else if (!/^\d{4}-\d{2}-\d{2}$/.test(consent[1])) problems.push("CONSENT_VERSION in report-form.js is unset ('" + consent[1] + "'): it must be the date the owner approved the consent text");
+    let script = "";
+    try { script = fs.readFileSync(path.join(docsDir, "report-form.js"), "utf8"); } catch (error) { problems.push("cannot read report-form.js"); }
+    const consent = /const CONSENT_VERSION = "([^"]*)";/.exec(script);
+    if (!consent) problems.push("report-form.js has no CONSENT_VERSION constant");
+    else if (!/^\d{4}-\d{2}-\d{2}$/.test(consent[1])) problems.push("CONSENT_VERSION in report-form.js is unset ('" + consent[1] + "'): it must be the date the owner approved the consent text");
+  }
+  if (en) for (const key of used) if (!(key in en)) problems.push("key '" + key + "' is not in i18n/en.js");
   return problems;
 }
 
@@ -192,10 +237,10 @@ function checkAccessibility(form) {
   return problems;
 }
 
-function checkPage(docsDir, expect) {
-  const pagePath = path.join(docsDir, PAGE);
+// The checks of one article page: fragment, marker hash, frame. expect binds the marker to the builder's hash.
+function checkArticlePage(docsDir, name, expect) {
   let html;
-  try { html = fs.readFileSync(pagePath, "utf8"); } catch (error) { return ["cannot read " + pagePath]; }
+  try { html = fs.readFileSync(path.join(docsDir, name), "utf8"); } catch (error) { return { problems: ["cannot read " + path.join(docsDir, name)], fragment: null }; }
   const problems = [];
   const loc = locateFragment(html);
   if (loc.error) problems.push(loc.error);
@@ -206,8 +251,30 @@ function checkPage(docsDir, expect) {
     problems.push(...checkFragment(loc.fragment));
   }
   problems.push(...checkFrame(html, docsDir));
-  problems.push(...checkIndex(docsDir, loc.error ? null : loc.fragment));
-  return problems;
+  return { problems, fragment: loc.error ? null : loc.fragment };
+}
+
+// Every article page and the index. { pages: [{ name, problems }], index: [problems], none: [problems], all: [every problem] }.
+// opts.expect binds to opts.page, or to the one article page when there is only one.
+function checkDocs(docsDir, opts = {}) {
+  const names = articlePages(docsDir);
+  const bound = opts.page || (names.length === 1 ? names[0] : null);
+  const pages = [];
+  const index = [];
+  const none = [];
+  if (!names.length) none.push("no article page found in " + docsDir + " (a page that holds <!-- ARTICLE:BEGIN sha256=<hex> -->)");
+  if (opts.expect && !bound) index.push("--expect needs --page when there is more than one article page");
+  for (const name of names) {
+    const r = checkArticlePage(docsDir, name, name === bound ? opts.expect : null);
+    pages.push({ name, problems: r.problems, fragment: r.fragment });
+  }
+  index.push(...checkIndex(docsDir, pages.map((p) => ({ name: p.name, fragment: p.fragment }))));
+  return { pages, index, none, all: [].concat(none, ...pages.map((p) => p.problems), index) };
+}
+
+// Every problem of the folder, as a flat list (the self-test's view).
+function checkPage(docsDir, expect, page) {
+  return checkDocs(docsDir, { expect, page }).all;
 }
 
 /* ---------- Self-test (B2) ---------- */
@@ -233,8 +300,8 @@ function selfTest() {
     const p = path.join(dir, PAGE);
     fs.writeFileSync(p, fn(fs.readFileSync(p, "utf8")));
   }
-  function expectCase(name, dir, wantPass, expect, mustMention) {
-    const problems = checkPage(dir, expect);
+  function expectCase(name, dir, wantPass, expect, mustMention, page) {
+    const problems = checkPage(dir, expect, page);
     const passed = problems.length === 0;
     let ok = passed === wantPass;
     if (ok && mustMention && !problems.some((p) => p.includes(mustMention))) ok = false;
@@ -389,6 +456,171 @@ function selfTest() {
     results.push((threw ? "ok   " : "FAIL ") + label);
   }
 
+  /* ---------- Several article pages (managed documents plan J9, B1) ---------- */
+  const SECOND = "second-article.html";
+  const SECOND_KEY = "art_second_summary";
+  const SECOND_TEXT = "Notes on a second subject.";
+  // Adds a second article page to a temporary copy: its own document, fragment, index entry and summary in all ten
+  // languages. Nothing of this reaches docs/ or docs/i18n.
+  function withSecond(dir, o = {}) {
+    const { document = "second-report", withForm = true, withEntry = true } = o;
+    const secondPath = path.join(dir, SECOND);
+    fs.copyFileSync(path.join(dir, PAGE), secondPath);
+    const out = insert.insertFragment(secondPath, path.join(fixtures, "article-fragment-plain.html"), null);
+    let html = fs.readFileSync(secondPath, "utf8").replace('data-document="llm-document-failures"', 'data-document="' + document + '"');
+    if (!withForm) {
+      html = html.replace(/\s*<section id="report"[\s\S]*?<\/section>/, "").replace('<script src="report-form.js"></script>', "");
+      if (html.includes("report-request-form") || html.includes("report-form.js")) throw new Error("the second page still holds the form");
+    }
+    fs.writeFileSync(secondPath, html);
+    for (const lang of LANGS) {
+      const file = path.join(dir, "i18n", lang + ".js");
+      const text = fs.readFileSync(file, "utf8");
+      const next = text.replace(/("art_misread_summary": "[^"]*")/, '$1,\n  "' + SECOND_KEY + '": "' + SECOND_TEXT + '"');
+      if (next === text) throw new Error("cannot add the summary to " + lang + ".js");
+      fs.writeFileSync(file, next);
+    }
+    if (withEntry) {
+      const indexPath = path.join(dir, INDEX);
+      const entry = '        <li class="article-entry">\n          <p class="article-meta"><span data-i18n="test_results">Test results</span> · <span data-i18n="art_in_english">In English</span></p>\n' +
+        '          <h2><a href="' + SECOND + '" lang="en">Fixture article without a table</a></h2>\n          <p class="article-summary" data-i18n="' + SECOND_KEY + '">' + SECOND_TEXT + '</p>\n        </li>\n      </ul>';
+      const index = fs.readFileSync(indexPath, "utf8");
+      if (!index.includes("      </ul>")) throw new Error("the index has no list end");
+      fs.writeFileSync(indexPath, index.replace("      </ul>", entry));
+    }
+    return out.hash;
+  }
+  function twoPages(o) {
+    const c = inserted("article-fragment-table.html");
+    const secondHash = withSecond(c.dir, o);
+    return { dir: c.dir, firstHash: c.hash, secondHash };
+  }
+  // Applies a mutation to a file of a temporary copy; the case fails when it changed nothing.
+  function mutate(dir, file, fn) {
+    const p = path.join(dir, file);
+    const before = fs.readFileSync(p, "utf8");
+    fs.writeFileSync(p, fn(before));
+    return fs.readFileSync(p, "utf8") !== before;
+  }
+  function mutationCase(label, dir, file, fn, mention, page) {
+    if (!mutate(dir, file, fn)) { failures++; results.push("FAIL " + label + ": the edit changed nothing"); return; }
+    expectCase(label + " is refused", dir, false, null, mention, page);
+  }
+  function runMain(argv) {
+    const log = console.log, error = console.error;
+    let out = "";
+    console.log = (...a) => { out += a.join(" ") + "\n"; };
+    console.error = (...a) => { out += a.join(" ") + "\n"; };
+    try { return { code: main(argv), out }; } finally { console.log = log; console.error = error; }
+  }
+  function boolCase(label, ok, detail) {
+    if (!ok) failures++;
+    results.push((ok ? "ok   " : "FAIL ") + label + (ok ? "" : ": " + detail));
+  }
+
+  // Form rules: the document of the page.
+  c = inserted("article-fragment-table.html");
+  mutationCase("a form without data-document", c.dir, PAGE, (h) => h.replace(' data-document="llm-document-failures"', ""), "no data-document");
+  for (const [label, value] of [["'Bad Id'", "Bad Id"], ["an empty value", ""], ["a trailing hyphen", "a-"], ["65 characters", "a".repeat(65)], ["a path", "../x"]]) {
+    c = inserted("article-fragment-table.html");
+    mutationCase("data-document with " + label, c.dir, PAGE, (h) => h.replace('data-document="llm-document-failures"', 'data-document="' + value + '"'), "data-document '" + value + "' does not match");
+  }
+  c = inserted("article-fragment-table.html");
+  expectCase("data-document of 63 characters passes", c.dir, mutate(c.dir, PAGE, (h) => h.replace('data-document="llm-document-failures"', 'data-document="' + "a".repeat(63) + '"')), null);
+
+  // A second article page.
+  let two = twoPages();
+  expectCase("a second article page with its own document and index entry passes", two.dir, true);
+  expectCase("the second page's document may equal the first's", (() => { const t = twoPages({ document: "llm-document-failures" }); return t.dir; })(), true);
+  two = twoPages({ withEntry: false });
+  expectCase("a second article page without an index entry is refused", two.dir, false, null, "articles.html has no link to " + SECOND);
+  two = twoPages();
+  mutationCase("a second index entry for the same page", two.dir, INDEX, (h) => h.replace("      </ul>", h.slice(h.indexOf('        <li class="article-entry">', h.indexOf(SECOND) - 300), h.lastIndexOf("      </ul>")) + "      </ul>"), "2 entries for " + SECOND);
+  two = twoPages({ withForm: false });
+  expectCase("an article page with no form and no report-form.js passes", two.dir, true);
+  two = twoPages({ withForm: false });
+  mutationCase("an article page with no form that still loads report-form.js", two.dir, SECOND, (h) => h.replace("</body>", '    <script src="report-form.js"></script>\n  </body>'), "loads report-form.js", undefined);
+  two = twoPages({ withForm: false });
+  mutationCase("an article page with the form's elements but no form", two.dir, SECOND, (h) => h.replace("</main>", '<p id="rf-status"></p></main>'), "no <form");
+  two = twoPages();
+  mutationCase("a form on the second page without data-document", two.dir, SECOND, (h) => h.replace(/ data-document="[^"]*"/, ""), "no data-document");
+  two = twoPages();
+  mutationCase("a form on the second page with a bad data-document", two.dir, SECOND, (h) => h.replace(/data-document="[^"]*"/, 'data-document="Bad Id"'), "data-document 'Bad Id'");
+  two = twoPages();
+  mutationCase("a second page without report-form.js although it has a form", two.dir, SECOND, (h) => h.replace('<script src="report-form.js"></script>', ""), "script.js must be loaded, then report-form.js");
+  two = twoPages();
+  mutationCase("a second page without noindex", two.dir, SECOND, (h) => h.replace('<meta name="robots" content="noindex" />', ""), SECOND + " must keep");
+  two = twoPages();
+  mutationCase("a second page whose index title differs from its h1", two.dir, INDEX, (h) => h.replace('lang="en">Fixture article without a table', 'lang="en">Another title'), "differs from the article's");
+  two = twoPages();
+  mutationCase("a second page whose index entry has no summary key", two.dir, INDEX, (h) => h.replace(' data-i18n="' + SECOND_KEY + '"', ""), "the entry for " + SECOND + " has no summary key");
+  two = twoPages();
+  mutationCase("a second page whose summary key is missing in one language (de)", two.dir, "i18n/de.js", (h) => h.replace('"' + SECOND_KEY + '"', '"art_second_other"'), "de.js has no " + SECOND_KEY);
+  two = twoPages();
+  mutationCase("a second page whose summary holds a digit (it)", two.dir, "i18n/it.js", (h) => h.replace(SECOND_TEXT, "Notes on 2 subjects."), "it summary holds a digit");
+  two = twoPages();
+  mutationCase("a second page whose index fallback differs from en.js", two.dir, INDEX, (h) => h.replace('data-i18n="' + SECOND_KEY + '">' + SECOND_TEXT, 'data-i18n="' + SECOND_KEY + '">Edited text'), "differs from i18n/en.js");
+  two = twoPages();
+  mutationCase("a second page whose fragment was edited by one byte", two.dir, SECOND, (h) => h.replace("Every figure here is invented.", "Every figure here is invented!"), "differs from the marker");
+
+  // --expect binds one page's marker.
+  two = twoPages();
+  expectCase("--page --expect with the second page's builder hash passes", two.dir, true, two.secondHash, null, SECOND);
+  expectCase("--page --expect with the first page's hash for the second page is refused", two.dir, false, two.firstHash, "expected (builder's)", SECOND);
+  expectCase("--expect with two article pages and no --page is refused", two.dir, false, two.secondHash, "--expect needs --page");
+  expectCase("--page --expect with another hash is refused", two.dir, false, "f".repeat(64), "expected (builder's)", SECOND);
+  {
+    const r = runMain([two.dir, "--page", SECOND, "--expect", two.secondHash]);
+    boolCase("main: --page and --expect check all pages and exit 0", r.code === 0 && r.out.includes("OK " + SECOND) && r.out.includes("OK " + PAGE), "code " + r.code + " " + r.out);
+    const w = runMain([two.dir, "--page", SECOND, "--expect", "e".repeat(64)]);
+    boolCase("main: a wrong --expect exits 1 and names the page", w.code === 1 && w.out.includes("FAIL " + SECOND) && w.out.includes("OK " + PAGE), "code " + w.code + " " + w.out);
+    for (const [label, argv] of [
+      ["--expect with several pages and no --page", [two.dir, "--expect", two.secondHash]],
+      ["--page without --expect", [two.dir, "--page", SECOND]],
+      ["--page naming no article page", [two.dir, "--page", "about.html", "--expect", two.secondHash]],
+      ["--expect that is not a sha256", [two.dir, "--expect", "abc"]],
+      ["an unknown option", [two.dir, "--nope"]],
+      ["no folder", []],
+      ["a folder that does not exist", [path.join(tmp, "no-such-folder")]]
+    ]) {
+      const r2 = runMain(argv);
+      boolCase("main: " + label + " is a usage error (exit 2)", r2.code === 2, "code " + r2.code);
+    }
+  }
+  {
+    // The existing form keeps working for one article page.
+    const one = inserted("article-fragment-table.html");
+    boolCase("main: --expect alone with one article page passes", runMain([one.dir, "--expect", one.hash]).code === 0, "failed");
+    const bad = runMain([one.dir, "--expect", "e".repeat(64)]);
+    boolCase("main: --expect alone with one article page and a wrong hash exits 1", bad.code === 1, "code " + bad.code);
+    boolCase("main: one page prints exactly 'OK <page>'", runMain([one.dir]).out === "OK " + PAGE + "\n", JSON.stringify(runMain([one.dir]).out));
+  }
+
+  // No article page, and a page whose marker is broken.
+  {
+    const dir = freshCopy();
+    fs.rmSync(path.join(dir, PAGE));
+    expectCase("a folder with no article page is refused", dir, false, null, "no article page found");
+    boolCase("main: a folder with no article page exits 1", runMain([dir]).code === 1, "not 1");
+    c = inserted("article-fragment-table.html");
+    mutationCase("a page with a broken ARTICLE:BEGIN marker is still checked", c.dir, PAGE, (h) => h.replace("<!-- ARTICLE:BEGIN sha256=", "<!--ARTICLE:BEGIN sha256="), "expected exactly one '<!-- ARTICLE:BEGIN");
+    c = inserted("article-fragment-table.html");
+    mutationCase("a page with two report forms", c.dir, PAGE, (h) => h.replace("</main>", '<form id="report-request-form" data-document="a"></form></main>'), "2 report forms");
+  }
+
+  // insert-article.js: --page is required when more than one article page exists.
+  {
+    const one = freshCopy();
+    const two2 = twoPages();
+    const none = freshCopy();
+    fs.rmSync(path.join(none, PAGE));
+    const r1 = insert.resolvePage(one, null), r2 = insert.resolvePage(two2.dir, null), r3 = insert.resolvePage(none, null), r4 = insert.resolvePage(two2.dir, "docs/x.html");
+    boolCase("insert-article: one article page is the default", r1.page === path.join(one, PAGE), JSON.stringify(r1));
+    boolCase("insert-article: several article pages need --page", !!r2.error && r2.error.includes("--page is required") && r2.error.includes(SECOND) && r2.error.includes(PAGE) && !r2.page, JSON.stringify(r2));
+    boolCase("insert-article: no article page is an error", !!r3.error && !r3.page, JSON.stringify(r3));
+    boolCase("insert-article: an explicit --page is used as given", r4.page === "docs/x.html" && !r4.error, JSON.stringify(r4));
+  }
+
   // The committed page is either final (no problem at all) or still holds the DRAFT placeholder (then it must be
   // refused for it). Any other problem on the committed page fails the self-test. The draft state is recognised by
   // the checker's own message, not by the word DRAFT anywhere in a message, since messages can quote page text.
@@ -405,24 +637,34 @@ function selfTest() {
   return failures ? 1 : 0;
 }
 
+const USAGE = "usage: node tools/check-article.js docs [--page NAME --expect <sha256>] | docs --expect <sha256> (one article page) | --self-test";
+
 function main(argv) {
   if (argv[0] === "--self-test") return selfTest();
-  const docsDir = argv[0];
-  const ei = argv.indexOf("--expect");
-  const expect = ei >= 0 ? argv[ei + 1] : null;
-  if (!docsDir || (ei >= 0 && !/^[0-9a-f]{64}$/.test(expect || ""))) {
-    console.error("usage: node tools/check-article.js docs [--expect <sha256>] | --self-test");
-    return 2;
+  let docsDir = null, expect = null, page = null;
+  for (let i = 0; i < argv.length; i++) {
+    if (argv[i] === "--expect" || argv[i] === "--page") {
+      const value = argv[++i];
+      if (value === undefined || value.startsWith("--")) { console.error(USAGE); return 2; }
+      if (argv[i - 1] === "--expect") expect = value; else page = value;
+    } else if (argv[i].startsWith("--") || docsDir !== null) { console.error(USAGE); return 2; }
+    else docsDir = argv[i];
   }
-  const problems = checkPage(docsDir, expect);
-  if (problems.length) {
-    console.log("FAIL " + PAGE);
-    problems.forEach((p) => console.log("  - " + p));
-    return 1;
+  if (!docsDir || (expect !== null && !/^[0-9a-f]{64}$/.test(expect)) || (page !== null && expect === null)) { console.error(USAGE); return 2; }
+  let names;
+  try { names = articlePages(docsDir); } catch (error) { console.error("cannot read " + docsDir + ": " + error.message); return 2; }
+  if (page !== null && !names.includes(page)) { console.error(page + " is not an article page of " + docsDir + (names.length ? " (article pages: " + names.join(", ") + ")" : "")); return 2; }
+  if (expect !== null && page === null && names.length > 1) { console.error("--expect needs --page when there is more than one article page (" + names.join(", ") + ")"); return 2; }
+  const result = checkDocs(docsDir, { expect, page });
+  let failed = false;
+  if (result.none.length) { failed = true; console.log("FAIL " + docsDir); result.none.forEach((p) => console.log("  - " + p)); }
+  for (const p of result.pages) {
+    if (p.problems.length) { failed = true; console.log("FAIL " + p.name); p.problems.forEach((x) => console.log("  - " + x)); }
+    else console.log("OK " + p.name);
   }
-  console.log("OK " + PAGE);
-  return 0;
+  if (result.index.length) { failed = true; console.log("FAIL " + INDEX); result.index.forEach((x) => console.log("  - " + x)); }
+  return failed ? 1 : 0;
 }
 
-module.exports = { locateFragment, checkFragment, checkPage, checkIndex, sha256, PAGE, INDEX, END_MARK, OPEN_TAG };
+module.exports = { locateFragment, checkFragment, checkPage, checkDocs, checkIndex, articlePages, pageForm, outsideFragment, sha256, main, DOCUMENT_ID, PAGE, INDEX, END_MARK, OPEN_TAG };
 if (require.main === module) process.exitCode = main(process.argv.slice(2));

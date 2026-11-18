@@ -1,6 +1,7 @@
 // Inserts an article fragment into the article page (plan I9, I11).
-// Usage: node tools/insert-article.js FRAGMENT [--page docs/ai-agents-misread-long-documents.html] [--expect <sha256>]
+// Usage: node tools/insert-article.js FRAGMENT [--page docs/<article page>.html] [--expect <sha256>]
 // FRAGMENT is the file build_article.py --out wrote; --expect is the sha256 it printed.
+// --page is required when docs/ holds more than one article page (a page with an ARTICLE:BEGIN marker).
 // The file's bytes are copied verbatim between the markers and their sha256 is written
 // into the opening marker. A fragment with the DRAFT mark is inserted (for a preview) with
 // a warning; tools/check-article.js refuses such a page.
@@ -8,7 +9,7 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
-const { locateFragment, checkFragment } = require("./check-article.js");
+const { locateFragment, checkFragment, articlePages } = require("./check-article.js");
 
 function insertFragment(pagePath, fragmentPath, expect) {
   const bytes = fs.readFileSync(fragmentPath);
@@ -26,16 +27,35 @@ function insertFragment(pagePath, fragmentPath, expect) {
   return { hash, draft: /\bDRAFT\b/.test(fragment) };
 }
 
+// The page to insert into: --page as given, else the one article page of docsDir.
+// Returns { page } or { error }.
+function resolvePage(docsDir, pageArg) {
+  if (pageArg) return { page: pageArg };
+  const names = articlePages(docsDir);
+  if (names.length === 1) return { page: path.join(docsDir, names[0]) };
+  if (!names.length) return { error: "no article page in " + docsDir + ": name the page with --page" };
+  return { error: "--page is required: " + names.length + " article pages exist (" + names.join(", ") + ")" };
+}
+
+const USAGE = "usage: node tools/insert-article.js FRAGMENT [--page PAGE] [--expect <sha256>]";
+
 function main(argv) {
   const fragmentPath = argv[0];
   const pi = argv.indexOf("--page");
   const ei = argv.indexOf("--expect");
-  const pagePath = pi >= 0 ? argv[pi + 1] : path.resolve(__dirname, "..", "docs", "ai-agents-misread-long-documents.html");
   const expect = ei >= 0 ? argv[ei + 1] : null;
-  if (!fragmentPath || fragmentPath.startsWith("--") || !pagePath || (ei >= 0 && !/^[0-9a-f]{64}$/.test(expect || ""))) {
-    console.error("usage: node tools/insert-article.js FRAGMENT [--page PAGE] [--expect <sha256>]");
+  const pageArg = pi >= 0 ? argv[pi + 1] : null;
+  if (!fragmentPath || fragmentPath.startsWith("--") || (ei >= 0 && !/^[0-9a-f]{64}$/.test(expect || "")) || (pi >= 0 && (!pageArg || pageArg.startsWith("--")))) {
+    console.error(USAGE);
     return 2;
   }
+  let chosen;
+  try { chosen = resolvePage(path.resolve(__dirname, "..", "docs"), pageArg); } catch (error) { console.error("refused: " + error.message); return 2; }
+  if (chosen.error) {
+    console.error(chosen.error);
+    return 2;
+  }
+  const pagePath = chosen.page;
   try {
     const out = insertFragment(pagePath, fragmentPath, expect);
     console.log("inserted sha256=" + out.hash + " into " + pagePath);
@@ -47,5 +67,5 @@ function main(argv) {
   }
 }
 
-module.exports = { insertFragment };
+module.exports = { insertFragment, resolvePage };
 if (require.main === module) process.exitCode = main(process.argv.slice(2));
