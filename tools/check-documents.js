@@ -124,7 +124,7 @@ async function checkDocument(collector, origin, constants, documentId, opts) {
     return { reason: "network", detail: error.message };
   }
   if (passes(res, origin)) return { reason: null };
-  return { reason: ladder(res, origin) };
+  return { reason: ladder(res, origin) || "unexpected_fields" }; // a gap in the ladder is still a failure
 }
 
 function validOrigin(value) {
