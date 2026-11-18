@@ -132,10 +132,13 @@ function checkIndex(docsDir, pages) {
     if (own.length === 0) { problems.push(INDEX + " has no link to " + name); continue; }
     if (own.length > 1) { problems.push(INDEX + " has " + own.length + " entries for " + name + ": exactly one is allowed"); continue; }
     const link = new RegExp('<a href="' + escapeRe(name) + '"([^>]*)>([\\s\\S]*?)</a>').exec(own[0]);
-    if (!/\blang="en"/.test(link[1]) || /data-i18n/.test(link[1])) problems.push("the article title of " + name + " in " + INDEX + " must carry lang=\"en\" and no data-i18n (English-only exception)");
-    const h1 = fragment && /<h1\b[^>]*>([\s\S]*?)<\/h1>/.exec(fragment);
-    if (!h1) problems.push(name + ": the article fragment has no <h1> to compare the index title with");
-    else if (plainText(link[2]) !== plainText(h1[1])) problems.push("the title in " + INDEX + " ('" + plainText(link[2]) + "') differs from the article's <h1> ('" + plainText(h1[1]) + "') in " + name);
+    if (!link) problems.push(INDEX + ": the link to " + name + " has no closing </a> inside its entry");
+    else {
+      if (!/\blang="en"/.test(link[1]) || /data-i18n/.test(link[1])) problems.push("the article title of " + name + " in " + INDEX + " must carry lang=\"en\" and no data-i18n (English-only exception)");
+      const h1 = fragment && /<h1\b[^>]*>([\s\S]*?)<\/h1>/.exec(fragment);
+      if (!h1) problems.push(name + ": the article fragment has no <h1> to compare the index title with");
+      else if (plainText(link[2]) !== plainText(h1[1])) problems.push("the title in " + INDEX + " ('" + plainText(link[2]) + "') differs from the article's <h1> ('" + plainText(h1[1]) + "') in " + name);
+    }
     const summary = /<p\b[^>]*\bclass="article-summary"[^>]*>/.exec(own[0]);
     const key = summary && /\bdata-i18n="([^"]+)"/.exec(summary[0]);
     if (!key) problems.push(INDEX + ": the entry for " + name + " has no summary key (data-i18n on its <p class=\"article-summary\">)");
@@ -193,11 +196,14 @@ function checkFrame(html, docsDir) {
     if (form.document === null) problems.push("the form has no data-document: it must name the document the page offers");
     else if (!DOCUMENT_ID.test(form.document)) problems.push("data-document '" + form.document + "' does not match the document id pattern " + DOCUMENT_ID);
     const formMatch = /<form\b[^>]*\bid="report-request-form"[^>]*>([\s\S]*?)<\/form>/.exec(frame);
-    for (const field of FORM_FIELDS) {
-      if (!new RegExp('<(input|textarea)\\b[^>]*\\bname="' + field + '"').test(formMatch[1])) problems.push("form field '" + field + "' is missing");
+    if (!formMatch) problems.push("the <form id=\"report-request-form\"> has no closing </form>");
+    else {
+      for (const field of FORM_FIELDS) {
+        if (!new RegExp('<(input|textarea)\\b[^>]*\\bname="' + field + '"').test(formMatch[1])) problems.push("form field '" + field + "' is missing");
+      }
+      if (!/<input\b[^>]*name="consent"[^>]*type="checkbox"[^>]*\brequired\b|<input\b[^>]*type="checkbox"[^>]*name="consent"[^>]*\brequired\b/.test(formMatch[1])) problems.push("the consent field is not a required checkbox");
+      problems.push(...checkAccessibility(formMatch[1]));
     }
-    if (!/<input\b[^>]*name="consent"[^>]*type="checkbox"[^>]*\brequired\b|<input\b[^>]*type="checkbox"[^>]*name="consent"[^>]*\brequired\b/.test(formMatch[1])) problems.push("the consent field is not a required checkbox");
-    problems.push(...checkAccessibility(formMatch[1]));
     for (const id of SCRIPT_IDS) if (!frame.includes('id="' + id + '"')) problems.push("element id '" + id + "' is missing");
     const statusTag = /<[a-z]+\b[^>]*\bid="rf-status"[^>]*>/.exec(frame);
     if (statusTag && (!/role="status"/.test(statusTag[0]) || !/aria-live="polite"/.test(statusTag[0]) || /data-i18n/.test(statusTag[0]))) problems.push("rf-status needs role=\"status\", aria-live=\"polite\" and no data-i18n");
@@ -517,6 +523,16 @@ function selfTest() {
     if (!ok) failures++;
     results.push((ok ? "ok   " : "FAIL ") + label + (ok ? "" : ": " + detail));
   }
+
+  // Malformed inputs the checker must report with a message, never crash on.
+  c = inserted("article-fragment-table.html");
+  mutationCase("a form with no closing </form>", c.dir, PAGE, (h) => h.replace("</form>", ""), "no closing </form>");
+  c = inserted("article-fragment-table.html");
+  mutationCase("an index entry whose link has no closing </a>", c.dir, INDEX, (h) => h.replace("</a></h2>", "</h2>"), "no closing </a>");
+  c = inserted("article-fragment-table.html");
+  mutationCase("report-form.js loaded before script.js", c.dir, PAGE, (h) => h.replace('<script src="script.js"></script>\n    <script src="report-form.js"></script>', '<script src="report-form.js"></script>\n    <script src="script.js"></script>'), "script.js must be loaded, then report-form.js");
+  c = inserted("article-fragment-table.html");
+  mutationCase("a page with a form and no script.js", c.dir, PAGE, (h) => h.replace('<script src="script.js"></script>\n', ""), "script.js must be loaded, then report-form.js");
 
   // Form rules: the document of the page.
   c = inserted("article-fragment-table.html");
