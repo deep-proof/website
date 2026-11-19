@@ -17,6 +17,8 @@ const path = require("path");
 
 const PAGE = "ai-agents-misread-long-documents.html"; // the first article page; the self-test builds on it
 const INDEX = "articles.html";
+const SITEMAP = "sitemap.xml";
+const SITE = "https://deepproof.ch/";
 // The document id pattern of the collector and of docs/report-form.js (bizanso sites.mjs).
 const DOCUMENT_ID = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;
 const LANGS = ["en", "de", "es", "fr", "it", "nl", "pl", "pt", "rm", "ro"];
@@ -117,12 +119,16 @@ function checkIndex(docsDir, pages) {
   const problems = [];
   let html;
   try { html = fs.readFileSync(path.join(docsDir, INDEX), "utf8"); } catch (error) { return ["cannot read " + INDEX]; }
-  const noindex = /<meta name="robots" content="noindex" \/>/;
-  if (!noindex.test(html)) problems.push(INDEX + " must keep <meta name=\"robots\" content=\"noindex\" /> until go-live");
-  for (const { name } of pages) {
-    let text;
-    try { text = fs.readFileSync(path.join(docsDir, name), "utf8"); } catch (error) { continue; }
-    if (!noindex.test(text)) problems.push(name + " must keep <meta name=\"robots\" content=\"noindex\" /> until go-live");
+  // Since go-live (19 November 2026) the index and every article page are public: no robots meta that
+  // holds noindex, and each page is listed in sitemap.xml. A new article page joins the sitemap in its own commit.
+  const robotsNoindex = (text) => [...text.matchAll(/<meta\b[^>]*\bname=["']robots["'][^>]*>/gi)].some((m) => /noindex/i.test(m[0]));
+  let sitemap = null;
+  try { sitemap = fs.readFileSync(path.join(docsDir, SITEMAP), "utf8"); } catch (error) { problems.push("cannot read " + SITEMAP); }
+  for (const name of [INDEX, ...pages.map((p) => p.name)]) {
+    let text = name === INDEX ? html : null;
+    if (text === null) { try { text = fs.readFileSync(path.join(docsDir, name), "utf8"); } catch (error) { continue; } }
+    if (robotsNoindex(text)) problems.push(name + " carries a robots noindex meta: the articles are public since go-live");
+    if (sitemap !== null && !sitemap.includes("<loc>" + SITE + name + "</loc>")) problems.push(name + " is not listed in " + SITEMAP + " as <loc>" + SITE + name + "</loc>");
   }
   const entries = [...html.matchAll(/<li class="article-entry">([\s\S]*?)<\/li>/g)].map((m) => m[1]);
   const summaryKeys = [];
@@ -298,6 +304,7 @@ function selfTest() {
     fs.mkdirSync(path.join(dir, "i18n"));
     for (const f of fs.readdirSync(docs).filter((f) => f.endsWith(".html"))) fs.copyFileSync(path.join(docs, f), path.join(dir, f));
     for (const lang of LANGS) fs.copyFileSync(path.join(docs, "i18n", lang + ".js"), path.join(dir, "i18n", lang + ".js"));
+    fs.copyFileSync(path.join(docs, SITEMAP), path.join(dir, SITEMAP));
     const script = fs.readFileSync(path.join(docs, "report-form.js"), "utf8").replace(/const CONSENT_VERSION = "[^"]*";/, 'const CONSENT_VERSION = "2026-11-17";');
     fs.writeFileSync(path.join(dir, "report-form.js"), script);
     return dir;
@@ -407,8 +414,11 @@ function selfTest() {
   // The articles index and the Articles tab.
   function editFile(dir, file, fn) { const p = path.join(dir, file); fs.writeFileSync(p, fn(fs.readFileSync(p, "utf8"))); }
   for (const [label, file, fn, mention] of [
-    ["index without noindex", INDEX, (h) => h.replace('<meta name="robots" content="noindex" />', ""), "noindex"],
-    ["article page without noindex", PAGE, (h) => h.replace('<meta name="robots" content="noindex" />', ""), "noindex"],
+    ["index with noindex", INDEX, (h) => h.replace('<meta name="viewport"', '<meta name="robots" content="noindex" />\n    <meta name="viewport"'), "articles.html carries a robots noindex"],
+    ["article page with noindex", PAGE, (h) => h.replace('<meta name="viewport"', '<meta name="robots" content="noindex" />\n    <meta name="viewport"'), PAGE + " carries a robots noindex"],
+    ["article page with noindex, nofollow in another attribute order", PAGE, (h) => h.replace('<meta name="viewport"', "<meta content='noindex, nofollow' name='robots'>\n    <meta name=\"viewport\""), PAGE + " carries a robots noindex"],
+    ["index missing from the sitemap", SITEMAP, (h) => h.replace("  <url><loc>https://deepproof.ch/articles.html</loc>", "  <url><loc>https://deepproof.ch/articles-old.html</loc>"), "articles.html is not listed in sitemap.xml"],
+    ["article page missing from the sitemap", SITEMAP, (h) => h.replace(/  <url><loc>https:\/\/deepproof\.ch\/ai-agents-misread-long-documents\.html<\/loc>[^\n]*\n/, ""), PAGE + " is not listed in sitemap.xml"],
     ["index title that differs from the article's h1", INDEX, (h) => h.replace(/(<a href="ai-agents-misread-long-documents\.html" lang="en">)[^<]*/, "$1Another title"), "differs from the article's"],
     ["index title with data-i18n", INDEX, (h) => h.replace('long-documents.html" lang="en">', 'long-documents.html" lang="en" data-i18n="x">'), "English-only"],
     ["index without the summary key", INDEX, (h) => h.replace('data-i18n="art_misread_summary"', 'data-i18n="art_other"'), "summary key"],
@@ -479,6 +489,10 @@ function selfTest() {
       if (html.includes("report-request-form") || html.includes("report-form.js")) throw new Error("the second page still holds the form");
     }
     fs.writeFileSync(secondPath, html);
+    const sitemapPath = path.join(dir, SITEMAP);
+    const sitemap = fs.readFileSync(sitemapPath, "utf8");
+    if (!sitemap.includes("</urlset>")) throw new Error("the sitemap has no </urlset>");
+    fs.writeFileSync(sitemapPath, sitemap.replace("</urlset>", "  <url><loc>" + SITE + SECOND + "</loc></url>\n</urlset>"));
     for (const lang of LANGS) {
       const file = path.join(dir, "i18n", lang + ".js");
       const text = fs.readFileSync(file, "utf8");
@@ -565,7 +579,9 @@ function selfTest() {
   two = twoPages();
   mutationCase("a second page without report-form.js although it has a form", two.dir, SECOND, (h) => h.replace('<script src="report-form.js"></script>', ""), "script.js must be loaded, then report-form.js");
   two = twoPages();
-  mutationCase("a second page without noindex", two.dir, SECOND, (h) => h.replace('<meta name="robots" content="noindex" />', ""), SECOND + " must keep");
+  mutationCase("a second page with noindex", two.dir, SECOND, (h) => h.replace('<meta name="viewport"', '<meta name="robots" content="noindex" />\n    <meta name="viewport"'), SECOND + " carries a robots noindex");
+  two = twoPages();
+  mutationCase("a second page missing from the sitemap", two.dir, SITEMAP, (h) => h.replace("  <url><loc>" + SITE + SECOND + "</loc></url>\n", ""), SECOND + " is not listed in sitemap.xml");
   two = twoPages();
   mutationCase("a second page whose index title differs from its h1", two.dir, INDEX, (h) => h.replace('lang="en">Fixture article without a table', 'lang="en">Another title'), "differs from the article's");
   two = twoPages();
