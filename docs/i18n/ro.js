@@ -391,7 +391,7 @@ window.DP_I18N.ro = {
   "rf_email": "E-mail de serviciu",
   "rf_company": "Companie",
   "rf_comment": "Comentariu (opțional)",
-  "rf_consent": "Sunt de acord ca Outfinity SARL să stocheze datele pe care le introduc aici pentru a-mi da raportul și pentru a mă contacta în legătură cu Deep Proof. Sunt păstrate pe bizanso.com și șterse după 12 luni, sau mai devreme dacă solicit acest lucru. Consultați <a href=\"privacy.html#report-request\">nota de confidențialitate</a>.",
+  "rf_consent": "Sunt de acord ca Outfinity SARL să stocheze datele pe care le introduc aici pentru a-mi da raportul și pentru a mă contacta în legătură cu Deep Proof. Consultați <a href=\"privacy.html#report-request\">nota de confidențialitate</a>.",
   "rf_submit": "Obțineți raportul",
   "js_rf_sending": "Se trimite…",
   "js_rf_success": "Linkul dumneavoastră personal către raport:",

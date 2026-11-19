@@ -15,7 +15,7 @@
   const FORM_ID = "report-request";
   // The date (YYYY-MM-DD) on which the owner approves the consent text (rf_consent).
   // UNSET until then: the form sends nothing and tools/check-article.js refuses the page.
-  const CONSENT_VERSION = "2026-11-17";
+  const CONSENT_VERSION = "2026-11-18";
   const REQUEST_TIMEOUT_MS = 20000;
   // The document id pattern of the collector (bizanso sites.mjs): the same text as in tools/check-article.js.
   const DOCUMENT_ID = /^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$/;

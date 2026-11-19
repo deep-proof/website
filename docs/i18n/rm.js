@@ -391,7 +391,7 @@ window.DP_I18N.rm = {
   "rf_email": "E-mail professiunal",
   "rf_company": "Interpresa",
   "rf_comment": "Commentar (opziunal)",
-  "rf_consent": "Jau sun perencletg che Outfinity SARL memorisescha las datas che jau endat qua per metter a mia disposiziun il rapport e per prender contact cun mai davart Deep Proof. Ellas vegnan mantenidas sin bizanso.com e stizzadas suenter 12 mais, u pli baud sche jau al dumond. Guardai la <a href=\"privacy.html#report-request\">decleraziun da protecziun da datas</a>.",
+  "rf_consent": "Jau sun perencletg che Outfinity SARL memorisescha las datas che jau endat qua per metter a mia disposiziun il rapport e per prender contact cun mai davart Deep Proof. Guardai la <a href=\"privacy.html#report-request\">decleraziun da protecziun da datas</a>.",
   "rf_submit": "Retschaiver il rapport",
   "js_rf_sending": "Tramissiun en curs…",
   "js_rf_success": "Voss colliaziun persunala al rapport:",

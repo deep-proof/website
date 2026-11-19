@@ -391,7 +391,7 @@ window.DP_I18N.de = {
   "rf_email": "Geschäftliche E-Mail",
   "rf_company": "Unternehmen",
   "rf_comment": "Kommentar (optional)",
-  "rf_consent": "Ich bin damit einverstanden, dass Outfinity SARL die hier eingegebenen Angaben speichert, um mir den Bericht zu übermitteln und mich zu Deep Proof zu kontaktieren. Sie werden auf bizanso.com aufbewahrt und nach 12 Monaten gelöscht, auf meinen Wunsch auch früher. Siehe die <a href=\"privacy.html#report-request\">Datenschutzerklärung</a>.",
+  "rf_consent": "Ich bin damit einverstanden, dass Outfinity SARL die hier eingegebenen Angaben speichert, um mir den Bericht zu übermitteln und mich zu Deep Proof zu kontaktieren. Siehe die <a href=\"privacy.html#report-request\">Datenschutzerklärung</a>.",
   "rf_submit": "Bericht erhalten",
   "js_rf_sending": "Wird gesendet…",
   "js_rf_success": "Ihr persönlicher Link zum Bericht:",
