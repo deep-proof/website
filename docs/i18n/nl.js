@@ -409,5 +409,6 @@ window.DP_I18N.nl = {
   "articles_deep_proof": "Artikelen — Deep Proof",
   "articles_description": "Artikelen van het project Deep Proof.",
   "art_in_english": "In het Engels",
-  "art_misread_summary": "Testresultaten over waar AI-agents op de opdrachtregel verkeerde antwoorden geven over lange documenten."
+  "art_misread_summary": "Testresultaten over waar AI-agents op de opdrachtregel verkeerde antwoorden geven over lange documenten.",
+  "art_two_agents_summary": "Een onopvallend genotuleerde terugbetaling helpt verklaren waarom gewone agents die dezelfde commissienotulen controleerden op verschillende saldi uitkwamen."
 };

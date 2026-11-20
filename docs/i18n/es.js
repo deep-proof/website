@@ -409,5 +409,6 @@ window.DP_I18N.es = {
   "articles_deep_proof": "Artículos — Deep Proof",
   "articles_description": "Artículos del proyecto Deep Proof.",
   "art_in_english": "En inglés",
-  "art_misread_summary": "Resultados de las pruebas sobre los casos en que agentes de IA de línea de comandos dan respuestas erróneas sobre documentos largos."
+  "art_misread_summary": "Resultados de las pruebas sobre los casos en que agentes de IA de línea de comandos dan respuestas erróneas sobre documentos largos.",
+  "art_two_agents_summary": "Un reembolso registrado discretamente ayuda a explicar por qué agentes simples que revisaban las mismas actas de un comité llegaron a saldos diferentes."
 };

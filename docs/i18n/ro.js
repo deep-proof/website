@@ -409,5 +409,6 @@ window.DP_I18N.ro = {
   "articles_deep_proof": "Articole — Deep Proof",
   "articles_description": "Articole din proiectul Deep Proof.",
   "art_in_english": "În limba engleză",
-  "art_misread_summary": "Rezultatele testelor despre cazurile în care agenții AI din linia de comandă dau răspunsuri greșite despre documente lungi."
+  "art_misread_summary": "Rezultatele testelor despre cazurile în care agenții AI din linia de comandă dau răspunsuri greșite despre documente lungi.",
+  "art_two_agents_summary": "O rambursare consemnată discret ajută la explicarea motivului pentru care agenți simpli, verificând aceleași procese-verbale ale comitetului, au ajuns la solduri diferite."
 };

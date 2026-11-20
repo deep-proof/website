@@ -409,5 +409,6 @@ window.DP_I18N.rm = {
   "articles_deep_proof": "Artitgels — Deep Proof",
   "articles_description": "Artitgels dal project Deep Proof.",
   "art_in_english": "En englais",
-  "art_misread_summary": "Resultats dals tests davart ils cas nua che agents d’IA da la lingia da cumonds dattan respostas sbagliadas davart documents lungs."
+  "art_misread_summary": "Resultats dals tests davart ils cas nua che agents d’IA da la lingia da cumonds dattan respostas sbagliadas davart documents lungs.",
+  "art_two_agents_summary": "In rembursament protocollà discretamain gida a declerar pertge che agents simpels, controllond ils medems protocols da cumissiun, èn arrivads a saldos differents."
 };

@@ -410,5 +410,6 @@ window.DP_I18N.en = {
   "articles_deep_proof": "Articles — Deep Proof",
   "articles_description": "Articles from the Deep Proof project.",
   "art_in_english": "In English",
-  "art_misread_summary": "Test results on where command-line AI agents give wrong answers about long documents."
+  "art_misread_summary": "Test results on where command-line AI agents give wrong answers about long documents.",
+  "art_two_agents_summary": "A quietly recorded repayment helps explain why plain agents checking the same committee minutes reached different balances."
 };

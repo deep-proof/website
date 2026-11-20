@@ -409,5 +409,6 @@ window.DP_I18N.de = {
   "articles_deep_proof": "Artikel — Deep Proof",
   "articles_description": "Artikel aus dem Projekt Deep Proof.",
   "art_in_english": "Auf Englisch",
-  "art_misread_summary": "Testergebnisse dazu, wo KI-Agenten auf der Kommandozeile zu langen Dokumenten falsche Antworten geben."
+  "art_misread_summary": "Testergebnisse dazu, wo KI-Agenten auf der Kommandozeile zu langen Dokumenten falsche Antworten geben.",
+  "art_two_agents_summary": "Eine unauffällig protokollierte Rückzahlung hilft zu erklären, warum einfache Agenten bei der Prüfung derselben Kommissionsprotokolle auf unterschiedliche Saldi kamen."
 };

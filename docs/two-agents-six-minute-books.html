@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Two agents read the same six minute books — Deep Proof</title>
+    <meta name="description" content="A quietly recorded repayment helps explain why plain agents checking the same committee minutes reached different balances." />
+    <meta name="theme-color" content="#f7f8f3" />
+    <link rel="canonical" href="https://deepproof.ch/two-agents-six-minute-books.html" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Deep Proof" />
+    <meta property="og:title" content="Two agents read the same six minute books — Deep Proof" />
+    <meta property="og:description" content="A quietly recorded repayment helps explain why plain agents checking the same committee minutes reached different balances." />
+    <meta property="og:url" content="https://deepproof.ch/two-agents-six-minute-books.html" />
+    <meta property="og:image" content="https://deepproof.ch/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Deep Proof: from dossier to decision." />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>try{var t=localStorage.getItem("theme");if(t!=="dark")t="light";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}</script>
+    <script src="i18n/en.js"></script>
+    <script>(function(){var l="en",q=/[?&]lang=(de|en|es|fr|it|nl|pl|pt|rm|ro)\b/.exec(location.search);try{l=q?q[1]:localStorage.getItem("lang")||"en";if(q)localStorage.setItem("lang",l)}catch(e){if(q)l=q[1]}if(!/^(de|es|fr|it|nl|pl|pt|rm|ro)$/.test(l))l="en";document.documentElement.lang=l;if(l!=="en")document.write('<script src="i18n/'+l+'.js"><\/script>')})();</script>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="tracking.js"></script>
+  </head>
+  <body class="legal-page article-page">
+    <a class="skip-link" href="#main-content" data-i18n="skip_to_content">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Deep Proof home" data-i18n-attr="aria-label:deep_proof_home">
+        <img class="brand-mark" src="favicon.svg" alt="" aria-hidden="true" width="28" height="28" />
+        <span data-i18n="deep_proof">Deep Proof</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" data-menu-toggle>
+        <span class="menu-toggle-bars" aria-hidden="true"></span><span data-i18n="menu">Menu</span>
+      </button>
+      <nav id="primary-nav" aria-label="Primary navigation" data-menu data-i18n-attr="aria-label:primary_navigation">
+        <a href="index.html#how-it-works" data-i18n="how_it_works">How it works</a>
+        <a href="index.html#skills" data-i18n="ai_review_skills">AI Review Skills</a>
+        <a href="security.html" data-i18n="security">Security</a>
+        <a href="index.html#open-source" data-i18n="open_source">Open-Source</a>
+        <a href="articles.html" data-i18n="articles">Articles</a>
+        <a href="about.html" data-i18n="about">About</a>
+        <a href="index.html#contact" data-i18n="contact">Contact</a>
+      </nav>
+      <select class="lang-select" data-lang-select aria-label="Language" data-i18n-attr="aria-label:language">
+        <option value="de" lang="de">DE</option>
+        <option value="en" lang="en">EN</option>
+        <option value="es" lang="es">ES</option>
+        <option value="fr" lang="fr">FR</option>
+        <option value="it" lang="it">IT</option>
+        <option value="nl" lang="nl">NL</option>
+        <option value="pl" lang="pl">PL</option>
+        <option value="pt" lang="pt">PT</option>
+        <option value="rm" lang="rm">RM</option>
+        <option value="ro" lang="ro">RO</option>
+      </select>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6z"/></svg>
+      </button>
+      <a class="header-contact" href="index.html#contact" data-i18n="discuss_your_use_case">Discuss your use case <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="main-content" class="legal-content">
+      <p class="eyebrow"><span></span> <b class="eyebrow-label" data-i18n="test_results">Test results</b></p>
+      <p class="english-note" data-i18n="art_english_note">This article is available in English only. The navigation, the form and the privacy texts on this page are in your language.</p>
+<!-- ARTICLE:BEGIN sha256=eaf272fbcd9d7bfe77f639af429ba81763315b262e927d218ff410bfe1c268b4 -->
+<article lang="en" class="article-copy">
+<h1>Two agents read the same six minute books</h1>
+<p class="lede">We gave gpt-6.2-astra six books of committee minutes that had tripped up its predecessor. It got every answer right. In 12 of 24 reviews the older agent had made at least one mistake on the very same material. Some of those mistakes turn on a small piece of bookkeeping. What happens to a payment when a later meeting records that the money went back?</p>
+
+<p>Here is the earlier result as we reported it. <!--edition8-->On six books of a later edition of the minutes, gpt-6-astra at the xhigh effort setting, working as it does by default, got <strong>169 of 576</strong> answers not right in 24 reviews. A planned extension of this run was not carried out, so we give the count and draw no rate from it.<!--/edition8--></p>
+<p>When we repeated those reviews with the newer agent, 0 of 576 answers were wrong by the same test of verdict and value. Every answer counted, including the control questions within each review. Both agents worked from the command line with a shell, at the same effort setting. Neither had a review skill. These figures describe the plain agents we ran. We did not run our own document-review system in this test.</p>
+<figure class="chart" id="chart-review-marks">
+<div class="chart-key">A filled square represents one review with at least one answer not right. The label beside each agent counts those reviews. An open square represents a review with every answer right.</div>
+<div class="chart-label">gpt-6-astra · 12 of 24 reviews</div>
+<div class="review-squares">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+</div>
+<div class="chart-label">gpt-6.2-astra · 0 of 24 reviews</div>
+<div class="review-squares">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+</div>
+<figcaption>The squares are grouped by outcome. Their positions do not identify a book or a review’s place in the run. The earlier measurement ended without its planned extension. We fixed the newer benchmark rule before the remaining reviews ran.</figcaption>
+</figure>
+
+<h2>What went back to the committee?</h2>
+<p>Imagine reading the minutes to find out how much a project still holds. An early meeting records a payment. Later, the committee hears that the project has given up what it received at that meeting. The second entry can identify the first by the project and the meeting alone. It need not repeat the amount. If you carry the first entry into a ledger and pass over the second, you can add up the ledger correctly and still give the wrong answer.</p>
+<p>We wrote the eighth edition to test just that reading problem. These are invented books. From one edition to the next we changed the minutes to make agents miss more answers. For this edition we kept the events and the questions of an earlier design and changed how some returns were recorded. The wording identifies the committee as the original sender and the eventual recipient. The quiet entries leave out the sum, the usual words for paying money back and the name of the officer who handles payments.</p>
+<p>We chose those expressions after looking at the searches the older agent had used. Its lists of words rarely picked them up. That gives the comparison a built-in tilt. Both agents faced precisely the same pages, but we had used only the older agent's habits to write them. We can say which one did better here. A comparison on other people's minutes would need evidence of its own.</p>
+
+<h2>What the agents did with the pages</h2>
+<p>After scoring, we read the commands from one session of each agent in full. They were working on the same book and the same report. Both wrote code to sort the paragraphs into kinds of business and kept the ones their rules could not place. The difference showed up when they chose which of those paragraphs to examine.</p>
+<p>In the older session, which contained errors, the filter for the paragraphs left over still asked for familiar money words. A quiet return could slip past both the first sort and that second look. In the newer session, the agent inspected leftover paragraphs using broader words, including “committee”. Its code also came to recognise quiet expressions for a return. The word “committee” appeared in searches by both agents. To see the difference in these two sessions, we had to look at which paragraphs each agent searched.</p>
+<figure class="chart" id="chart-search-fork">
+<svg class="chart-plot" width="100%" height="74" role="img" aria-labelledby="chart-search-fork-title chart-search-fork-desc" fill="currentColor">
+<title id="chart-search-fork-title">How the two sessions searched the leftover paragraphs</title>
+<desc id="chart-search-fork-desc">Both sessions sorted paragraphs by code and kept the ones no rule placed. The older session with errors filtered these for familiar money words such as “paid” and “grant”. The newer session used broader terms, including “committee”.</desc>
+<svg viewBox="0 0 1000 74" preserveAspectRatio="none" width="100%" height="74">
+<line class="chart-mark" x1="500" y1="22" x2="500" y2="34" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="500" y1="34" x2="90" y2="34" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="90" y1="34" x2="90" y2="48" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="82" y1="42" x2="90" y2="48" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="98" y1="42" x2="90" y2="48" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="500" y1="34" x2="910" y2="34" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="910" y1="34" x2="910" y2="48" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="902" y1="42" x2="910" y2="48" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="918" y1="42" x2="910" y2="48" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+</svg>
+<svg viewBox="0 0 2 74" preserveAspectRatio="xMidYMid meet" width="100%" height="74">
+<text class="chart-tick" x="1" y="17" text-anchor="middle">Sort paragraphs and keep leftovers</text>
+</svg>
+<svg viewBox="0 0 2 74" preserveAspectRatio="xMinYMid meet" width="100%" height="74">
+<text class="chart-tick" x="0" y="70" text-anchor="start">Older session</text>
+</svg>
+<svg viewBox="0 0 2 74" preserveAspectRatio="xMaxYMid meet" width="100%" height="74">
+<text class="chart-tick" x="2" y="70" text-anchor="end">Newer session</text>
+</svg>
+</svg>
+<svg class="chart-plot" width="100%" height="22" aria-hidden="true" fill="currentColor">
+<svg viewBox="0 0 2 22" preserveAspectRatio="xMinYMid meet" width="100%" height="22">
+<text class="chart-tick" x="0" y="17" text-anchor="start">“paid”, “grant”</text>
+</svg>
+<svg viewBox="0 0 2 22" preserveAspectRatio="xMaxYMid meet" width="100%" height="22">
+<text class="chart-tick" x="2" y="17" text-anchor="end">including “committee”</text>
+</svg>
+</svg>
+<figcaption>We read one session of each agent in full. The older session with errors filtered leftovers for familiar money words. The newer session used broader terms, including “committee”. Extending this explanation to the other reviews is an inference.</figcaption>
+</figure>
+<p>Across the other sessions we have counts of what the commands displayed and what the answers imply about the ledger. The older agent's successful reviews usually displayed nearly all the quiet sentences. In its reviews with mistakes, far fewer appeared. The newer agent's figures accounted for the returns even though most quiet sentences never appeared in full in its output. We infer that examining what the first sort missed helped it. We did not trace that sequence in every review, and some earlier mistakes occurred even when the quiet sentences had been displayed.</p>
+
+<h2>What we can say from the comparison</h2>
+<p>Each book came with two reports. We gave each report to each agent twice, in fresh sessions. One missed payment could spoil several answers in a single report. We therefore counted reviews that contained any answer that was not right. The newer agent had 0 of 24 such reviews. We used a two-sided Fisher exact test on the review counts. We fixed that rule after the first stage was complete and before the remaining reviews began. Its reading was <strong>LOWER</strong> for the newer agent on these books.</p>
+<figure class="chart" id="chart-review-order">
+<svg class="chart-plot" width="100%" height="22" aria-hidden="true" fill="currentColor">
+<svg viewBox="0 0 2 22" preserveAspectRatio="xMinYMid meet" width="100%" height="22">
+<text class="chart-tick" x="0" y="17" text-anchor="start">8 known</text>
+</svg>
+<svg viewBox="0 0 2 22" preserveAspectRatio="xMidYMid meet" width="100%" height="22">
+<text class="chart-tick" x="1" y="17" text-anchor="middle">Rule fixed</text>
+</svg>
+<svg viewBox="0 0 2 22" preserveAspectRatio="xMaxYMid meet" width="100%" height="22">
+<text class="chart-tick" x="2" y="17" text-anchor="end">16 added</text>
+</svg>
+</svg>
+<svg class="chart-plot" width="100%" height="49" role="img" aria-labelledby="chart-review-order-title chart-review-order-desc" fill="currentColor">
+<title id="chart-review-order-title">When we fixed the comparison rule</title>
+<desc id="chart-review-order-desc">The first 8 newer-agent reviews were already known. We fixed the rule, ran the remaining 16 reviews, then read LOWER on all 24.</desc>
+<svg viewBox="0 0 1000 49" preserveAspectRatio="none" width="100%" height="49">
+<line class="chart-mark" x1="20" y1="9" x2="500" y2="9" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="500" y1="9" x2="980" y2="9" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="980" y1="9" x2="980" y2="26" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="20" y1="8" x2="20" y2="10" stroke="currentColor" stroke-width="7" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+<line class="chart-mark" x1="500" y1="3" x2="500" y2="15" stroke="currentColor" stroke-width="5" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="980" y1="8" x2="980" y2="10" stroke="currentColor" stroke-width="7" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+<line class="chart-mark" x1="972" y1="20" x2="980" y2="26" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+<line class="chart-mark" x1="988" y1="20" x2="980" y2="26" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+</svg>
+<svg viewBox="0 0 2 49" preserveAspectRatio="xMaxYMid meet" width="100%" height="49">
+<text class="chart-tick" x="2" y="46" text-anchor="end">LOWER on all 24 reviews</text>
+</svg>
+</svg>
+<figcaption>We fixed the comparison rule after the first 8 results and before the remaining 16 reviews began. The reading covers all 24 reviews of the newer agent.</figcaption>
+</figure>
+<p>We changed two things between the runs. The older model ran in Codex 0.168.0. The newer model ran in Codex 0.170.0. We never gave the older model these books under the newer program. The difference we measured belongs to the agents as we ran them. We cannot tell how much came from the change of model alone.</p>
+<p>There is uncertainty even about another run like this one. With no affected review in the newer run, the upper end of the exact two-sided 95% interval is still about 14.2%. That calculation treats reviews as independent chances to make an error. In practice, four reviews drew on each book. They share the same passages and the same opportunities to overlook a return. A clean set of answers here leaves open what would happen on a fresh book.</p>
+<p>Another plain agent, gpt-6.2-sol at xhigh, had 89 of 576 answers not right in 6 of 24 reviews on the same books. We read its three stages separately. We had fixed no test for their sum.</p>
+<h2>The full report</h2>
+<p>The full report gives the counts stage by stage, the scoring rule and the statistical comparison. It puts an ordinary account of a repayment beside a quiet account of the same transaction, so you can check the balance yourself. You can ask for the report using the form below this article.</p>
+</article>
+<!-- ARTICLE:END -->
+
+      <section id="report" class="report-form" aria-labelledby="rf-heading">
+        <h2 id="rf-heading" data-i18n="rf_heading">Get the full report</h2>
+        <p class="rf-intro" data-i18n="rf_intro">The written report has every result, the method and worked examples. Fill in the form and you get a personal download link at once. No email is sent.</p>
+        <form id="report-request-form" class="report-request-form" method="post" novalidate data-document="two-agents-six-minute-books">
+          <div class="rf-field">
+            <label for="rf-name" data-i18n="rf_name">Your name</label>
+            <input id="rf-name" name="name" autocomplete="name" required minlength="2" maxlength="120" aria-describedby="rf-error-name" />
+            <span class="field-error" id="rf-error-name"></span>
+          </div>
+          <div class="rf-field">
+            <label for="rf-email" data-i18n="rf_email">Work email</label>
+            <input id="rf-email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="rf-error-email" />
+            <span class="field-error" id="rf-error-email"></span>
+          </div>
+          <div class="rf-field">
+            <label for="rf-company" data-i18n="rf_company">Company</label>
+            <input id="rf-company" name="company" autocomplete="organization" required minlength="2" maxlength="160" aria-describedby="rf-error-company" />
+            <span class="field-error" id="rf-error-company"></span>
+          </div>
+          <div class="rf-field rf-wide">
+            <label for="rf-comment" data-i18n="rf_comment">Comment (optional)</label>
+            <textarea id="rf-comment" name="comment" maxlength="1000" rows="4" aria-describedby="rf-error-comment"></textarea>
+            <span class="field-error" id="rf-error-comment"></span>
+          </div>
+          <div class="rf-trap" aria-hidden="true" inert>
+            <label for="rf-website">Website</label>
+            <input id="rf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="rf-field rf-wide rf-consent">
+            <input id="rf-consent" name="consent" type="checkbox" required aria-labelledby="rf-consent-text" aria-describedby="rf-error-consent" />
+            <label for="rf-consent"><span id="rf-consent-text" data-i18n="rf_consent">I agree that Outfinity SARL stores the details I enter here to give me the report and to contact me about Deep Proof. See the <a href="privacy.html#report-request">privacy notice</a>.</span></label>
+            <span class="field-error" id="rf-error-consent"></span>
+          </div>
+          <button class="button button-primary" type="submit" id="rf-submit" disabled data-i18n="rf_submit">Get the report</button>
+        </form>
+        <p id="rf-status" class="form-status" role="status" aria-live="polite"></p>
+        <div id="rf-result" class="rf-result" hidden>
+          <p id="rf-success"></p>
+          <p class="rf-link-row"><a id="rf-link" href="#" rel="noopener noreferrer" referrerpolicy="no-referrer"></a></p>
+          <p id="rf-expires"></p>
+          <p id="rf-no-email"></p>
+          <button class="button button-quiet" type="button" id="rf-copy"></button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="brand" href="index.html" aria-label="Deep Proof home" data-i18n-attr="aria-label:deep_proof_home"><img class="brand-mark" src="favicon.svg" alt="" aria-hidden="true" width="28" height="28" /><span data-i18n="deep_proof">Deep Proof</span></a>
+          <p data-i18n="evidence_based_document_review_for_teams">Evidence-based document review for teams making high-stakes decisions.</p>
+          <a class="footer-email" href="#" data-mail=""><span class="email-img" role="img" aria-label="contact at deepproof dot ch"></span></a>
+        </div>
+        <nav class="footer-col" aria-label="Product" data-i18n-attr="aria-label:product">
+          <h2 data-i18n="product">Product</h2>
+          <a href="index.html#how-it-works" data-i18n="how_it_works">How it works</a>
+          <a href="index.html#skills" data-i18n="ai_review_skills">AI Review Skills</a>
+          <a href="index.html#engagement" data-i18n="how_we_work">How we work</a>
+          <a href="security.html" data-i18n="security_amp_data">Security &amp; data</a>
+          <a href="index.html#faq" data-i18n="faq">FAQ</a>
+        </nav>
+        <nav class="footer-col" aria-label="Open-Source" data-i18n-attr="aria-label:open_source">
+          <h2 data-i18n="open_source">Open-Source</h2>
+          <a href="https://github.com/deep-proof/deep-proof-community-edition" target="_blank" rel="noopener" data-i18n="community_edition_on_github">Community Edition on GitHub</a>
+          <a href="licensing.html" data-i18n="licensing">Licensing</a>
+        </nav>
+        <nav class="footer-col" aria-label="Company" data-i18n-attr="aria-label:company">
+          <h2 data-i18n="company">Company</h2>
+          <a href="about.html" data-i18n="about">About</a>
+          <a href="index.html#contact" data-i18n="contact">Contact</a>
+          <a href="impressum.html" data-i18n="impressum">Impressum</a>
+          <a href="privacy.html" data-i18n="privacy">Privacy</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <p data-i18n="2026_outfinity_sarl_switzerland_deep_proof">© 2026 Outfinity SARL, Switzerland. Deep Proof is a venture of Outfinity Venture Studio.</p>
+        <p data-i18n="platform_implementation_by_axiologic_research">Platform implementation by <a href="https://www.axiologic.net/" target="_blank" rel="noopener">Axiologic Research</a>.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="report-form.js"></script>
+  </body>
+</html>

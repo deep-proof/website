@@ -409,5 +409,6 @@ window.DP_I18N.pl = {
   "articles_deep_proof": "Artykuły — Deep Proof",
   "articles_description": "Artykuły projektu Deep Proof.",
   "art_in_english": "Po angielsku",
-  "art_misread_summary": "Wyniki testów dotyczące przypadków, w których agenci AI działający w wierszu poleceń udzielają błędnych odpowiedzi na temat długich dokumentów."
+  "art_misread_summary": "Wyniki testów dotyczące przypadków, w których agenci AI działający w wierszu poleceń udzielają błędnych odpowiedzi na temat długich dokumentów.",
+  "art_two_agents_summary": "Dyskretnie odnotowany zwrot środków pomaga wyjaśnić, dlaczego zwykli agenci sprawdzający te same protokoły komisji doszli do różnych sald."
 };
