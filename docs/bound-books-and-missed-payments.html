@@ -68,7 +68,618 @@
     <main id="main-content" class="legal-content">
       <p class="eyebrow"><span></span> <b class="eyebrow-label" data-i18n="test_results">Test results</b></p>
       <p class="english-note" data-i18n="art_english_note">This article is available in English only. The navigation, the form and the privacy texts on this page are in your language.</p>
-<!-- ARTICLE:BEGIN sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 -->
+<!-- ARTICLE:BEGIN sha256=f006427878a312e86cf8a76d28e623aa8b6643734835c54cdc4645155f57a1ca -->
+<article lang="en" class="article-copy">
+<h1>How the wording of minutes changes a review</h1>
+<p class="lede">A project gives back money it received at an earlier meeting. The minutes identify it only as the project described in the paragraph above. Checking the account means finding the project and then the payment. We changed the words linking them. Traces of the saved sessions, made after scoring and spot-checked by us, found that sixteen of the eighteen flawed reviews of edited books left out edited returns. The other two counted payments a treasurer had merely summarised again. In a separate check, the full set of figures in thirteen of the eighteen reviews matched what omitting edited returns alone would give.</p>
+<p>From 20 to 22 November 2026 we first changed how the reports stated figures, then tested changes to the wording of generated committee minutes. We used gpt-6.2-astra in Codex at xhigh effort. By default the agent chose how to read the books. In the main comparison, 6 of 44 default reviews had a wrong figure on fresh unedited books. On edited copies, 18 of 44 did. The reports and the underlying events were the same on both sides.</p>
+<h2>Checking a claim that gives only a limit</h2>
+<p>Suppose a report says the committee paid out more than a certain sum. We asked whether that claim held and exactly how much the minutes showed. We deliberately placed each bound outside the entire range of plausible figures, making the judgment easy. A wrong or withheld judgment also counted as a reading error. In the main experiment, every missed answer had a correct judgment beside a wrong figure.</p>
+<p>Our first probe counted a wrong figure only if missing returns, variations, corrections or rescissions explained it. One of 8 default reviews lost six ordinary payments. Although 10 answers were wrong, payments fell outside those four event types, so the probe’s outcome was dead. We also told the agent to read every volume through. We call this the read-through instruction. Both reviews with that instruction were clean.</p>
+<p>On six fresh books we counted reviews with any wrong figure. We found 3 of 24 by default and 1 of 4 with the read-through instruction. Across the default reviews, 34 of 576 counted answers were wrong, a point figure only. An earlier experiment, on other books of the same edition and on another machine, with reports stating exact figures, had 0 flawed reviews in 24. We had fixed no comparison between those experiments. For scale, the two-sided Fisher p-value for their review counts was 0.23. These results do not show that stating bounds caused wrong figures. Overlapping mistakes on one report raised an audit flag. Another default review got that report entirely right. The flag stayed on record.</p>
+<p>Our first edit gave the return of a payment two sentences. The first named the project and earlier meeting. The second said what had happened to the money. We even explained that construction in the procedure note. Only 1 of 8 reviews had a wrong figure. The rule counted flawed reviews, possible misses and whole reviews excluded from scoring. A total of zero or one meant the idea was dead as a test on its own.</p>
+<h2>Two changes that leave the accounts intact</h2>
+<p>For the next experiment we changed two expressions in some returns. One referred to the project in the previous paragraph. The other described giving back its earlier payment. We also changed treasurers’ summaries. Each still opened by saying the payments had happened earlier. Each payment then got a sentence of its own, in the language of a fresh payment.</p>
+<p>We tried both edits on the six books we had already measured. Default reviews with a wrong figure rose from 3 of 24 to 11 of 24. That crossed our threshold for significance. It was exploratory. We had replayed the agent's own scripts on variations of these books and used what those scripts missed to design the edits. Testing the idea on books we had never used mattered more than a small probability calculated after that search.</p>
+<h2>The test on fresh books</h2>
+<p>We kept eleven new books. To qualify, misreading the two edits together had to change the figures for at least eight of a book’s twenty-four report statements. The retained books contained 54 edited returns and 22 edited summaries. Each book went into both groups. We ran the edited and unedited reviews on the same day, with two reports per book and two fresh attempts per report in each group. A single bad ledger can spoil many answers. We counted a review once if it contained any wrong figure.</p>
+<figure class="chart" id="chart-bound-reviews">
+<div class="chart-label">Unedited, default · 6 of 44</div>
+<div class="review-squares">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+</div>
+<div class="chart-label">Edited, default · 18 of 44</div>
+<div class="review-squares">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+</div>
+<div class="chart-label">Edited, read-through · 4 of 22</div>
+<div class="review-squares">
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="10"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+<svg class="chart-swatch" width="12" height="12" aria-hidden="true" fill="currentColor">
+<rect class="chart-a" x="1" y="1" width="10" height="2"/>
+<rect class="chart-a" x="1" y="9" width="10" height="2"/>
+<rect class="chart-a" x="1" y="3" width="2" height="6"/>
+<rect class="chart-a" x="9" y="3" width="2" height="6"/>
+</svg>
+</div>
+<figcaption>Each square is a review. A filled square means at least one wrong figure. Squares are grouped by outcome. The read-through control was added after the comparison.</figcaption>
+</figure>
+<p>We required agreement between two tests. A one-sided Fisher exact test compared the pooled review counts. Its p-value was about 0.0038. Pooling overstates the evidence because four reviews in each group shared a book. The paired sign-flip test respected that grouping and asked how unusual the observed sum of differences would be if their signs could be reversed book by book. Its p-value was about 0.0156. Both met the rule we had fixed before the reviews began. We called the result replicated. An independent verifier counted twice, from the scored records and from the original sheets, and agreed on every review. Its leak scan found no private reference material in the run files and detected it in every positive control. A directory label could disclose the group. We found no use of it in readable code or reasoning. Private reasoning could not be checked. All the cutoffs were ours. Nobody outside the project had set a target for this agent.</p>
+<p>We asked other models to check whether careful readers could understand the edited books. Valid Opus readers and readers from a second model got every answer right on ten books. Five Sonnet readers substituted for Fable sessions cut off by the account limit. One correct Opus reading was void because a command ran before the reader entered its folder. Its replacement left nineteen values empty without running a calculation. We ruled that attempt “not a reading” before allowing one replacement, which got everything right. On the remaining book a Fable reader did so, while both Opus readers missed things in unchanged passages. Leaving that book out gave eighteen of forty against six of forty. The pooled p-value was 0.0033 and the paired p-value was 0.0156, again meeting both cutoffs.</p>
+<h2>What a program can load and still overlook</h2>
+<p>After scoring, sessions of the tested model traced selected reviews, and we spot-checked one or two cited lines per trace. The first trace covered four flawed baseline sessions, including the instructed review. The second covered eleven flawed exploratory reviews, with thirteen clean reviews for comparison. The third followed twenty-four flawed replication reviews and compared them with clean edited reviews. In some reviews a program loaded the relevant volume, then discarded a sentence because it could not identify the project. In others it identified the project but failed to recognise the expression for giving money back. Successful programs inspected unmatched text, looked for the reference to an earlier meeting or went back to the beginning of a summary. We infer that what happened between loading the text and entering it in the account explains much of the difference.</p>
+<p>A further design was built but never run. The second set of generated material failed the generator's own check on its last permitted draw. We kept the stopping rule. In a separate, post hoc control, we asked the same agent to read every volume through. It then missed a figure in 4 of 22 reviews of the edited books. We had reserved the interpretation that the effect was mainly about default reviewing for three or fewer flawed reviews. Eight or more would suggest that the books were hard even with the instruction. Four fell between those lines and is reported as it is. The drop suggests the default approach matters, without reaching the threshold for that interpretation. There was no independent recount or session trace of this control. It decided nothing about replication.</p>
+<p>These were generated minutes, one model, one program and one effort. Multiple reviews of a book share passages and cannot be taken as independent examples of document reading. We designed the edits against filters seen in this agent's own programs. The comparison gives no failure rate for other agents or for the documents on a real committee's desk.</p>
+<h2>The full report</h2>
+<p>The report puts the original minutes beside the edited passages, follows each attempt and its rule, and gives the scoring method, both statistical tests, the independent recount, blind readings, leak checks and session evidence. You can ask for it with the form below this article.</p>
+</article>
 <!-- ARTICLE:END -->
 
       <section id="report" class="report-form" aria-labelledby="rf-heading">
