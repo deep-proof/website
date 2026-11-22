@@ -411,5 +411,6 @@ window.DP_I18N.en = {
   "articles_description": "Articles from the Deep Proof project.",
   "art_in_english": "In English",
   "art_misread_summary": "Test results on where command-line AI agents give wrong answers about long documents.",
+  "art_bound_books_summary": "We tested how changes to the wording of committee minutes affected an agent’s ability to check the figures in a report.",
   "art_two_agents_summary": "A quietly recorded repayment helps explain why plain agents checking the same committee minutes reached different balances."
 };

@@ -410,5 +410,6 @@ window.DP_I18N.pt = {
   "articles_description": "Artigos do projeto Deep Proof.",
   "art_in_english": "Em inglês",
   "art_misread_summary": "Resultados dos testes sobre os casos em que agentes de IA de linha de comandos dão respostas erradas sobre documentos longos.",
+  "art_bound_books_summary": "Estudámos de que forma as alterações na redação das atas de uma comissão afetam a capacidade de um agente para verificar os valores de um relatório.",
   "art_two_agents_summary": "Um reembolso registado discretamente ajuda a explicar por que razão agentes simples, ao verificarem as mesmas atas de comissão, chegaram a saldos diferentes."
 };
