@@ -51,17 +51,53 @@ chosen model and only the blind input, an example command is:
 Record the model, effort and output from codex --version. This command makes
 a model call. Repeating it may give a different answer. This exercise has
 three claims and hand-written minutes. The observed study totals come from
-the much longer sealed books and can be reproduced with the CSV above.
+the six much longer books of the study; the CSV above reproduces the totals,
+and section 3 rebuilds the books.
 
-3. For holders of the original research archive
+3. Rebuild the six books and their answer keys
+
+The six minute books of the study and their answer keys (unsealed, without
+the canary the recorded runs added) can be rebuilt byte for byte from the
+public generator. The recipe is in the Deep Proof Community Edition
+repository; this section describes it as of commit 875f401:
+
+    https://github.com/deep-proof/deep-proof-community-edition/tree/main/tests/evaluation/minute-books
+
+It needs Git, Node.js 24 or later and Python 3 (3.9 and 3.12 were checked).
+Run:
+
+    git clone https://github.com/deep-proof/deep-proof-community-edition.git
+    cd deep-proof-community-edition
+    node tests/evaluation/minute-books/build.mjs
+
+The build downloads three generator files from lean_documents commit
+e36c1d7b16dc39d073a399eef7806c14e0b228c8, checks their hashes, runs them
+with the recorded seed and compares every book file and answer key with
+the hashes the recipe records. It calls no model, prints one ok line per
+book and refuses a build that differs. The books are written to
+tests/evaluation/minute-books/.data/build/minutes-edition-8/fixtures and
+their answer keys to the keys folder beside it.
+
+Give a reviewer one report and its sources folder only, never the keys, the
+build folder or the repository. Copying the files is not enough when the
+review runs on the machine that built them: a reviewing agent, even in a
+read-only sandbox, may still read the keys elsewhere on disk. Before such a
+review, build with --data pointing outside your home folder or move the keys
+off the machine, and run the review without network access where possible.
+A fresh review measures its own run; it does not reproduce the recorded
+reviews, which only the CSV above sums. The recipe's README explains how to
+run and score fresh reviews with the lean_documents blind runner.
+
+4. For holders of the original research archive
 
 The original default runs used AdvancedLanguageAgent at cae1563, the Codex
 CLI and a shell, a fresh working directory and private home per attempt,
 effort xhigh, the plain arm in evalsuite/arms-shown-sums.json and a one-hour
 limit. GPT-6 Astra ran under codex-cli 0.168.0 and GPT-6.2 Astra under
-0.170.0. The study supplied the procedure note, four volumes, one report
-and the original task in evalsuite/prompts/task-shown-sums.md (see the
-arms file for task selection). The two models attempted each report twice.
+0.170.0. The study supplied the procedure note, the four or five volumes of a
+book, one report and the original task in
+evalsuite/prompts/task-shown-sums.md (see the arms file for task selection).
+The two models attempted each report twice.
 The generator and verdict/value checker were from lean_documents commit
 e36c1d7b16dc39d073a399eef7806c14e0b228c8.
 
@@ -104,6 +140,6 @@ to the corresponding stage name. For a finished stage with passed gates:
 The original stage wrappers and reading order are in
 analysis/q62-scout-20261118/README.md and analysis/q62-bench-20261119/README.md.
 Their score_stage.sh and read_stage.sh expect the original host layout and
-refuse existing outputs. Rerunning agents would additionally require the
-archived fixtures, pinned binaries and access to the historical models.
+refuse existing outputs. Rerunning agents would additionally require pinned
+binaries and access to the historical models; section 3 rebuilds the books.
 New model sessions can vary even with the same software and input.
