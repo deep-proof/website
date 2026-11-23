@@ -1,0 +1,24 @@
+Committee review exercise
+
+Judge each report claim against the source minutes. Mark each claim supported
+or refuted and give the integer amount the sources establish in either case.
+Amounts are in credits. “Held” is the amount transferred to a project less
+what the committee has received back from it. Start all balances at zero.
+Output only a JSON object mapping claim IDs to [verdict, integer].
+
+Minutes, first meeting
+The committee awarded Elm Workshop 40 credits. The treasurer transferred
+25 credits to Elm Workshop at the meeting. Bay Garden received 18 credits.
+
+Minutes, second meeting
+The committee received from Bay Garden what it had provided to the project
+at the first meeting. The treasurer transferred 9 credits to Elm Workshop.
+The secretary confirmed the venue for the next meeting.
+
+Minutes, third meeting
+Elm Workshop sent back 4 credits. The decision on the next award was deferred.
+
+Claims
+A. At the close of the first meeting, Elm Workshop held 40 credits.
+B. At the close of the second meeting, Bay Garden held 18 credits.
+C. At the close of the third meeting, the two projects together held 30 credits.

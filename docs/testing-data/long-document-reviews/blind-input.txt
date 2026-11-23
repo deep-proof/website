@@ -1,0 +1,22 @@
+Review the statement using only the committee minutes below. Return one line
+with a verdict (SUPPORTED, REFUTED or NOT DETERMINED), followed by a tab
+and the source-supported total in whole Swiss francs, written as digits
+without separators. If no total can be determined, write UNKNOWN instead.
+
+Committee minutes
+
+Meeting of 4 March. The committee approved a grant of CHF 1,200 to the
+Riverside Youth Choir for sheet music.
+
+Meeting of 15 April. Grant to the Eastfield Repair Café: CHF 850, approved.
+
+Meeting of 6 May. Correction to the minutes of 4 March: the grant to the
+Riverside Youth Choir was CHF 1,020, not CHF 1,200, as the application stated.
+
+Meeting of 10 June. The committee approved a further grant of CHF 400 to the
+Riverside Youth Choir for travel to the regional festival.
+
+Statement in the report
+
+During the year the committee granted the Riverside Youth Choir CHF 1,600
+in total.

@@ -1,0 +1,33 @@
+study,measure,status,harness,model,effort,unit,numerator,denominator,percent,reviews,generated_score_percent,benchmark_score_percent,mean_score_percent,mean_interval_low_percent,mean_interval_high_percent,scope
+trap-pilot,Careless answers on trap statements,pilot,Codex,gpt-6.1-sol,medium,answers,0,233,,,,,,,,"Ten kinds of trap, one review per report."
+trap-pilot,Careless answers on control statements,pilot,Codex,gpt-6.1-sol,medium,answers,0,2614,,,,,,,,"Ten kinds of trap, one review per report."
+phase1,Paired comparison by agent and model,pooled ranking,Claude Code,claude-fable-5-2,default,score in percent,,,,141,100.0,65.9,83.0,77.6,88.1,48 generated reviews and 93 benchmark reviews. Scores equally weighted. Benchmark labels disputed. Interval is 95%.
+phase1,Paired comparison by agent and model,pooled ranking,Claude Code,haiku,medium,score in percent,,,,141,100.0,65.2,82.6,77.3,87.6,48 generated reviews and 93 benchmark reviews. Scores equally weighted. Benchmark labels disputed. Interval is 95%.
+phase1,Paired comparison by agent and model,pooled ranking,Claude Code,opus,medium,score in percent,,,,141,100.0,62.6,81.3,75.7,86.8,48 generated reviews and 93 benchmark reviews. Scores equally weighted. Benchmark labels disputed. Interval is 95%.
+phase1,Paired comparison by agent and model,pooled ranking,Codex,gpt-6.1-sol,medium,score in percent,,,,141,98.9,61.6,80.3,74.9,85.5,48 generated reviews and 93 benchmark reviews. Scores equally weighted. Benchmark labels disputed. Interval is 95%.
+phase1,Paired comparison by agent and model,pooled ranking,Codex,gpt-6-luna,medium,score in percent,,,,141,96.0,63.5,79.8,73.9,85.5,48 generated reviews and 93 benchmark reviews. Scores equally weighted. Benchmark labels disputed. Interval is 95%.
+phase1,Paired comparison by agent and model,pooled ranking,Codex,gpt-6-astra,medium,score in percent,,,,141,98.9,60.6,79.7,74.4,84.9,48 generated reviews and 93 benchmark reviews. Scores equally weighted. Benchmark labels disputed. Interval is 95%.
+phase1,Paired comparison by agent and model,pooled ranking,Claude Code,sonnet,medium,score in percent,,,,141,96.9,60.7,78.8,72.3,85.0,48 generated reviews and 93 benchmark reviews. Scores equally weighted. Benchmark labels disputed. Interval is 95%.
+phase1,Paired comparison by agent and model,pooled ranking,OpenCode 1.19.5,openai/gpt-6-luna,medium,score in percent,,,,141,97.1,60.1,78.6,73.3,83.7,48 generated reviews and 93 benchmark reviews. Scores equally weighted. Benchmark labels disputed. Interval is 95%.
+phase1,faithbench benchmark reviews per cell,pooled ranking,,,,reviews,38,93,,,,,,,,35 scored in this dataset. Across datasets 90 cases scored per cell.
+phase1,ragtruth benchmark reviews per cell,pooled ranking,,,,reviews,32,93,,,,,,,,32 scored in this dataset. Across datasets 90 cases scored per cell.
+phase1,financebench benchmark reviews per cell,pooled ranking,,,,reviews,23,93,,,,,,,,23 scored in this dataset. Across datasets 90 cases scored per cell.
+phase1,Pairs with a 95% interval excluding zero,pooled ranking,,,,pairs,3,28,,,,,,,,Same cases across cells. Benchmark labels have unresolved ambiguities.
+sums-confirming-run-1,Verdict and value did not both match,confirming run,Codex,gpt-6.1-sol,medium,answers,98,576,17.0,24,,,,,,Six fourth-edition dossiers. Several answers can depend on the same ledger entry.
+large-documents-run-2,Verdict wrong or withheld,confirming run,Codex,gpt-6.1-sol,medium,answers,64,576,11.1,,,,,,,"Six second-edition dossiers, verdict-only task."
+large-documents-run-2,Withheld verdict,confirming run,Codex,gpt-6.1-sol,medium,answers,23,576,,,,,,,,"Six second-edition dossiers, verdict-only task."
+large-documents-run-2,Wrong definite verdict,confirming run,Codex,gpt-6.1-sol,medium,answers,41,576,7.1,,,,,,,"Six second-edition dossiers, verdict-only task."
+large-documents-run-2,Dossiers failing with withheld verdicts included,confirming run,Codex,gpt-6.1-sol,medium,dossiers,2,6,,,,,,,,"Six second-edition dossiers, verdict-only task."
+large-documents-run-2,Dossiers failing on definite errors alone,confirming run,Codex,gpt-6.1-sol,medium,dossiers,1,6,,,,,,,,"Six second-edition dossiers, verdict-only task."
+large-documents-run-2,Truncated tool output,confirming run,Codex,gpt-6.1-sol,medium,tool outputs,173,520,33.3,24,,,,,,"Six second-edition dossiers, verdict-only task."
+large-documents-run-2,Truncated at harness cap,confirming run,Codex,gpt-6.1-sol,medium,tool outputs,106,520,,24,,,,,,"Six second-edition dossiers, verdict-only task."
+large-documents-run-2,Truncated only at limit set by agent,confirming run,Codex,gpt-6.1-sol,medium,tool outputs,67,520,,24,,,,,,"Six second-edition dossiers, verdict-only task."
+checked-answers-run-1,Matching verdict,first measurement,Codex,gpt-6.1-sol,medium,answers,520,576,90.3,24,,,,,,"Same six second-edition dossiers, now with values and quotes requested."
+checked-answers-run-1,Wrong verdict,first measurement,Codex,gpt-6.1-sol,medium,answers,42,576,,24,,,,,,"Same six second-edition dossiers, now with values and quotes requested."
+astra-dense-books,Plain review errors on two dense books,scout,Codex,gpt-6-astra,xhigh,answers,8,192,4.2,8,,,,,,Small scouts. Plain and read-through rows cover different mixes of books.
+astra-dense-books,Read-through errors on mixed book set,scout,Codex,gpt-6-astra,xhigh,answers,0,192,,8,,,,,,Small scouts. Plain and read-through rows cover different mixes of books.
+constraint-scout,Plain review errors,scout,Codex,gpt-6-astra,xhigh,answers,0,96,,,,,,,,Four dossiers. The plain arm is included in the three-arm total.
+constraint-scout,Correct verdict and value across three arms,scout,Codex,gpt-6-astra,xhigh,answers,288,288,,,,,,,,Four dossiers. The plain arm is included in the three-arm total.
+sums-award-scout,Verdict and value did not both match,scout,Codex,gpt-6.1-sol,medium,answers,20,192,10.4,8,,,,,,Two dossiers from the fifth edition.
+sums-award-scout,Verdict and value did not both match,scout,Codex,gpt-6-astra,medium,answers,12,192,6.2,8,,,,,,Two dossiers from the fifth edition.
+minutes-edition-8,Answers not right under default reading,"measurement, extension not run",Codex,gpt-6-astra,xhigh,answers,169,576,,24,,,,,,Count only. Planned extension did not run. Books tailored to earlier search habits.

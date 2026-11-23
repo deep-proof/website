@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Check a payment review yourself — Deep Proof</title>
+<style>
+body { margin: 3rem auto; padding: 0 1.25rem; max-width: 50rem; color: #172623; background: #fafaf7; font: 1.05rem/1.6 system-ui, sans-serif; }
+h1, h2 { line-height: 1.2; } h2 { margin-top: 2.25rem; } a { color: #115854; }
+pre { background: #eaf0ec; padding: 1rem; overflow: auto; } code { overflow-wrap: anywhere; } pre code { overflow-wrap: normal; }
+</style></head><body><main>
+<h1>Check a payment review yourself</h1>
+<p>These short example minutes and this prompt were written for readers. The measured books were much longer and carried two reports with 24 statements each. This exercise illustrates both wording changes. The recorded experiment and its sealed scoring references are a separate dataset.</p>
+<p>Download the files into a coordinator folder. For a terminal download from the published site:</p>
+<pre><code>base=https://deepproof.ch/testing-data/payment-wording
+for name in original.txt edited.txt task.txt book-counts.csv recount.py; do
+  curl -fsSLO "$base/$name" || exit 1
+done</code></pre>
+<h2>Set up a blind attempt</h2>
+<p>1. A coordinator downloads <a href="original.txt">the original</a>, <a href="edited.txt">the edit</a> and <a href="task.txt">the task</a>. For each attempt, give a fresh reviewer just one version under the neutral name <code>minutes.txt</code> and the identical <code>task.txt</code>. Keep the other version, this guide, prior answers and the recount outside the reviewer's environment. Randomise which version goes first.</p>
+<p>2. For a human reader, supply those two files. For Codex, use a newly authenticated, isolated environment containing those two files, with shell access and without custom instructions, skills, plugins or previous sessions. From the folder holding them, run the following with an account that has the named model. The recorded setup used Codex CLI 0.170.0. Record your actual CLI version, model, effort and complete response separately for each attempt.</p>
+<pre><code>codex --version
+codex exec --skip-git-repo-check --sandbox read-only --model gpt-6.2-astra -c 'model_reasoning_effort="xhigh"' - &lt; task.txt</code></pre>
+<p>3. Save the answer before repeating in a new isolated environment with the other copy. To inspect run-to-run variation, repeat each version in fresh sessions. A different model, version or setup is a different comparison.</p>
+<h2>Score the specimen after both attempts</h2>
+<p>For A, Willow Glass received 470 francs and returned 70, giving 400 net. The verdict is supported. For B, Maple Ceramics received 320 plus 150 francs, so the combined balance is 870 francs. The verdict is refuted. The June summary adds nothing. Both versions have these same answers. Record whether each review got a verdict or figure wrong, whether it withheld a verdict, and whether quotations support the calculation. A short specimen can be answered correctly on every attempt. There is no predicted error rate for it.</p>
+<h2>Recount the actual study</h2>
+<p>Save <a href="book-counts.csv">book-counts.csv</a> and <a href="recount.py">recount.py</a> together and run <code>python3 recount.py</code> with Python 3.8 or newer. Each anonymous row represents one matched book. Each arm had two reports and two reviews per report. The CSV transcribes per-book totals from the recorded replication outcome. All reviews counted, so counting excluded reviews as clean gives the same result. The script aggregates the already-scored counts, computes the one-sided Fisher exact tail and enumerates sign assignments across books. It makes no model calls.</p>
+<p>Expected output:</p>
+<pre><code>Matched books: 11
+Original flawed reviews: 6/44
+Edited flawed reviews: 18/44
+One-sided Fisher exact p: 0.00384771
+Paired sign-flip p: 1/64 = 0.015625</code></pre>
+<p>Repeating the original model experiment would require the exact books, reports, isolated runner and sealed scoring references. The public CSV supports checking the arithmetic. The specimen supports a new blind reading.</p>
+<h2>Original study, for operators with the retained materials</h2>
+<p>The source snapshot for this recount is testing-docs revision <code>1370635ef78622c1e10632b039203689dbde577f</code>. Under <code>harness-matrix</code>, the committed <code>results/pilotstack2-read/read.json</code> records each book's flawed and counted reviews by arm. The recorded outcome summary in <code>decision/decision-pilotstack2.outcome.json</code> records the same per-book counts and tests. The CSV preserves the outcome's row order under anonymous labels.</p>
+<p>The historical operator entry point is <code>harness-matrix/analysis/stack-replica-20261121/README.md</code>, “Operator notes, in order”. It requires the original macOS study layout with Bash and the system Python, the pinned evalsuite checkout at <code>77ce67f8</code>, the pinned Codex CLI, recorded decisions, and private prepared materials. Re-scoring requires the original completed sheets, retained sessions, sealed references and stage completion records. These inputs are outside the public download. Use a fresh output checkout. The stage scorer and final reader each refuse to overwrite an existing result.</p>
+<p>From the operator tooling directory, after restoring the prepared materials and setting the original paths, the documented staging entry point is:</p>
+<pre><code>python3 -I -B stage_replica.py "$STUDY_ROOT" "$PREP_DIR" "$CLONE/evalsuite"</code></pre>
+<p>Here <code>PREP_DIR</code> holds the generated books, both versions, the verified edit and eligibility data. Follow the operator notes for per-pair proof, fairness, decisions and dry checks. The historical launcher was <code>../bounds-a-20261119/launch_stage_cell.py</code>. It takes the study root, stage, assigned lane, arms file, repeat count, decision directory and cell ID. Only its explicit launch flag starts reviews. Each fresh attempt received one report and the volumes, with an hour and access to the shell. Replaying the saved aggregate counts requires none of these model calls.</p>
+<p>To re-score the completed stages without calling a model, start in the operator tooling directory. Export <code>STUDY_ROOT</code>, <code>CLONE</code> and <code>PREP_DIR</code> as above. Create a new sparse checkout containing the committed decisions. This gives the scorers an empty results directory beside them and preserves the archived scores:</p>
+<pre><code>source_repo=$(git rev-parse --show-toplevel)
+replay_dir=$(mktemp -d)
+git clone --local --no-checkout "$source_repo" "$replay_dir/study-records" || exit 1
+git -C "$replay_dir/study-records" sparse-checkout set --cone harness-matrix/decision || exit 1
+git -C "$replay_dir/study-records" checkout --detach 1370635ef78622c1e10632b039203689dbde577f || exit 1
+export DOCS_ROOT="$replay_dir/study-records/harness-matrix"
+export DOCS_RESULTS="$DOCS_ROOT"
+for arm in u e; do
+  for pair in 1 2 3 4 5 6; do
+    bash score_stage.sh "pilotstack2${arm}${pair}" || exit 1
+  done
+done
+bash read_replica.sh</code></pre>
+<p>Under the recorded rule the aggregate output is <code>REPLICATED</code>, with exactly the totals and probabilities printed by the public recount above. A new round of model sessions produces a new measurement and can give different results.</p>
+</main></body></html>

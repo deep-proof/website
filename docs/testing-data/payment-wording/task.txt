@@ -1,0 +1,4 @@
+Review these report statements against minutes.txt. Give a supported or refuted verdict for each, the exact net amount in francs at the end of June, and quotations from the minutes that support your calculation. You may use the shell to help you review the book.
+
+A. Willow Glass received net payments of more than 300 francs.
+B. Net payments across both projects came to less than 800 francs.

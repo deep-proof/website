@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Where AI agents misread long documents — Deep Proof</title>
-    <meta name="description" content="Test results on where command-line AI agents give wrong answers about long documents, and what caught nothing." />
+    <title>When an AI reviewer misses a payment — Deep Proof</title>
+    <meta name="description" content="How a missed payment changed a report total, with scores from 24 AI reviews of committee minutes and a short test to try yourself." />
     <meta name="theme-color" content="#f7f8f3" />
     <link rel="canonical" href="https://deepproof.ch/ai-agents-misread-long-documents.html" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -12,8 +12,8 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Deep Proof" />
-    <meta property="og:title" content="Where AI agents misread long documents — Deep Proof" />
-    <meta property="og:description" content="Test results on where command-line AI agents give wrong answers about long documents, and what caught nothing." />
+    <meta property="og:title" content="When an AI reviewer misses a payment — Deep Proof" />
+    <meta property="og:description" content="How a missed payment changed a report total, with scores from 24 AI reviews of committee minutes and a short test to try yourself." />
     <meta property="og:url" content="https://deepproof.ch/ai-agents-misread-long-documents.html" />
     <meta property="og:image" content="https://deepproof.ch/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -68,10 +68,10 @@
     <main id="main-content" class="legal-content">
       <p class="eyebrow"><span></span> <b class="eyebrow-label" data-i18n="test_results">Test results</b></p>
       <p class="english-note" data-i18n="art_english_note">This article is available in English only. The navigation, the form and the privacy texts on this page are in your language.</p>
-<!-- ARTICLE:BEGIN sha256=ddefa1551a672782118def57f7584c3e8d47f1732a6891095ee761bde3dab4ed -->
-<article lang="en" class="article-copy">
-<h1>Where AI agents misread long documents</h1>
-<p class="lede">We tried to make command-line AI agents give wrong answers about documents. The traps we ran caught nothing. Long books of minutes with sums of money in them did.</p>
+<!-- ARTICLE:BEGIN sha256=2ed95bfbf274adb9e9ce697feeb6a0b6e15be2a5486314cf836babcf690fdcf5 -->
+<article lang="en" class="article-copy"><p class="draft-mark">DRAFT: this text is not approved for publication.</p>
+<h1>When an AI reviewer misses a payment</h1>
+<p class="lede">Can you sign off on a report after an AI checks the figures? In our test on six sets of committee minutes, a reviewer missed payments recorded in the text. A single omission could change its answers to several questions about the same accounts.</p>
 
 <h2>What we tested</h2>
 <p>We wanted to know where current AI agents actually go wrong when they check the statements of a report against the source documents the report is about. So we wrote test documents and measured.</p>
@@ -79,7 +79,7 @@
 <p>Every figure below comes from a <strong>plain agent</strong>: a command-line coding agent with a model and nothing else. No review skill, no memory of earlier runs and, except where a result says so, no added instruction.</p>
 
 <h2>1. Where plain agents got answers wrong</h2>
-<p>The family that gave these results is the plainest one: several volumes of committee minutes and reports about sums of money, counts of payments and awards. Nothing in it is hidden from a reader who reads every page. The reader has to find every entry among hundreds, and one missed entry makes every later total wrong.</p>
+<p>The family that gave these results is the plainest one: several volumes of committee minutes and reports about sums of money, counts of payments and awards. Nothing in it is hidden from a reader who reads every page. The reader has to find every entry among hundreds, and one missed entry can change both a payment count and a running total.</p>
 <p>The first two results come from confirming runs, each read by a rule fixed before it started. On six fresh dossiers of the fourth edition, gpt-6.1-sol got <strong>98 of 576 answers (17.0%)</strong> not right. An answer counts as right only when the verdict and the value are both right.</p>
 <p>On six larger dossiers of the second edition, where the task asked for the verdict only, the same model gave 64 of 576 answers (11.1%) that were wrong or withheld; 41 of the 576 (7.1%) were wrong outright. A withheld answer says the sources do not settle a statement that they do settle. By the rule fixed before the run, 2 of 6 dossiers failed, or 1 of 6 if withheld answers are not counted; the rule reads the first count as &ldquo;in between&rdquo;, neither a clear failure nor a pass.</p>
 <figure class="chart" id="chart-answers-split">
@@ -252,7 +252,7 @@ Right: 512 of 576
 <h2>What this does and does not show</h2>
 <p>The figures are for plain agents. They say nothing about agents that are set up in any other way.</p>
 <p>The minutes family was built to find errors. We changed it from edition to edition so that agents would make more mistakes on it, and the latest edition was worded against one agent's own search habits. Its figures say how these agents do on documents made to be hard for them. They are not rates of failure on documents in general.</p>
-<p>The numbers are small. The scouts use two to four dossiers, and most results rest on one or two reviews of each report. The statements of one dossier are not independent: one slip in a running total spoils every total after it.</p>
+<p>The numbers are small. The scouts use two to four dossiers, and most results rest on one or two reviews of each report. The statements of one dossier are not independent: one missed entry can affect several figures in the same report.</p>
 <p>Apart from the public benchmark cases, the documents are synthetic, and almost all are in English. Long scanned documents, handwriting and other languages were not measured.</p>
 <p>Part of every error rate belongs to the agent program, not only the model. In one run 173 of 520 tool outputs (33.3%) came back cut short: 106 by the agent program's own cap, the rest only at limits the agent had set itself. The cuts appear to explain some of the withheld answers.</p>
 <figure class="chart" id="chart-outputs-cut">
@@ -287,8 +287,10 @@ Not cut: 347 of 520
 </figure>
 <p>The models are the ones available when the tests were run, at the settings named in each result.</p>
 
-<h2>The full report</h2>
-<p>The full report gives every figure behind this article with its status and sources, explains how the tests were done and how answers were scored, shows specimen examples written for it of the main kinds of test, and sets out the limits. You can ask for it with the form below.</p>
+<h2>Check the figures yourself</h2>
+<p>The <a href="testing-data/long-document-reviews/study-results.csv">survey results by study and model</a> cover the minutes, traps, scheduling tests and benchmark comparison. The unit column tells you whether a row counts answers, dossiers or tool outputs, or gives a comparison score.</p>
+<p>Download the <a href="testing-data/long-document-reviews/review-counts.csv">review counts for the confirming run</a>. Each row gives one review’s results. Add the answers with a wrong verdict or value, including withheld and unanswered statements, to reconstruct the headline count.</p>
+<p>For a short trial with your own reviewer, give it only the <a href="testing-data/long-document-reviews/blind-input.txt">committee minutes and review prompt</a>. Save the answer before opening the <a href="testing-data/long-document-reviews/reproduce.txt">scoring and repeat instructions</a>. The full report below explains how the original books were scored and why several wrong answers could trace back to one payment.</p>
 </article>
 <!-- ARTICLE:END -->
 

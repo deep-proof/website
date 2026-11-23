@@ -302,7 +302,15 @@ function selfTest() {
   function freshCopy() {
     const dir = fs.mkdtempSync(path.join(tmp, "docs-"));
     fs.mkdirSync(path.join(dir, "i18n"));
-    for (const f of fs.readdirSync(docs).filter((f) => f.endsWith(".html"))) fs.copyFileSync(path.join(docs, f), path.join(dir, f));
+    // Each case starts with one article; twoPages() adds its own second article.
+    const otherArticles = new Set(articlePages(docs).filter((name) => name !== PAGE));
+    for (const f of fs.readdirSync(docs).filter((f) => f.endsWith(".html") && !otherArticles.has(f))) {
+      fs.copyFileSync(path.join(docs, f), path.join(dir, f));
+    }
+    const indexPath = path.join(dir, INDEX);
+    const index = fs.readFileSync(indexPath, "utf8").replace(/<li class="article-entry">[\s\S]*?<\/li>/g,
+      (entry) => entry.includes('href="' + PAGE + '"') ? entry : "");
+    fs.writeFileSync(indexPath, index);
     for (const lang of LANGS) fs.copyFileSync(path.join(docs, "i18n", lang + ".js"), path.join(dir, "i18n", lang + ".js"));
     fs.copyFileSync(path.join(docs, SITEMAP), path.join(dir, SITEMAP));
     const script = fs.readFileSync(path.join(docs, "report-form.js"), "utf8").replace(/const CONSENT_VERSION = "[^"]*";/, 'const CONSENT_VERSION = "2026-11-17";');
@@ -657,7 +665,7 @@ function selfTest() {
   // refused for it). Any other problem on the committed page fails the self-test. The draft state is recognised by
   // the checker's own message, not by the word DRAFT anywhere in a message, since messages can quote page text.
   const committed = checkPage(docs);
-  const draftNow = committed.some((p) => p.startsWith("fragment holds the DRAFT mark"));
+  const draftNow = committed.length > 0 && committed.every((p) => p.startsWith("fragment holds the DRAFT mark"));
   const committedOk = committed.length === 0 || draftNow;
   if (!committedOk) failures++;
   const committedState = draftNow ? "a draft and is refused" : committed.length === 0 ? "final and is accepted" : "refused for another reason";

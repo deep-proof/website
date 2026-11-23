@@ -631,7 +631,7 @@ html[lang="en"] .english-note { display: none; }
 .rf-result p { margin: 0 0 .7rem; color: var(--mist); }
 .rf-result #rf-success { color: var(--paper); font-weight: 650; }
 .rf-link-row a { color: var(--acid); border-bottom: 1px solid currentColor; word-break: break-all; }
-@media (max-width: 640px) { .report-request-form { grid-template-columns: 1fr; } .article-copy { font-size: 1rem; } .article-copy h1 { font-size: 2.1rem; } .report-form h2 { font-size: 1.9rem; } }
+@media (max-width: 640px) { .report-request-form { grid-template-columns: 1fr; } .article-copy { font-size: 1rem; } .article-copy h1 { font-size: clamp(1.3rem, 6.4vw, 2.1rem); } .report-form h2 { font-size: 1.9rem; } }
 
 [data-theme="light"] .report-request-form input:not([type="checkbox"]), [data-theme="light"] .report-request-form textarea { border-color: rgba(7, 21, 29, .25); background-color: #fff; }
 [data-theme="light"] .report-request-form input:focus, [data-theme="light"] .report-request-form textarea:focus { box-shadow: 0 0 0 2px rgba(74, 115, 0, .18); }

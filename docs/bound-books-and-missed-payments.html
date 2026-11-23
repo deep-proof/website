@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>How the wording of minutes changes a review — Deep Proof</title>
-    <meta name="description" content="We tested how changes to the wording of committee minutes affected an agent’s ability to check the figures in a report." />
+    <title>Payment wording tripled flawed reviews by GPT-6.2 Astra — Deep Proof</title>
+    <meta name="description" content="On eleven synthetic books, changing how minutes described payments raised flawed GPT-6.2 Astra reviews from six to eighteen out of forty-four per version." />
     <meta name="theme-color" content="#f7f8f3" />
     <link rel="canonical" href="https://deepproof.ch/bound-books-and-missed-payments.html" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -12,8 +12,8 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Deep Proof" />
-    <meta property="og:title" content="How the wording of minutes changes a review — Deep Proof" />
-    <meta property="og:description" content="We tested how changes to the wording of committee minutes affected an agent’s ability to check the figures in a report." />
+    <meta property="og:title" content="Payment wording tripled flawed reviews by GPT-6.2 Astra — Deep Proof" />
+    <meta property="og:description" content="On eleven synthetic books, changing how minutes described payments raised flawed GPT-6.2 Astra reviews from six to eighteen out of forty-four per version." />
     <meta property="og:url" content="https://deepproof.ch/bound-books-and-missed-payments.html" />
     <meta property="og:image" content="https://deepproof.ch/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -68,11 +68,11 @@
     <main id="main-content" class="legal-content">
       <p class="eyebrow"><span></span> <b class="eyebrow-label" data-i18n="test_results">Test results</b></p>
       <p class="english-note" data-i18n="art_english_note">This article is available in English only. The navigation, the form and the privacy texts on this page are in your language.</p>
-<!-- ARTICLE:BEGIN sha256=f006427878a312e86cf8a76d28e623aa8b6643734835c54cdc4645155f57a1ca -->
-<article lang="en" class="article-copy">
-<h1>How the wording of minutes changes a review</h1>
-<p class="lede">A project gives back money it received at an earlier meeting. The minutes identify it only as the project described in the paragraph above. Checking the account means finding the project and then the payment. We changed the words linking them. Traces of the saved sessions, made after scoring and spot-checked by us, found that sixteen of the eighteen flawed reviews of edited books left out edited returns. The other two counted payments a treasurer had merely summarised again. In a separate check, the full set of figures in thirteen of the eighteen reviews matched what omitting edited returns alone would give.</p>
-<p>From 20 to 22 November 2026 we first changed how the reports stated figures, then tested changes to the wording of generated committee minutes. We used gpt-6.2-astra in Codex at xhigh effort. By default the agent chose how to read the books. In the main comparison, 6 of 44 default reviews had a wrong figure on fresh unedited books. On edited copies, 18 of 44 did. The reports and the underlying events were the same on both sides.</p>
+<!-- ARTICLE:BEGIN sha256=790bbc9d74e63e3813af15a2b38d8605d130c2d850ed4ad4dd7d4e67ba8e9362 -->
+<article lang="en" class="article-copy"><p class="draft-mark">DRAFT: this text is not approved for publication.</p>
+<h1>Payment wording tripled flawed reviews by GPT-6.2 Astra</h1>
+<p class="lede">A grants committee paid out the same money and received the same refunds in both versions of its minutes. The reports to be checked were identical. Yet GPT-6.2 Astra returned at least one wrong figure in 18 of 44 reviews of the edited minutes, up from 6 of 44 on the originals. In every missed answer, it still gave the right verdict on the report’s claim. Someone checking only those verdicts would have seen no sign that the underlying figures were wrong.</p>
+<p>From 20 to 22 November 2026 we tested how the model reviewed generated committee records in Codex at xhigh effort. We changed the wording of selected refunds and the layout of summaries of past payments. After scoring, traces of the saved sessions found that sixteen of the eighteen flawed reviews on the edited books left out edited refunds. The other two counted payments a treasurer had merely summarised again. We spot-checked those traces. <a href="testing-data/payment-wording/book-counts.csv">See the counts for each matched book.</a></p>
 <h2>Checking a claim that gives only a limit</h2>
 <p>Suppose a report says the committee paid out more than a certain sum. We asked whether that claim held and exactly how much the minutes showed. We deliberately placed each bound outside the entire range of plausible figures, making the judgment easy. A wrong or withheld judgment also counted as a reading error. In the main experiment, every missed answer had a correct judgment beside a wrong figure.</p>
 <p>Our first probe counted a wrong figure only if missing returns, variations, corrections or rescissions explained it. One of 8 default reviews lost six ordinary payments. Although 10 answers were wrong, payments fell outside those four event types, so the probe’s outcome was dead. We also told the agent to read every volume through. We call this the read-through instruction. Both reviews with that instruction were clean.</p>
@@ -678,7 +678,7 @@
 <p>A further design was built but never run. The second set of generated material failed the generator's own check on its last permitted draw. We kept the stopping rule. In a separate, post hoc control, we asked the same agent to read every volume through. It then missed a figure in 4 of 22 reviews of the edited books. We had reserved the interpretation that the effect was mainly about default reviewing for three or fewer flawed reviews. Eight or more would suggest that the books were hard even with the instruction. Four fell between those lines and is reported as it is. The drop suggests the default approach matters, without reaching the threshold for that interpretation. There was no independent recount or session trace of this control. It decided nothing about replication.</p>
 <p>These were generated minutes, one model, one program and one effort. Multiple reviews of a book share passages and cannot be taken as independent examples of document reading. We designed the edits against filters seen in this agent's own programs. The comparison gives no failure rate for other agents or for the documents on a real committee's desk.</p>
 <h2>The full report</h2>
-<p>The report puts the original minutes beside the edited passages, follows each attempt and its rule, and gives the scoring method, both statistical tests, the independent recount, blind readings, leak checks and session evidence. You can ask for it with the form below this article.</p>
+<p>The report puts the original minutes beside the edited passages, follows each attempt and its rule, and gives the scoring method, both statistical tests, the independent recount, blind readings, leak checks and session evidence. You can request it below. To check the numbers yourself, download the <a href="testing-data/payment-wording/recount.py">recount script</a> and the book counts above. To try a fresh review, use the <a href="testing-data/payment-wording/reader-exercise.html">blind reader exercise and sample minutes</a>.</p>
 </article>
 <!-- ARTICLE:END -->
 

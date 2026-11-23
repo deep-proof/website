@@ -335,19 +335,30 @@ async function selfTest() {
     pages: [pageWith(PAGE_A, "doc-a")], constants: { site: "othersite", form: "other-form", consent: "2026-01-02" }, origin: "http://localhost:8080",
     expect: { code: 0, requests: 1, check: ({ requests }) => (JSON.stringify(requests[0].body) === JSON.stringify({ site: "othersite", form: "other-form", document: "doc-a", consentVersion: "2026-01-02" }) && requests[0].headers.origin === "http://localhost:8080" ? null : requests[0].raw + " " + requests[0].headers.origin) }
   });
-  await scenario("the real docs folder with --collector set to the fake: the request B4 sends, built from docs/report-form.js", {
+  const studyReports = new Map([
+    ["ai-agents-misread-long-documents.html", "llm-document-failures"],
+    ["two-agents-six-minute-books.html", "two-agents-six-minute-books"],
+    ["bound-books-and-missed-payments.html", "bound-minute-book-reviews"],
+  ]);
+  await scenario("the real article forms request their published reports from the fake collector", {
     noFake: false, handler: okAnswer,
     docs: () => path.resolve(__dirname, "..", "docs"),
     args: (fake) => ["--collector", fake.url],
     expect: {
-      code: 0, requests: 1,
+      code: 0,
       check: ({ requests, lines }) => {
         const script = fs.readFileSync(path.resolve(__dirname, "..", "docs", "report-form.js"), "utf8");
         const consent = /const CONSENT_VERSION = "([^"]*)";/.exec(script)[1];
-        const want = { site: "deepproof", form: "report-request", document: "llm-document-failures", consentVersion: consent };
-        if (JSON.stringify(requests[0].body) !== JSON.stringify(want)) return "body " + requests[0].raw;
-        if (requests[0].headers.origin !== ORIGIN) return "origin " + requests[0].headers.origin;
-        return lines[0] === "OK ai-agents-misread-long-documents.html llm-document-failures" ? null : "lines " + JSON.stringify(lines);
+        const checkedDocuments = new Set(lines.filter((line) => line.startsWith("OK ")).map((line) => line.split(" ")[2]));
+        if (requests.length !== checkedDocuments.size) return "expected one request per checked document";
+        for (const [page, document] of studyReports) {
+          const sent = requests.filter((request) => request.body.document === document);
+          const want = { site: "deepproof", form: "report-request", document, consentVersion: consent };
+          if (sent.length !== 1 || JSON.stringify(sent[0].body) !== JSON.stringify(want)) return "unexpected request for " + document;
+          if (sent[0].headers.origin !== ORIGIN) return "origin " + sent[0].headers.origin;
+          if (!lines.includes("OK " + page + " " + document)) return "missing check for " + page;
+        }
+        return null;
       }
     }
   });

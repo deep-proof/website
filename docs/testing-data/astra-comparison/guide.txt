@@ -1,0 +1,109 @@
+Six minute books — data and replication guide
+
+1. Recount the published experiment
+
+Download reviews.csv and recount.py into the same folder. Run:
+
+    python3 recount.py
+
+Python 3.8 or later is sufficient. This reads local files, uses no packages
+or model account, and prints three stage rows and a total for each model.
+Expect 169 missed answers out of 576 for gpt-6-astra, spread across 12 of
+24 reviews, and 0 out of 576 for gpt-6.2-astra, across 0 of 24 reviews.
+Neither group set any answer apart. The two-sided Fisher exact test on the
+review counts gives p = 0.00008 rounded to five places.
+
+The CSV contains one row per actual review. A–F are stable replacements for
+book identifiers across both model runs. “correct” is a report whose claims
+were all supported. “mixed” also contained claims that the minutes refuted.
+Attempts 1 and 2 were fresh sessions. Stage numbers give the order within
+each model's run; the pairs of books differed. “counted” includes controls,
+“missed” counts failures on verdict or required value among the counted
+answers, and “set_apart” counts exclusions. Treat a review as affected if
+missed > 0. Sum missed and counted separately. Four reviews share each
+book. Do not interpret those repeats as trials on fresh books.
+
+The earlier rows transcribe the per-review verdict_and_value_right counts
+from three scored stage summaries. The later rows use counted, not_right
+and set_apart from the three stage readers. These rows retain the recorded
+scores; they do not expose source documents or answers to individual claims.
+
+2. Try a blind review yourself
+
+Give a fresh reviewer only blind-case.txt. It contains the full instructions,
+minutes and claims for a new, short exercise based on the same reading
+problem. Keep this guide and both scripts outside the review environment.
+Save the reviewer's unedited JSON response as answer.json. On the scoring
+machine, download check-case.py and run:
+
+    python3 check-case.py answer.json
+
+Each claim earns a point only when both its verdict and integer value match.
+The checker prints a line per claim and exits successfully for “3 of 3
+verdicts and values right”. A human can do the exercise without software.
+For an agent attempt, use a fresh session with no history, review skills or
+access to the scoring machine. In an isolated Codex environment that has the
+chosen model and only the blind input, an example command is:
+
+    codex exec --skip-git-repo-check --sandbox read-only -m gpt-6.2-astra \
+      -c 'model_reasoning_effort="xhigh"' -o answer.json - < blind-case.txt
+
+Record the model, effort and output from codex --version. This command makes
+a model call. Repeating it may give a different answer. This exercise has
+three claims and hand-written minutes. The observed study totals come from
+the much longer sealed books and can be reproduced with the CSV above.
+
+3. For holders of the original research archive
+
+The original default runs used AdvancedLanguageAgent at cae1563, the Codex
+CLI and a shell, a fresh working directory and private home per attempt,
+effort xhigh, the plain arm in evalsuite/arms-shown-sums.json and a one-hour
+limit. GPT-6 Astra ran under codex-cli 0.168.0 and GPT-6.2 Astra under
+0.170.0. The study supplied the procedure note, four volumes, one report
+and the original task in evalsuite/prompts/task-shown-sums.md (see the
+arms file for task selection). The two models attempted each report twice.
+The generator and verdict/value checker were from lean_documents commit
+e36c1d7b16dc39d073a399eef7806c14e0b228c8.
+
+The following commands address the archived testing-docs checkout at
+1370635ef78622c1e10632b039203689dbde577f. Starting in harness-matrix,
+recompute the benchmark reading from the three committed stage results:
+
+    bench=analysis/q62-bench-20261119
+    python3 -I "$bench/read_q62_bench.py" \
+      --rule decision/decision-pilotq62bench1.rule.json \
+      --rule-sha256 0be4b10459c13bc39d2749ac0d78d1a98d524567885dd61b914a8e88fe197b7e \
+      --docs decision \
+      --reads results/pilotq62scout-read/read.json \
+              results/pilotq62bench1a-read/read.json \
+              results/pilotq62bench1b-read/read.json
+
+Expect LOWER and a two-sided Fisher p of 7.76e-05 before display rounding.
+For the older group the archived stage-level check is:
+
+    python3 -m unittest discover -s analysis/q62-scout-20261118 \
+      -p test_read_q62_scout.py -k test_the_three_sub_stages_sum_to_the_reading_of_17_november
+
+It checks the three older scored files against the full campaign's manifests,
+sealed keys, review output and fixtures in their recorded locations. Require
+one test run without a skip. The public CSV recount needs none of those files.
+
+To rescore individual answers from the archive, use a scratch copy of the
+finished campaign. Set GEN to a clean checkout of the generator revision
+above, STUDY to the archived study root and SCORES to a new output directory.
+For each of pilotquiet1a, pilotquiet1b and pilotquiet1c set CELL=X2x; for
+pilotq62scout, pilotq62bench1a and pilotq62bench1b set CELL=X4x. Set STAGE
+to the corresponding stage name. For a finished stage with passed gates:
+
+    env -u BIG_MINUTES_EDITION -u BIG_AMENDMENTS_SIZE \
+      python3 "$GEN/evalsuite/check_shown.py" \
+      --campaign "$STUDY/campaign/runs/$STAGE/$CELL/lean/out" \
+      --keys "$STUDY/campaign/lean/$STAGE/keys-sealed" \
+      --arm plain --output "$SCORES/$STAGE.json"
+
+The original stage wrappers and reading order are in
+analysis/q62-scout-20261118/README.md and analysis/q62-bench-20261119/README.md.
+Their score_stage.sh and read_stage.sh expect the original host layout and
+refuse existing outputs. Rerunning agents would additionally require the
+archived fixtures, pinned binaries and access to the historical models.
+New model sessions can vary even with the same software and input.

@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Two agents read the same six minute books — Deep Proof</title>
-    <meta name="description" content="A quietly recorded repayment helps explain why plain agents checking the same committee minutes reached different balances." />
+    <title>GPT-6.2 Astra beat GPT-6 Astra on six minute books — Deep Proof</title>
+    <meta name="description" content="On six synthetic books, the GPT-6.2 Astra agent completed 24 reviews without an error. The GPT-6 Astra agent missed at least one answer in 12 reviews." />
     <meta name="theme-color" content="#f7f8f3" />
     <link rel="canonical" href="https://deepproof.ch/two-agents-six-minute-books.html" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -12,8 +12,8 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Deep Proof" />
-    <meta property="og:title" content="Two agents read the same six minute books — Deep Proof" />
-    <meta property="og:description" content="A quietly recorded repayment helps explain why plain agents checking the same committee minutes reached different balances." />
+    <meta property="og:title" content="GPT-6.2 Astra beat GPT-6 Astra on six minute books — Deep Proof" />
+    <meta property="og:description" content="On six synthetic books, the GPT-6.2 Astra agent completed 24 reviews without an error. The GPT-6 Astra agent missed at least one answer in 12 reviews." />
     <meta property="og:url" content="https://deepproof.ch/two-agents-six-minute-books.html" />
     <meta property="og:image" content="https://deepproof.ch/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -68,10 +68,10 @@
     <main id="main-content" class="legal-content">
       <p class="eyebrow"><span></span> <b class="eyebrow-label" data-i18n="test_results">Test results</b></p>
       <p class="english-note" data-i18n="art_english_note">This article is available in English only. The navigation, the form and the privacy texts on this page are in your language.</p>
-<!-- ARTICLE:BEGIN sha256=eaf272fbcd9d7bfe77f639af429ba81763315b262e927d218ff410bfe1c268b4 -->
-<article lang="en" class="article-copy">
-<h1>Two agents read the same six minute books</h1>
-<p class="lede">We gave gpt-6.2-astra six books of committee minutes that had tripped up its predecessor. It got every answer right. In 12 of 24 reviews the older agent had made at least one mistake on the very same material. Some of those mistakes turn on a small piece of bookkeeping. What happens to a payment when a later meeting records that the money went back?</p>
+<!-- ARTICLE:BEGIN sha256=f41e95bb501876291fc43c434004f043d2a7acd0475f8abff5605ee35993fec3 -->
+<article lang="en" class="article-copy"><p class="draft-mark">DRAFT: this text is not approved for publication.</p>
+<h1>GPT-6.2 Astra beat GPT-6 Astra on six minute books</h1>
+<p class="lede">A project receives money at one meeting. Months later the minutes say it gave back what it received, without repeating the amount. Across six books written to test that reading problem, GPT-6.2 Astra got every verdict and value right. GPT-6 Astra missed at least one answer in 12 of 24 reviews. Both were plain agents, and their Codex versions differed. The result compares the two setups we ran.</p>
 
 <p>Here is the earlier result as we reported it. <!--edition8-->On six books of a later edition of the minutes, gpt-6-astra at the xhigh effort setting, working as it does by default, got <strong>169 of 576</strong> answers not right in 24 reviews. A planned extension of this run was not carried out, so we give the count and draw no rate from it.<!--/edition8--></p>
 <p>When we repeated those reviews with the newer agent, 0 of 576 answers were wrong by the same test of verdict and value. Every answer counted, including the control questions within each review. Both agents worked from the command line with a shell, at the same effort setting. Neither had a review skill. These figures describe the plain agents we ran. We did not run our own document-review system in this test.</p>
@@ -419,6 +419,9 @@
 <p>We changed two things between the runs. The older model ran in Codex 0.168.0. The newer model ran in Codex 0.170.0. We never gave the older model these books under the newer program. The difference we measured belongs to the agents as we ran them. We cannot tell how much came from the change of model alone.</p>
 <p>There is uncertainty even about another run like this one. With no affected review in the newer run, the upper end of the exact two-sided 95% interval is still about 14.2%. That calculation treats reviews as independent chances to make an error. In practice, four reviews drew on each book. They share the same passages and the same opportunities to overlook a return. A clean set of answers here leaves open what would happen on a fresh book.</p>
 <p>Another plain agent, gpt-6.2-sol at xhigh, had 89 of 576 answers not right in 6 of 24 reviews on the same books. We read its three stages separately. We had fixed no test for their sum.</p>
+<h2>Check the results</h2>
+<p>The <a href="testing-data/astra-comparison/reviews.csv">review scores (CSV)</a> give one row per book, report, attempt and model. Match rows by book to see how often the same material produced different outcomes. The <a href="testing-data/astra-comparison/recount.py">recount script</a> recovers the headline counts and the statistical test from those rows.</p>
+<p>Try the <a href="testing-data/astra-comparison/blind-case.txt">short blind review</a> yourself, then use the <a href="testing-data/astra-comparison/check-case.py">answer checker</a>. We wrote this exercise to illustrate how a return recorded at a later meeting changes the balance. The <a href="testing-data/astra-comparison/guide.txt">replication guide</a> gives the commands and explains how the exercise differs from the sealed books.</p>
 <h2>The full report</h2>
 <p>The full report gives the counts stage by stage, the scoring rule and the statistical comparison. It puts an ordinary account of a repayment beside a quiet account of the same transaction, so you can check the balance yourself. You can ask for the report using the form below this article.</p>
 </article>

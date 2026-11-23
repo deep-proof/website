@@ -1,0 +1,113 @@
+Read the survey data
+
+study-results.csv contains aggregate measures across the published survey.
+Counts and denominators use the unit on each row. The broad comparison has
+separate columns for the two scores, their equal-weight mean and its interval.
+A blank percent means that no percentage is reported for that row. Edition
+eight is count only. Different editions, task variants and models have different
+denominators and scoring rules. Their rows should be read separately.
+
+Recount the fourth-edition result
+
+Download review-counts.csv beside this file. Each row represents one historical
+review. The row number is an anonymous label. The six outcome columns are
+mutually exclusive counts from the checker. “shown” and “right_not_shown”
+both mean that the verdict and value are correct. They differ in whether the
+answer met the evidence requirement. “verdict_only” means the verdict alone
+matched. “wrong”, “withheld” and “unanswered” also fail the combined measure.
+
+Run this from the download directory using Python 3.
+
+python3 - <<'PY'
+import csv
+from collections import Counter
+with open('review-counts.csv', newline='') as f:
+    reviews = list(csv.DictReader(f))
+totals = Counter()
+for review in reviews:
+    totals.update({k: int(v) for k, v in review.items() if k != 'review'})
+missed = sum(totals[k] for k in ('verdict_only', 'wrong', 'withheld', 'unanswered'))
+print(len(reviews), 'reviews;', missed, 'of', sum(totals.values()), 'answers missed')
+PY
+
+Expected output is 24 reviews; 98 of 576 answers missed. These are scored
+answers to statements about awards, counts and sums. Several statements can
+depend on the same entry. The 98 does not count distinct missed payments.
+
+Run a fresh blind exercise
+
+The four entries and the report statement in blind-input.txt are specimen A
+from the full report. This short exercise uses its own prompt and tests whether
+a reviewer follows a correction when calculating a grant total. The historical
+experiment used complete books, different reports and repeated reviews.
+
+Give a fresh reviewer only blind-input.txt, before showing them the report,
+this guide or any earlier answer. A person can do the exercise on paper. For a
+local model, run the following in a shell with Ollama and an already installed
+model. Use the name of that model for MODEL. This input needs no file tools,
+web search, prior conversation or special review skill.
+
+ollama --version
+ollama list
+MODEL='your-installed-model'
+ollama run "$MODEL" < blind-input.txt > answer-one.txt
+ollama run "$MODEL" < blind-input.txt > answer-two.txt
+
+Each invocation starts a new conversation. Record the exact model tag, its
+digest as shown by ollama list, runtime version, effort setting if applicable
+and both answers. A human or a different model interface can receive the same
+prompt verbatim and save each answer in a separate file.
+
+After both answers are saved, score them separately. The March grant was
+corrected to CHF 1,020. June added CHF 400, for CHF 1,420. The April grant was
+to another organisation. Award one point only for REFUTED and 1420 together.
+This command allows spaces or a tab between the two fields. Unexpected text
+scores zero under the requested one-line format.
+
+python3 - answer-one.txt answer-two.txt <<'PY'
+import pathlib, sys
+for filename in sys.argv[1:]:
+    lines = pathlib.Path(filename).read_text().strip().splitlines()
+    correct = len(lines) == 1 and lines[0].upper().split() == ['REFUTED', '1420']
+    print(filename, int(correct), 'of 1')
+PY
+
+Recheck the retained historical campaign
+
+The six dossiers, keys, review outputs and sessions remain in the research
+archive. None is needed for the CSV recount or the public exercise. An archive
+holder can rescore the original agent answers offline with Python 3, the
+lean_documents checkout at 7e4beca9 and the retained study directory. Set
+STUDY to its absolute path and run from the root of that checkout. The output
+contains private answer material and belongs in a new private directory.
+
+umask 077
+score_dir=$(mktemp -d)
+python3 evalsuite/check_shown.py \
+  --campaign "$STUDY/campaign/runs/pilotsums2/X3/lean/out" \
+  --keys "$STUDY/campaign/lean/pilotsums2/keys-sealed" \
+  --arm plain --output "$score_dir/shown.json"
+
+The checker prints “all: verdict_and_value_right 478/576”. The public CSV
+groups its rows by run_id, orders groups by run_id and counts each class.
+Its source in testing-docs revision 1370635e is
+harness-matrix/results/pilotsums2-mac/X3/shown.json.
+
+To commission new reviews on the original inputs, the archive holder needs a
+fresh, historically configured study root with the frozen source trees, staged
+fixtures and sealed keys, original task and arm configuration, decision files,
+matching Codex binary and access to the recorded model. Keep the keys outside
+the agent's workspace. The frozen launcher expects a prepared study under
+~/work/harness-matrix-* with an unused output directory for this cell. With
+STUDY set to that prepared copy, the original launcher invocations are:
+
+export HM_REPEATS=2
+export HM_LEAN_ARMS_FILE=evalsuite/arms-shown-sums.json
+bash "$STUDY/src/harness-matrix/prototype/run-stages.sh" "$STUDY" check pilotsums2:60
+bash "$STUDY/src/harness-matrix/prototype/run-stages.sh" "$STUDY" run pilotsums2:60
+
+The second command runs model calls. The historical setup used Codex CLI
+0.168.0, gpt-6.1-sol, medium effort, plain arm, two repeats of each of two
+reports per dossier and a sixty-minute review limit. The rule was fixed in
+harness-matrix/decision/decision-pilotsums2.rule.json. A fresh run measures
+that run's answers. The CSV reconstructs the recorded answers' score.
