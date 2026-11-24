@@ -409,6 +409,9 @@ window.DP_I18N.de = {
   "articles_deep_proof": "Artikel — Deep Proof",
   "articles_description": "Artikel aus dem Projekt Deep Proof.",
   "art_in_english": "Auf Englisch",
+  "art_bound_books_published": "Veröffentlicht am 22. November 2026",
+  "art_two_agents_published": "Veröffentlicht am 20. November 2026",
+  "art_misread_published": "Veröffentlicht am 17. November 2026",
   "art_misread_summary": "Testergebnisse dazu, wo KI-Agenten auf der Kommandozeile zu langen Dokumenten falsche Antworten geben.",
   "art_bound_books_summary": "Wir haben untersucht, wie sich Änderungen im Wortlaut von Ausschussprotokollen darauf auswirken, wie zuverlässig ein Agent die Zahlen in einem Bericht prüft.",
   "art_two_agents_summary": "Eine unauffällig protokollierte Rückzahlung hilft zu erklären, warum einfache Agenten bei der Prüfung derselben Kommissionsprotokolle auf unterschiedliche Saldi kamen."

@@ -409,6 +409,9 @@ window.DP_I18N.rm = {
   "articles_deep_proof": "Artitgels — Deep Proof",
   "articles_description": "Artitgels dal project Deep Proof.",
   "art_in_english": "En englais",
+  "art_bound_books_published": "Publitgà ils 22 da november 2026",
+  "art_two_agents_published": "Publitgà ils 20 da november 2026",
+  "art_misread_published": "Publitgà ils 17 da november 2026",
   "art_misread_summary": "Resultats dals tests davart ils cas nua che agents d’IA da la lingia da cumonds dattan respostas sbagliadas davart documents lungs.",
   "art_bound_books_summary": "Nus avain examinà co che midadas en la formulaziun dals protocols d’ina cumissiun influenzeschan l’abilitad d’in agent da controllar las cifras d’in rapport.",
   "art_two_agents_summary": "In rembursament protocollà discretamain gida a declerar pertge che agents simpels, controllond ils medems protocols da cumissiun, èn arrivads a saldos differents."

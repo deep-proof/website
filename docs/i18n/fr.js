@@ -409,6 +409,9 @@ window.DP_I18N.fr = {
   "articles_deep_proof": "Articles — Deep Proof",
   "articles_description": "Articles du projet Deep Proof.",
   "art_in_english": "En anglais",
+  "art_bound_books_published": "Publié le 22 novembre 2026",
+  "art_two_agents_published": "Publié le 20 novembre 2026",
+  "art_misread_published": "Publié le 17 novembre 2026",
   "art_misread_summary": "Résultats des tests sur les cas où des agents d’IA en ligne de commande donnent de mauvaises réponses sur de longs documents.",
   "art_bound_books_summary": "Nous avons étudié comment la formulation des procès-verbaux d’un comité influe sur la capacité d’un agent à vérifier les chiffres d’un rapport.",
   "art_two_agents_summary": "Un remboursement consigné discrètement aide à expliquer pourquoi des agents simples, en vérifiant les mêmes procès-verbaux de comité, ont abouti à des soldes différents."

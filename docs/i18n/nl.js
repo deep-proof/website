@@ -409,6 +409,9 @@ window.DP_I18N.nl = {
   "articles_deep_proof": "Artikelen — Deep Proof",
   "articles_description": "Artikelen van het project Deep Proof.",
   "art_in_english": "In het Engels",
+  "art_bound_books_published": "Gepubliceerd op 22 november 2026",
+  "art_two_agents_published": "Gepubliceerd op 20 november 2026",
+  "art_misread_published": "Gepubliceerd op 17 november 2026",
   "art_misread_summary": "Testresultaten over waar AI-agents op de opdrachtregel verkeerde antwoorden geven over lange documenten.",
   "art_bound_books_summary": "We onderzochten welke invloed de formulering van commissienotulen heeft op het vermogen van een agent om de cijfers in een rapport te controleren.",
   "art_two_agents_summary": "Een onopvallend genotuleerde terugbetaling helpt verklaren waarom gewone agents die dezelfde commissienotulen controleerden op verschillende saldi uitkwamen."

@@ -409,6 +409,9 @@ window.DP_I18N.it = {
   "articles_deep_proof": "Articoli — Deep Proof",
   "articles_description": "Articoli del progetto Deep Proof.",
   "art_in_english": "In inglese",
+  "art_bound_books_published": "Pubblicato il 22 novembre 2026",
+  "art_two_agents_published": "Pubblicato il 20 novembre 2026",
+  "art_misread_published": "Pubblicato il 17 novembre 2026",
   "art_misread_summary": "Risultati dei test sui casi in cui agenti AI a riga di comando danno risposte sbagliate su documenti lunghi.",
   "art_bound_books_summary": "Abbiamo studiato come le modifiche alla formulazione dei verbali di un comitato influiscano sulla capacità di un agente di verificare le cifre di un rapporto.",
   "art_two_agents_summary": "Un rimborso registrato in modo discreto aiuta a spiegare perché agenti semplici, verificando gli stessi verbali di comitato, sono giunti a saldi diversi."
