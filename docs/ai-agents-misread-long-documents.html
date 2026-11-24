@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>How GPT-6.1 Sol missed payments in committee minutes — Deep Proof</title>
-    <meta name="description" content="How a missed payment changed a report total, with scores from 24 AI reviews of committee minutes and a short test to try yourself." />
+    <title>GPT-6 Astra missed repayments in committee minutes — Deep Proof</title>
+    <meta name="description" content="GPT-6 Astra overlooked repayments recorded without an amount in synthetic committee minutes. See the review scores and how the missed entries affected the balances." />
     <meta name="theme-color" content="#f7f8f3" />
     <link rel="canonical" href="https://deepproof.ch/ai-agents-misread-long-documents.html" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -13,8 +13,8 @@
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2026-11-17T15:04:29Z" />
     <meta property="og:site_name" content="Deep Proof" />
-    <meta property="og:title" content="How GPT-6.1 Sol missed payments in committee minutes — Deep Proof" />
-    <meta property="og:description" content="How a missed payment changed a report total, with scores from 24 AI reviews of committee minutes and a short test to try yourself." />
+    <meta property="og:title" content="GPT-6 Astra missed repayments in committee minutes — Deep Proof" />
+    <meta property="og:description" content="GPT-6 Astra overlooked repayments recorded without an amount in synthetic committee minutes. See the review scores and how the missed entries affected the balances." />
     <meta property="og:url" content="https://deepproof.ch/ai-agents-misread-long-documents.html" />
     <meta property="og:image" content="https://deepproof.ch/og-image.png" />
     <meta property="og:image:width" content="1200" />
@@ -69,11 +69,11 @@
     <main id="main-content" class="legal-content">
       <p class="eyebrow"><span></span> <b class="eyebrow-label" data-i18n="test_results">Test results</b></p>
       <p class="english-note" data-i18n="art_english_note">This article is available in English only. The navigation, the form and the privacy texts on this page are in your language.</p>
-<!-- ARTICLE:BEGIN sha256=c0aa34663af58863d6aef8af46491066c7a0bb9b5ec4d414f461be337c86256f -->
+<!-- ARTICLE:BEGIN sha256=b1629a49da05fa9766064a00ee9c18b1666d3cad25a517a099d37afa13fbe8c1 -->
 <article lang="en" class="article-copy">
-<h1>How GPT-6.1 Sol missed payments in committee minutes</h1>
+<h1>GPT-6 Astra missed repayments in committee minutes</h1>
 <p class="article-meta">First published 17 November 2026</p>
-<p class="lede">Can you sign off on a report after an AI checks the figures? In our test on six sets of committee minutes, a reviewer missed payments recorded in the text. A single omission could change its answers to several questions about the same accounts.</p>
+<p class="lede">In six synthetic books of committee minutes, some entries said that a project had returned a payment without repeating the amount. GPT-6 Astra overlooked some of those repayments when it checked the accounts. A project could then appear to hold money it had already given back.</p>
 
 <h2>What we tested</h2>
 <p>We wanted to know where current AI agents actually go wrong when they check the statements of a report against the source documents the report is about. So we wrote test documents and measured.</p>
@@ -82,7 +82,8 @@
 
 <h2>1. Where plain agents got answers wrong</h2>
 <p>The family that gave these results is the plainest one: several volumes of committee minutes and reports about sums of money, counts of payments and awards. Nothing in it is hidden from a reader who reads every page. The reader has to find every entry among hundreds, and one missed entry can change both a payment count and a running total.</p>
-<p>The first two results come from confirming runs, each read by a rule fixed before it started. On six fresh dossiers of the fourth edition, gpt-6.1-sol got <strong>98 of 576 answers (17.0%)</strong> not right. An answer counts as right only when the verdict and the value are both right.</p>
+<p><!--edition8-->On six books of a later edition of the minutes, gpt-6-astra at the xhigh effort setting, working as it does by default, got <strong>169 of 576</strong> answers not right in 24 reviews. A planned extension of this run was not carried out, so we give the count and draw no rate from it.<!--/edition8--> That edition, the eighth, differs from the sixth in one respect: some returns of money are told without a figure or a money word, in wordings chosen because this agent's own searches in earlier reviews had rarely matched them. The count shows how the agent does on such sentences when it is left to work its own way. It is not a measure of how often it fails on documents in general.</p>
+<p>In two earlier tests on different editions of the minutes, we fixed the scoring rule before each run. On six fresh dossiers of the fourth edition, gpt-6.1-sol got <strong>98 of 576 answers (17.0%)</strong> not right. An answer counts as right only when the verdict and the value are both right.</p>
 <p>On six larger dossiers of the second edition, where the task asked for the verdict only, the same model gave 64 of 576 answers (11.1%) that were wrong or withheld; 41 of the 576 (7.1%) were wrong outright. A withheld answer says the sources do not settle a statement that they do settle. By the rule fixed before the run, 2 of 6 dossiers failed, or 1 of 6 if withheld answers are not counted; the rule reads the first count as &ldquo;in between&rdquo;, neither a clear failure nor a pass.</p>
 <figure class="chart" id="chart-answers-split">
 <svg class="chart-plot" width="100%" height="28" role="img" aria-labelledby="chart-answers-split-title chart-answers-split-desc" fill="currentColor">
@@ -116,7 +117,6 @@ Right: 512 of 576
 </figure>
 <p>On the same six dossiers, when the task also asked for the value and for quotes of the passages behind it, 520 of 576 verdicts (90.3%) were right; the others were wrong or withheld. This was a first measurement with no bar set beforehand.</p>
 <p>On two dossiers of the fifth edition, gpt-6.1-sol gave 20 of 192 answers (10.4%) not right and gpt-6-astra gave 12 of 192 (6.2%), both at medium effort. This was a small scout.</p>
-<p><!--edition8-->On six books of a later edition of the minutes, gpt-6-astra at the xhigh effort setting, working as it does by default, got <strong>169 of 576</strong> answers not right in 24 reviews. A planned extension of this run was not carried out, so we give the count and draw no rate from it.<!--/edition8--> That edition, the eighth, differs from the sixth in one respect: some returns of money are told without a figure or a money word, in wordings chosen because this agent's own searches in earlier reviews had rarely matched them. The count shows how the agent does on such sentences when it is left to work its own way. It is not a measure of how often it fails on documents in general.</p>
 <p>On two dense books of the sixth edition, gpt-6-astra at the xhigh effort setting got 8 of 192 answers (4.2%) not right. This was a scout. The books, editions and models differ between these results, so the figures of this section cannot be compared with one another as rates of one model.</p>
 <p>In the reviews we examined, the agents did not read these books from start to finish. They searched for the paragraphs that mention money, printed those and built a ledger from them, often with a small program. Where an answer that was not right was traced, it mostly went back to an entry that never reached the agent's ledger: its search or its program had passed the entry over, or the agent program had cut it out of a long output. One ledger serves every statement of a report, so the errors came in blocks: some reviews were flawless and a few held most of the errors.</p>
 
@@ -290,8 +290,9 @@ Not cut: 347 of 520
 <p>The models are the ones available when the tests were run, at the settings named in each result.</p>
 
 <h2>Check the figures yourself</h2>
+<p>The <a href="testing-data/astra-comparison/reviews.csv">scores for the six books of minutes</a> give one row per review. Select the rows labelled <code>gpt-6-astra</code> to check the repayment experiment.</p>
 <p>The <a href="testing-data/long-document-reviews/study-results.csv">survey results by study and model</a> cover the minutes, traps, scheduling tests and benchmark comparison. The unit column tells you whether a row counts answers, dossiers or tool outputs, or gives a comparison score.</p>
-<p>Download the <a href="testing-data/long-document-reviews/review-counts.csv">review counts for the confirming run</a>. Each row gives one review’s results. Add the answers with a wrong verdict or value, including withheld and unanswered statements, to reconstruct the headline count.</p>
+<p>Download the <a href="testing-data/long-document-reviews/review-counts.csv">review counts for the fourth-edition test</a>. Each row gives one review’s results. Add the answers with a wrong verdict or value, including withheld and unanswered statements, to reconstruct that test’s combined verdict-and-value count.</p>
 <p>For a short trial with your own reviewer, give it only the <a href="testing-data/long-document-reviews/blind-input.txt">committee minutes and review prompt</a>. Save the answer before opening the <a href="testing-data/long-document-reviews/reproduce.txt">scoring and repeat instructions</a>. The full report below explains how the original books were scored and why several wrong answers could trace back to one payment.</p>
 </article>
 <!-- ARTICLE:END -->
